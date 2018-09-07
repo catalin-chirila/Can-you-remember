@@ -1,4 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input} from '@angular/core';
+import { UniqueIdService } from '../../common/unique-id.service';
+import { GameService } from '../../common/game.service';
 
 @Component({
     selector: 'app-shape',
@@ -11,22 +13,19 @@ export class ShapeComponent {
     readonly shapes: string[] = ['square', 'rectangle', 'circle', 'triangle-up', 'triangle-left', 'triangle-down', 'triangle-right'];
 
     @Input()displayType: string;
-    _orderId = 1;
+    id = this.uniqueIdService.getNextUniqueId();
     color: string;
     type: string;
     shapesToPickFromStyle: Object;
 
-    constructor() {
-        this.color = this.colors[Math.floor(Math.random() * (this.colors.length))];
-        this.type = this.shapes[Math.floor(Math.random() * (this.shapes.length))];
-    }
 
-    get orderId(): number {
-        return this._orderId;
-    }
+    serviceShape = this.gameService.shapesToPickFrom[0];
 
-    set orderId(value: number) {
-        this._orderId = value;
+    constructor(private uniqueIdService: UniqueIdService, private gameService: GameService) {
+        // this.color = this.colors[Math.floor(Math.random() * (this.colors.length))];
+        // this.type = this.shapes[Math.floor(Math.random() * (this.shapes.length))];
+        this.color = this.serviceShape['color'];
+        this.type = this.serviceShape['type'];
     }
 
     /**
