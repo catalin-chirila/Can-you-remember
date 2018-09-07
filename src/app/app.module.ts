@@ -3,19 +3,21 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ShapeComponent } from './shapes/shape/shape.component';
-import { ShapeListComponent } from './shapes/shapes-to-pick-from/shapes-to-pick-from.component';
+import { ShapesToPickFromComponent } from './shapes/shapes-to-pick-from/shapes-to-pick-from.component';
+import { ShapesToMemorizeComponent } from './shapes/shapes-to-memorize/shapes-to-memorize.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShapeListComponent,
-    ShapeComponent
+    ShapeComponent,
+    ShapesToPickFromComponent,
+    ShapesToMemorizeComponent
   ],
   imports: [
     BrowserModule
   ],
   providers: [],
-  bootstrap: [ShapeListComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

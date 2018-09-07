@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
     templateUrl: './shapes-to-pick-from.component.html',
     styleUrls: ['./shapes-to-pick-from.component.css']
   })
-export class ShapeListComponent {
-
+export class ShapesToPickFromComponent {
+  shapesToPickFrom = 'shapesToPickFrom';
 }

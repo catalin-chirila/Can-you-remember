@@ -1,0 +1,39 @@
+::ng-deep :root {
+	--game-width: 50%;
+}
+
+#shapes-to-memorize {
+	width: var(--game-width);
+	margin: 1% auto 0 auto;
+	border: 2px solid rgba(0, 0, 0, 0.7);
+	border-radius: 15px;
+	display: flex;
+	justify-content: center;
+ 	align-items: center;
+ 	padding-left: 7px;
+ 	flex-wrap: wrap;
+}
+
+@media (max-width: 1800px) {
+	::ng-deep :root {
+		--game-width: 70%;
+	}
+}
+
+@media (max-width: 1100px) {
+	::ng-deep :root {
+		--game-width: 80%;
+	}
+}
+
+@media (max-width: 600px) {
+	::ng-deep :root {
+		--game-width: 80%;
+	}
+}
+
+@media (max-width: 500px) {
+	::ng-deep :root {
+		--game-width: 95%;
+	}
+}

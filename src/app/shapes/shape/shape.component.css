@@ -3,9 +3,18 @@
 	--triangle-smallest-border: 85px;
 }
 
-.shape {	
+.shape-to-pick-from {	
 	height: 200px;
 	width: 200px;
+	margin: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.shape-to-memorize {	
+	height: 100px;
+	width: 100px;
 	margin: 5px;
 	display: flex;
 	justify-content: center;
