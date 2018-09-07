@@ -1,67 +1,8 @@
-:root {
-	--triangle-biggest-border: 160px;
-	--triangle-smallest-border: 85px;
+::ng-deep :root {
 	--game-width: 50%;
 }
 
-body {
- 	font-family: 'Raleway';
-}
-
-#title {
-	font-size: 5rem;
-	text-align: center;
-}
-
-#difficulty {
-	text-align: center;
-	height: 50px;
-	/*margin-top: 4%;*/
-	width: 50%;
-	margin: 0 auto;
-}
-#difficulty button {
-	width: 40%;
-	height: 100%;
-	background-color: transparent;
-	border: 1.2px solid black;
-	border-radius: 12px;
-	margin-left: 2%;
-	margin-right: 2%;
-}
-
-#difficulty button:hover {
-	background-color: rgba(0, 0, 0, 0.1);
-}
-
-#info-bar {
-	width: var(--game-width);
-	margin: 5% auto 0 auto;
-	font-size: 1.5rem;
-	display: flex;
-	justify-content: space-between;
-}
-
-footer p {
-	margin: 1% auto 0 auto;
-	width: var(--game-width);
-	text-align: center;
-	font-size: 2rem;
-}
-
-#shapes-to-memorize {
-	width: var(--game-width);
-	margin: 1% auto 0 auto;
-	border: 2px solid rgba(0, 0, 0, 0.7);
-	border-radius: 15px;
-	display: flex;
-	justify-content: center;
- 	align-items: center;
- 	padding-left: 7px;
- 	flex-wrap: wrap;
-}
-
-#shapes-to-pick-from {
+#shape-list {
 	border: 2px solid rgba(0, 0, 0, 0.7);
 	border-radius: 15px;
 	width: var(--game-width);
@@ -77,45 +18,25 @@ footer p {
 }
 
 @media (max-width: 1800px) {
-	:root {
+	::ng-deep :root {
 		--game-width: 70%;
-	}
-
-	.shape {
-		height: 150px;
-		width: 150px;
 	}
 }
 
 @media (max-width: 1100px) {
-	:root {
+	::ng-deep :root {
 		--game-width: 80%;
-	}
-
-	.shape {
-		height: 100px;
-		width: 100px;
 	}
 }
 
 @media (max-width: 600px) {
-	:root {
+	::ng-deep :root {
 		--game-width: 80%;
-	}
-
-	.shape {
-		height: 80px;
-		width: 80px;
 	}
 }
 
 @media (max-width: 500px) {
-	:root {
+	::ng-deep :root {
 		--game-width: 95%;
-	}
-
-	.shape {
-		height: 45px;
-		width: 45px;
 	}
 }

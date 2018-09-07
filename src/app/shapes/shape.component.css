@@ -1,7 +1,15 @@
 ::ng-deep :root {
 	--triangle-biggest-border: 160px;
 	--triangle-smallest-border: 85px;
-	--game-width: 50%;
+}
+
+.shape {	
+	height: 200px;
+	width: 200px;
+	margin: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .square {
@@ -50,20 +58,10 @@
 	display: none;
 }
 
-.shape {	
-	height: 200px;
-	width: 200px;
-   margin: 5px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-
 @media (max-width: 1800px) {
-	:root {
+	::ng-deep :root {
 		--triangle-biggest-border: 120px;
 		--triangle-smallest-border: 60px;
-		--game-width: 70%;
 	}
 
 	.shape {
@@ -73,10 +71,9 @@
 }
 
 @media (max-width: 1100px) {
-	:root {
+	::ng-deep :root {
 		--triangle-biggest-border: 80px;
 		--triangle-smallest-border: 40px;
-		--game-width: 80%;
 	}
 
 	.shape {
@@ -86,10 +83,9 @@
 }
 
 @media (max-width: 600px) {
-	:root {
+	::ng-deep :root {
 		--triangle-biggest-border: 40px;
 		--triangle-smallest-border: 20px;
-		--game-width: 80%;
 	}
 
 	.shape {
@@ -99,10 +95,9 @@
 }
 
 @media (max-width: 500px) {
-	:root {
+	::ng-deep :root {
 		--triangle-biggest-border: 40px;
 		--triangle-smallest-border: 20px;
-		--game-width: 95%;
 	}
 
 	.shape {
