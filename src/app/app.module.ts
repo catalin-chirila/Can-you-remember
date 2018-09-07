@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { ShapeComponent } from './shapes/shape.component';
-import { ShapeListComponent } from './shapes/shape-list.component';
+import { ShapeComponent } from './shapes/shape/shape.component';
+import { ShapeListComponent } from './shapes/shapes-to-pick-from/shapes-to-pick-from.component';
+
 
 @NgModule({
   declarations: [
