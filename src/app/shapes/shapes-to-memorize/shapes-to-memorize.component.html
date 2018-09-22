@@ -1,4 +1,3 @@
-<!-- <div id="shapes-to-memorize">
-    <app-shape [displayType]="shapesToMemorize"></app-shape>
-    <app-shape [displayType]="shapesToMemorize"></app-shape>
-</div> -->
+<div id="shapes-to-memorize">
+    <app-shape *ngFor="let shape of shapesToMemorize" [id]='shape.id' [type]='shape.type' [style]='shape.style' [parentClass]='shape.parentClass'></app-shape>
+</div>
