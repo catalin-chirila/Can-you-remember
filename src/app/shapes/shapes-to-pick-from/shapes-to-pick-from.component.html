@@ -1,22 +1,11 @@
 <div id="shape-list">
         <div class="shapes-row">
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
+                <app-shape *ngFor="let shape of getShapesRow(1)" [id]='shape.id' [type]='shape.type' [style]='shape.style' [parentClass]='shape.parentClass'></app-shape>
         </div>
-
         <div class="shapes-row">
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
+                <app-shape *ngFor="let shape of getShapesRow(2)" [id]='shape.id' [type]='shape.type' [style]='shape.style' [parentClass]='shape.parentClass'></app-shape>
         </div>
-
         <div class="shapes-row">
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
-                <app-shape [displayType]="shapesToPickFrom"></app-shape>
+                <app-shape *ngFor="let shape of getShapesRow(3)" [id]='shape.id' [type]='shape.type' [style]='shape.style' [parentClass]='shape.parentClass'></app-shape>
         </div>
 </div>
