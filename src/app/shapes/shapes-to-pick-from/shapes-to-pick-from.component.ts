@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GameService } from '../../common/game.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-shapes-to-pick-from',
@@ -8,8 +9,12 @@ import { GameService } from '../../common/game.service';
   })
 export class ShapesToPickFromComponent {
   shapesToPickFrom = this.gameService.getShapesToPickFrom();
+  shapesToPickFromSubscriber: Subscription;
 
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService) {
+    this.shapesToPickFromSubscriber = this.gameService.shapesToPickFromSubject.subscribe(
+      (shapesToPickFrom) => {this.shapesToPickFrom = shapesToPickFrom; });
+  }
 
   getShapesRow(number: number): Object[] {
     const row = [];

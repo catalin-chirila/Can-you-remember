@@ -1,6 +1,6 @@
 import { Component, Input} from '@angular/core';
-import { UniqueIdService } from '../../common/unique-id.service';
 import { GameService } from '../../common/game.service';
+import { LivesService } from '../../common/lives.service';
 
 @Component({
     selector: 'app-shape',
@@ -12,10 +12,16 @@ export class ShapeComponent {
     @Input()style: string;
     @Input()type: string;
     @Input()parentClass: string;
+    isHidden = false;
 
-    constructor(private gameService: GameService) {}
+    constructor(private gameService: GameService, private livesService: LivesService) {}
 
-    test() {
-        console.log("test");
+    updateGame() {
+        if (this.id === this.gameService.getCurrentWinningShapeId()) {
+            this.isHidden = true;
+            this.gameService.updateGame();
+        } else {
+            this.livesService.decreaseLives();
+        }
     }
 }

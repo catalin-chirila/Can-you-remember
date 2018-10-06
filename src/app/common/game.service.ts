@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,27 +9,40 @@ export class GameService {
         '#A8C879', '#C8C2BD', '#ADA759'];
     readonly shapes: string[] = ['square', 'rectangle', 'circle', 'triangle-up', 'triangle-left', 'triangle-down', 'triangle-right'];
 
-    numberOfShapes = 12;
+    totalNumberOfShapes = 12;
     shapesToPickFrom = [];
-    winningShapes = [];
+    shapesToMemorize = [];
+    winningShapesIds = [];
     currentWinningShapeId = -1;
-    level: number;
+    currentWinningShapeIndex = 0;
 
-    currentShapeIndex = 0;
+    shapesToPickFromSubject = new Subject<any[]>();
+    shapesToMemorizeSubject = new Subject<any[]>();
 
     constructor() {
         this.populateShapesToPickFrom();
-        this.populateShapesToShapesToMemorize();
+        this.populateShapesToMemorize();
+
+        this.shapesToPickFromSubject.next(this.shapesToPickFrom);
+        this.shapesToMemorizeSubject.next(this.shapesToMemorize);
     }
 
     populateShapesToPickFrom() {
-        for (let i = 0; i < this.numberOfShapes; i++) {
-            this.shapesToPickFrom.push({
-                'id': i + 1,
+        this.shapesToPickFrom = [];
+        let id = 1;
+
+        while (this.shapesToPickFrom.length < this.totalNumberOfShapes) {
+            const shape = {
+                'id': id,
                 'type': this.shapes[Math.floor(Math.random() * (this.shapes.length))],
                 'color': this.colors[Math.floor(Math.random() * (this.colors.length))],
                 'parentClass' : 'shape-to-pick-from'
-            });
+            };
+
+            if (!this.alreadyExistsInShapesToPickFrom(shape)) {
+                this.shapesToPickFrom.push(shape);
+                id++;
+            }
         }
         this.insertStyleForShapesToPickFrom();
     }
@@ -56,68 +70,120 @@ export class GameService {
         }
     }
 
+    populateShapesToMemorize() {
+        this.shapesToMemorize = [];
+        while (this.shapesToMemorize.length < 2) {
+            const winningShape = Object.assign({}, this.shapesToPickFrom[Math.floor(Math.random() * (this.shapesToPickFrom.length))]) ;
+
+            if (!this.alreadyExistsInShapesToMemorize(winningShape)) {
+                this.shapesToMemorize.push(winningShape);
+            }
+        }
+        this.insertStyleForShapesToMemorize();
+
+        this.winningShapesIds = [];
+
+        for (let i = 0; i < this.shapesToMemorize.length; i++) {
+            this.winningShapesIds.push(this.shapesToMemorize[i].id);
+        }
+
+        this.currentWinningShapeId = this.winningShapesIds[0];
+    }
+
+    insertStyleForShapesToMemorize() {
+        for (let i = 0; i < this.shapesToMemorize.length; i++) {
+            if (this.shapesToMemorize[i].type === 'triangle-up') {
+                this.shapesToMemorize[i]['style'] = {
+                    'border-left': '40px solid transparent',
+                    'border-right': '40px solid transparent',
+                    'border-bottom': '80px solid ' + this.shapesToMemorize[i].color
+                };
+            } else if (this.shapesToMemorize[i].type === 'triangle-left') {
+                this.shapesToMemorize[i]['style'] = {
+                    'border-top': '40px solid transparent',
+                    'border-bottom': '40px solid transparent',
+                    'border-right': '80px solid ' + this.shapesToMemorize[i].color
+                };
+            } else if (this.shapesToMemorize[i].type === 'triangle-right') {
+                this.shapesToMemorize[i]['style'] = {
+                    'border-top': '40px solid transparent',
+                    'border-bottom': '40px solid transparent',
+                    'border-left': '80px solid ' + this.shapesToMemorize[i].color
+                };
+            } else if (this.shapesToMemorize[i].type === 'triangle-down') {
+                this.shapesToMemorize[i]['style'] = {
+                    'border-left': '40px solid transparent',
+                    'border-right': '40px solid transparent',
+                    'border-top': '80px solid ' + this.shapesToMemorize[i].color
+                };
+            } else {
+                this.shapesToMemorize[i]['style'] = { 'background-color': this.shapesToMemorize[i].color };
+            }
+        }
+        for (let i = 0; i < this.shapesToMemorize.length; i++) {
+            this.shapesToMemorize[i].parentClass = 'shape-to-memorize';
+        }
+    }
+
+    alreadyExistsInShapesToPickFrom(shape) {
+        for (let i = 0; i < this.shapesToPickFrom.length; i++) {
+            if (this.shapesToPickFrom[i].type === shape.type && this.shapesToPickFrom[i].color === shape.color) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    alreadyExistsInShapesToMemorize(shape) {
+        for (let i = 0; i < this.shapesToMemorize.length; i++) {
+            if (this.shapesToMemorize[i].type === shape.type && this.shapesToMemorize[i].color === shape.color) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    isEndOfLevel(): boolean {
+        if (this.winningShapesIds.indexOf(this.currentWinningShapeId) === this.winningShapesIds.length - 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    updateGame() {
+        if (this.isEndOfLevel()) {
+            this.populateShapesToPickFrom();
+            this.populateShapesToMemorize();
+            console.log('test');
+
+            this.shapesToPickFromSubject.next(this.shapesToPickFrom);
+            this.shapesToMemorizeSubject.next(this.shapesToMemorize);
+            this.resetWinningShapeIndex();
+        }
+
+        this.loadNextWinningShapeId();
+    }
+
+    resetWinningShapeIndex() {
+        this.currentWinningShapeIndex = 0;
+    }
+
+    loadNextWinningShapeId(): void {
+        this.currentWinningShapeIndex += 1;
+        this.currentWinningShapeId = this.winningShapesIds[this.currentWinningShapeIndex];
+    }
+
+    getCurrentWinningShapeId(): number {
+        return this.currentWinningShapeId;
+    }
+
     getShapesToPickFrom() {
         return this.shapesToPickFrom;
     }
 
     getShapesToMemorize() {
-        return this.winningShapes;
-    }
-
-    populateShapesToShapesToMemorize() {
-        this.winningShapes = [];
-        while (this.winningShapes.length < 2) {
-            const winningShape = Object.assign({}, this.shapesToPickFrom[Math.floor(Math.random() * (this.shapesToPickFrom.length))]) ;
-
-            if (!this.alreadyExistsInWinningShapes(winningShape)) {
-                this.winningShapes.push(winningShape);
-            }
-        }
-        this.insertStyleForWinningShapes();
-    }
-
-    insertStyleForWinningShapes() {
-        for (let i = 0; i < this.winningShapes.length; i++) {
-            if (this.winningShapes[i].type === 'triangle-up') {
-                this.winningShapes[i]['style'] = {
-                    'border-left': '40px solid transparent',
-                    'border-right': '40px solid transparent',
-                    'border-bottom': '80px solid ' + this.winningShapes[i].color
-                };
-            } else if (this.winningShapes[i].type === 'triangle-left') {
-                this.winningShapes[i]['style'] = {
-                    'border-top': '40px solid transparent',
-                    'border-bottom': '40px solid transparent',
-                    'border-right': '80px solid ' + this.winningShapes[i].color
-                };
-            } else if (this.winningShapes[i].type === 'triangle-right') {
-                this.winningShapes[i]['style'] = {
-                    'border-top': '40px solid transparent',
-                    'border-bottom': '40px solid transparent',
-                    'border-left': '80px solid ' + this.winningShapes[i].color
-                };
-            } else if (this.winningShapes[i].type === 'triangle-down') {
-                this.winningShapes[i]['style'] = {
-                    'border-left': '40px solid transparent',
-                    'border-right': '40px solid transparent',
-                    'border-top': '80px solid ' + this.winningShapes[i].color
-                };
-            } else {
-                this.winningShapes[i]['style'] = { 'background-color': this.winningShapes[i].color };
-            }
-        }
-        for (let i = 0; i < this.winningShapes.length; i++) {
-            this.winningShapes[i].parentClass = 'shape-to-memorize';
-        }
-    }
-
-    alreadyExistsInWinningShapes(shape) {
-        for (let i = 0; i < this.winningShapes.length; i++) {
-            if (this.winningShapes[i].type === shape.type && this.winningShapes[i].color === shape.color) {
-                return true;
-            }
-        }
-        return false;
+        return this.shapesToMemorize;
     }
 }
 

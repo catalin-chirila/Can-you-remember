@@ -1,3 +1,5 @@
 <div [className]="parentClass">
-    <div id='{{id}}' [className]="type" [ngStyle]="style" (click)="test()" ></div>
+    <div id='{{id}}' [className]="isHidden ? 'hidden' : type" [ngStyle]="style" (click)="updateGame()" ></div>
 </div>
+
+<!-- type -->
