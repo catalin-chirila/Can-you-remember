@@ -17,11 +17,9 @@ export class ShapeComponent {
     constructor(private gameService: GameService, private livesService: LivesService) {}
 
     updateGame() {
-        // console.log('This Id: ' + this.id + ' GameService Current Id: ' + this.gameService.getCurrentWinningShapeId());
         if (this.id === this.gameService.getCurrentWinningShapeId()) {
             this.isHidden = true;
             this.gameService.updateGame();
-            // console.log('Update');
         } else {
             this.livesService.decreaseLives();
         }

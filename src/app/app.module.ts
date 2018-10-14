@@ -8,6 +8,8 @@ import { ShapesToMemorizeComponent } from './shapes/shapes-to-memorize/shapes-to
 import { LivesComponent } from './info-bar/lives/lives.component';
 import { TimerComponent } from './info-bar/timer/timer.component';
 import { InfoBarComponent } from './info-bar/info-bar.component';
+import { LevelComponent } from './level/level.component';
+import { LevelService } from './common/level.service';
 
 
 @NgModule({
@@ -18,12 +20,13 @@ import { InfoBarComponent } from './info-bar/info-bar.component';
     ShapesToMemorizeComponent,
     InfoBarComponent,
     LivesComponent,
-    TimerComponent
+    TimerComponent,
+    LevelComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [LevelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

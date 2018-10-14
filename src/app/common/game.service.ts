@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { LevelService } from './level.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class GameService {
     shapesToPickFromSubject = new Subject<any[]>();
     shapesToMemorizeSubject = new Subject<any[]>();
 
-    constructor() {
+    constructor(private levelService: LevelService) {
         this.populateShapesToPickFrom();
         this.populateShapesToMemorize();
     }
@@ -70,8 +71,9 @@ export class GameService {
     }
 
     populateShapesToMemorize() {
+        const amount = this.levelService.getAmountOfShapes();
         this.shapesToMemorize = [];
-        while (this.shapesToMemorize.length < 2) {
+        while (this.shapesToMemorize.length < amount) {
             const winningShape = Object.assign({}, this.shapesToPickFrom[Math.floor(Math.random() * (this.shapesToPickFrom.length))]) ;
 
             if (!this.alreadyExistsInShapesToMemorize(winningShape)) {
@@ -87,6 +89,7 @@ export class GameService {
         }
 
         this.currentWinningShapeId = this.winningShapesIds[0];
+        this.currentWinningShapeIndex = 0;
         this.shapesToMemorizeSubject.next(this.shapesToMemorize);
     }
 
@@ -143,18 +146,11 @@ export class GameService {
         return false;
     }
 
-    isEndOfLevel(): boolean {
-        if (this.winningShapesIds.indexOf(this.currentWinningShapeId) === this.winningShapesIds.length - 1) {
-            return true;
-        }
-        return false;
-    }
-
     updateGame() {
         if (this.isEndOfLevel()) {
+            this.levelService.increaseLevel();
             this.populateShapesToPickFrom();
             this.populateShapesToMemorize();
-            this.currentWinningShapeIndex = 0;
         } else {
             this.loadNextWinningShapeId();
         }
@@ -163,6 +159,13 @@ export class GameService {
     loadNextWinningShapeId(): void {
         this.currentWinningShapeIndex += 1;
         this.currentWinningShapeId = this.winningShapesIds[this.currentWinningShapeIndex];
+    }
+
+    isEndOfLevel(): boolean {
+        if (this.winningShapesIds.indexOf(this.currentWinningShapeId) === this.winningShapesIds.length - 1) {
+            return true;
+        }
+        return false;
     }
 
     getCurrentWinningShapeId(): number {
