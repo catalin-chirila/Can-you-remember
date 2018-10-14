@@ -16,15 +16,13 @@ export class GameService {
     currentWinningShapeId = -1;
     currentWinningShapeIndex = 0;
 
+    currentWinningShapeIdSubject = new Subject<number>();
     shapesToPickFromSubject = new Subject<any[]>();
     shapesToMemorizeSubject = new Subject<any[]>();
 
     constructor() {
         this.populateShapesToPickFrom();
         this.populateShapesToMemorize();
-
-        this.shapesToPickFromSubject.next(this.shapesToPickFrom);
-        this.shapesToMemorizeSubject.next(this.shapesToMemorize);
     }
 
     populateShapesToPickFrom() {
@@ -45,6 +43,7 @@ export class GameService {
             }
         }
         this.insertStyleForShapesToPickFrom();
+        this.shapesToPickFromSubject.next(this.shapesToPickFrom);
     }
 
     /**
@@ -88,6 +87,7 @@ export class GameService {
         }
 
         this.currentWinningShapeId = this.winningShapesIds[0];
+        this.shapesToMemorizeSubject.next(this.shapesToMemorize);
     }
 
     insertStyleForShapesToMemorize() {
@@ -147,7 +147,6 @@ export class GameService {
         if (this.winningShapesIds.indexOf(this.currentWinningShapeId) === this.winningShapesIds.length - 1) {
             return true;
         }
-
         return false;
     }
 
@@ -155,18 +154,10 @@ export class GameService {
         if (this.isEndOfLevel()) {
             this.populateShapesToPickFrom();
             this.populateShapesToMemorize();
-            console.log('test');
-
-            this.shapesToPickFromSubject.next(this.shapesToPickFrom);
-            this.shapesToMemorizeSubject.next(this.shapesToMemorize);
-            this.resetWinningShapeIndex();
+            this.currentWinningShapeIndex = 0;
+        } else {
+            this.loadNextWinningShapeId();
         }
-
-        this.loadNextWinningShapeId();
-    }
-
-    resetWinningShapeIndex() {
-        this.currentWinningShapeIndex = 0;
     }
 
     loadNextWinningShapeId(): void {
