@@ -11,7 +11,6 @@ import { InfoBarComponent } from './info-bar/info-bar.component';
 import { LevelComponent } from './level/level.component';
 import { LevelService } from './common/level.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,

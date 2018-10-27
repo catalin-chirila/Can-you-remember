@@ -24,6 +24,22 @@ export class GameService {
     constructor(private levelService: LevelService) {
         this.populateShapesToPickFrom();
         this.populateShapesToMemorize();
+        this.hideShapesToPickFrom();
+    }
+
+    hideShapesToPickFrom() {
+        this.shapesToPickFrom = [];
+        const shape = {
+            'id': 0,
+            'type': 'square',
+            'color': '#C8C2BD',
+            'parentClass' : 'shape-to-pick-from'
+        };
+        for (let i = 0; i < this.totalNumberOfShapes; i++) {
+            this.shapesToPickFrom.push(shape);
+        }
+        this.insertStyleForShapesToPickFrom();
+        this.shapesToPickFromSubject.next(this.shapesToPickFrom);
     }
 
     populateShapesToPickFrom() {
@@ -180,4 +196,3 @@ export class GameService {
         return this.shapesToMemorize;
     }
 }
-
