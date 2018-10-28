@@ -28,6 +28,10 @@
 	color: #555;
 }
 
+.hidden {
+	display: none;
+}
+
 @media (max-width: 1800px) {
 	::ng-deep :root {
 		--game-width: 70%;

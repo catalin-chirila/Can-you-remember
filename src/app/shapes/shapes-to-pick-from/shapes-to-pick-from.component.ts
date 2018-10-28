@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { GameService } from '../../common/game.service';
 import { Subscription } from 'rxjs';
 
@@ -7,13 +7,20 @@ import { Subscription } from 'rxjs';
     templateUrl: './shapes-to-pick-from.component.html',
     styleUrls: ['./shapes-to-pick-from.component.css']
   })
-export class ShapesToPickFromComponent {
+export class ShapesToPickFromComponent implements OnDestroy {
   shapesToPickFrom = this.gameService.getShapesToPickFrom();
   shapesToPickFromSubscriber: Subscription;
+  isHiddenSubscriber: Subscription;
+  show = false;
+
+  hiddenShapes = this.gameService.getHiddenShapesToPickFrom();
 
   constructor(private gameService: GameService) {
     this.shapesToPickFromSubscriber = this.gameService.shapesToPickFromSubject.subscribe(
       (shapesToPickFrom) => {this.shapesToPickFrom = shapesToPickFrom; });
+
+    this.isHiddenSubscriber = this.gameService.isShapesToMemorizeHiddenSubject.subscribe(
+      (isHidden) => {this.show = !isHidden; });
   }
 
   getShapesRow(number: number): Object[] {
@@ -26,6 +33,10 @@ export class ShapesToPickFromComponent {
     }
 
     return row;
+  }
+
+  ngOnDestroy(): void {
+    this.shapesToPickFromSubscriber.unsubscribe();
   }
 }
 

@@ -12,9 +12,11 @@ export class TimerComponent {
 
   constructor(private gameService: GameService) {
     this.startTimer(5);
+    this.gameService.showShapesToMemorize();
   }
 
   startTimer(timerStartingValue: number) {
+    this.gameService.showShapesToMemorize();
     this.timeLeft = timerStartingValue;
     this.interval = setInterval(() => {
       if (this.timeLeft > 1) {
@@ -22,6 +24,9 @@ export class TimerComponent {
       } else {
         this.timeLeft = 0;
         this.stopTimer();
+        // this.gameService.hideShapesToMemorize();
+        this.gameService.populateShapesToPickFrom();
+        this.gameService.populateShapesToMemorize();
       }
     }, 1000);
   }

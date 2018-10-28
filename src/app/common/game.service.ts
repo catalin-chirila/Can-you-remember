@@ -20,14 +20,20 @@ export class GameService {
     currentWinningShapeIdSubject = new Subject<number>();
     shapesToPickFromSubject = new Subject<any[]>();
     shapesToMemorizeSubject = new Subject<any[]>();
+    isShapesToMemorizeHiddenSubject = new Subject<boolean>();
 
     constructor(private levelService: LevelService) {
         this.populateShapesToPickFrom();
         this.populateShapesToMemorize();
-        this.hideShapesToPickFrom();
+
+        const shapes = [];
+        for (let i = 1; i <= 4; i++ ) {
+            shapes.push(this.getHiddenShapesToPickFrom());
+        }
+        this.shapesToPickFromSubject.next(this.shapes);
     }
 
-    hideShapesToPickFrom() {
+    getHiddenShapesToPickFrom() {
         this.shapesToPickFrom = [];
         const shape = {
             'id': 0,
@@ -35,11 +41,11 @@ export class GameService {
             'color': '#C8C2BD',
             'parentClass' : 'shape-to-pick-from'
         };
+        shape['style'] = {'background-color': shape.color};
         for (let i = 0; i < this.totalNumberOfShapes; i++) {
             this.shapesToPickFrom.push(shape);
         }
-        this.insertStyleForShapesToPickFrom();
-        this.shapesToPickFromSubject.next(this.shapesToPickFrom);
+        return shape;
     }
 
     populateShapesToPickFrom() {
@@ -182,6 +188,14 @@ export class GameService {
             return true;
         }
         return false;
+    }
+
+    showShapesToMemorize() {
+        this.isShapesToMemorizeHiddenSubject.next(false);
+    }
+
+    hideShapesToMemorize() {
+        this.isShapesToMemorizeHiddenSubject.next(true);
     }
 
     getCurrentWinningShapeId(): number {

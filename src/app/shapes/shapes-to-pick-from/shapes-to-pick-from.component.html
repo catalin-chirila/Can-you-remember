@@ -1,11 +1,35 @@
-<div id="shape-list">
-        <div class="shapes-row">
-                <app-shape *ngFor="let shape of getShapesRow(1)" [id]='shape.id' [type]='shape.type' [style]='shape.style' [parentClass]='shape.parentClass'></app-shape>
+<div *ngIf="show;then show_shapes else hide_shapes"></div>
+
+<ng-template #show_shapes>
+        <div id="shape-list">
+                <div class="shapes-row">
+                        <app-shape *ngFor="let shape of getShapesRow(1)" [id]='shape.id' [type]='shape.type' [style]='shape.style'
+                                [parentClass]='shape.parentClass'></app-shape>
+                </div>
+                <div class="shapes-row">
+                        <app-shape *ngFor="let shape of getShapesRow(2)" [id]='shape.id' [type]='shape.type' [style]='shape.style'
+                                [parentClass]='shape.parentClass'></app-shape>
+                </div>
+                <div class="shapes-row">
+                        <app-shape *ngFor="let shape of getShapesRow(3)" [id]='shape.id' [type]='shape.type' [style]='shape.style'
+                                [parentClass]='shape.parentClass'></app-shape>
+                </div>
         </div>
-        <div class="shapes-row">
-                <app-shape *ngFor="let shape of getShapesRow(2)" [id]='shape.id' [type]='shape.type' [style]='shape.style' [parentClass]='shape.parentClass'></app-shape>
+</ng-template>
+
+<ng-template #hide_shapes>
+        <div id="shape-list">
+                <div class="shapes-row">
+                        <app-shape *ngFor="let shape of hiddenShapes" [id]='shape.id' [type]='shape.type' [style]='shape.style'
+                                [parentClass]='shape.parentClass'></app-shape>
+                </div>
+                <div class="shapes-row">
+                        <app-shape *ngFor="let shape of hiddenShapes" [id]='shape.id' [type]='shape.type' [style]='shape.style'
+                                [parentClass]='shape.parentClass'></app-shape>
+                </div>
+                <div class="shapes-row">
+                        <app-shape *ngFor="let shape of hiddenShapes" [id]='shape.id' [type]='shape.type' [style]='shape.style'
+                                [parentClass]='shape.parentClass'></app-shape>
+                </div>
         </div>
-        <div class="shapes-row">
-                <app-shape *ngFor="let shape of getShapesRow(3)" [id]='shape.id' [type]='shape.type' [style]='shape.style' [parentClass]='shape.parentClass'></app-shape>
-        </div>
-</div>
+</ng-template>
