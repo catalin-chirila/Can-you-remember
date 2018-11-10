@@ -17,11 +17,13 @@ export class ShapeComponent {
     constructor(private gameService: GameService, private livesService: LivesService) {}
 
     updateGame() {
-        if (this.id === this.gameService.getCurrentWinningShapeId()) {
-            this.isHidden = true;
-            this.gameService.updateGame();
-        } else {
-            this.livesService.decreaseLives();
+        if (this.parentClass === 'shape-to-pick-from') {
+            if (this.id === this.gameService.getCurrentWinningShapeId()) {
+                this.isHidden = true;
+                this.gameService.updateGame();
+            } else {
+                this.livesService.decreaseLives();
+            }
         }
     }
 }

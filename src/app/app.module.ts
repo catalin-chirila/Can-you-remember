@@ -10,6 +10,8 @@ import { TimerComponent } from './info-bar/timer/timer.component';
 import { InfoBarComponent } from './info-bar/info-bar.component';
 import { LevelComponent } from './level/level.component';
 import { LevelService } from './common/level.service';
+import { TimerService } from './common/timer.service';
+import { GameService } from './common/game.service';
 
 @NgModule({
   declarations: [

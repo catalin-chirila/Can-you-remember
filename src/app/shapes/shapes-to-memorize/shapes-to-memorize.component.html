@@ -1,14 +1,14 @@
-<div *ngIf="isHidden;then show_question_marks else show_shapes_to_memorize"></div>
+<div *ngIf="showShapes;then show_shapes else hide_shapes"></div>
 
-<ng-template #show_question_marks>
-    <div id="shapes-to-memorize">
-        <div *ngFor="let number of numberOfShapes" class="question-mark"><i class="fas fa-question"></i></div>
-    </div>
-</ng-template>
-
-<ng-template #show_shapes_to_memorize>
+<ng-template #show_shapes>
     <div id="shapes-to-memorize">
         <app-shape *ngFor="let shape of shapesToMemorize" [id]='shape.id' [type]='shape.type' [style]='shape.style'
             [parentClass]='shape.parentClass'></app-shape>
+    </div>
+</ng-template>
+
+<ng-template #hide_shapes>
+    <div id="shapes-to-memorize">
+        <div *ngFor="let number of numberOfShapes" class="question-mark"><i class="fas fa-question"></i></div>
     </div>
 </ng-template>

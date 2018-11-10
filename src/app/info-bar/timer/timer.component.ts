@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { GameService } from '../../common/game.service';
+import { TimerService } from 'src/app/common/timer.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-timer',
@@ -7,32 +8,11 @@ import { GameService } from '../../common/game.service';
     styleUrls: ['./timer.component.css']
   })
 export class TimerComponent {
-  timeLeft: number;
-  interval;
+  timeLeft = 5;
+  timeSubscriber: Subscription;
 
-  constructor(private gameService: GameService) {
-    this.startTimer(5);
-    this.gameService.showShapesToMemorize();
-  }
-
-  startTimer(timerStartingValue: number) {
-    this.gameService.showShapesToMemorize();
-    this.timeLeft = timerStartingValue;
-    this.interval = setInterval(() => {
-      if (this.timeLeft > 1) {
-        this.timeLeft--;
-      } else {
-        this.timeLeft = 0;
-        this.stopTimer();
-        // this.gameService.hideShapesToMemorize();
-        this.gameService.populateShapesToPickFrom();
-        this.gameService.populateShapesToMemorize();
-      }
-    }, 1000);
-  }
-
-  stopTimer() {
-    clearInterval(this.interval);
-    this.gameService.populateShapesToPickFrom();
+  constructor(private timerService: TimerService) {
+    this.timeSubscriber = this.timerService.timeSubject.subscribe(
+      (timeLeft) => {this.timeLeft = timeLeft; });
   }
 }

@@ -2,26 +2,29 @@ import { Component, OnDestroy } from '@angular/core';
 import { GameService } from '../../common/game.service';
 import { Subscription } from 'rxjs';
 import { LevelService } from 'src/app/common/level.service';
+import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.service';
 
 @Component({
-    selector: 'app-shapes-to-memorize',
-    templateUrl: './shapes-to-memorize.component.html',
-    styleUrls: ['./shapes-to-memorize.component.css']
-  })
+  selector: 'app-shapes-to-memorize',
+  templateUrl: './shapes-to-memorize.component.html',
+  styleUrls: ['./shapes-to-memorize.component.css']
+})
 export class ShapesToMemorizeComponent implements OnDestroy {
   shapesToMemorize = this.gameService.getShapesToMemorize();
   numberOfShapes: number[];
 
-  isHidden = false;
+  showShapes = true;
   shapesToMemorizeSubscriber: Subscription;
-  isHiddenSubscriber: Subscription;
+  showShapesToMemorizeSubscriber: Subscription;
 
-  constructor(private gameService: GameService, private levelService: LevelService) {
+  constructor(private gameService: GameService, private levelService: LevelService,
+              private shapesVisibilityService: ShapesVisibilityService) {
+
     this.shapesToMemorizeSubscriber = this.gameService.shapesToMemorizeSubject.subscribe(
-      (shapesToMemorize) => {this.shapesToMemorize = shapesToMemorize; });
+      (shapesToMemorize) => { this.shapesToMemorize = shapesToMemorize; });
 
-    this.isHiddenSubscriber = this.gameService.isShapesToMemorizeHiddenSubject.subscribe(
-      (isHidden) => {this.isHidden = isHidden; });
+    this.showShapesToMemorizeSubscriber = this.shapesVisibilityService.showShapesToMemorizeSubject.subscribe(
+      (showShapes) => { this.showShapes = showShapes; });
 
     this.numberOfShapes = this.generateArray(this.levelService.getAmountOfShapes());
   }
@@ -36,6 +39,6 @@ export class ShapesToMemorizeComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.shapesToMemorizeSubscriber.unsubscribe();
-    this.isHiddenSubscriber.unsubscribe();
+    this.showShapesToMemorizeSubscriber.unsubscribe();
   }
 }

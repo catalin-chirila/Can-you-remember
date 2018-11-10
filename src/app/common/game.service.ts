@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { LevelService } from './level.service';
+import { TimerService } from './timer.service';
+import { ShapesVisibilityService } from './shapes-visibility.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,17 +22,12 @@ export class GameService {
     currentWinningShapeIdSubject = new Subject<number>();
     shapesToPickFromSubject = new Subject<any[]>();
     shapesToMemorizeSubject = new Subject<any[]>();
-    isShapesToMemorizeHiddenSubject = new Subject<boolean>();
 
-    constructor(private levelService: LevelService) {
+    constructor(private levelService: LevelService, private timerService: TimerService,
+                private shapesVisibilityService: ShapesVisibilityService) {
         this.populateShapesToPickFrom();
         this.populateShapesToMemorize();
-
-        const shapes = [];
-        for (let i = 1; i <= 4; i++ ) {
-            shapes.push(this.getHiddenShapesToPickFrom());
-        }
-        this.shapesToPickFromSubject.next(this.shapes);
+        this.timerService.startTimer(5);
     }
 
     getHiddenShapesToPickFrom() {
@@ -41,11 +38,13 @@ export class GameService {
             'color': '#C8C2BD',
             'parentClass' : 'shape-to-pick-from'
         };
-        shape['style'] = {'background-color': shape.color};
-        for (let i = 0; i < this.totalNumberOfShapes; i++) {
-            this.shapesToPickFrom.push(shape);
+        shape['style'] = {'background-color': '#C8C2BD'};
+
+        const shapes = [];
+        for (let i = 1; i <= 4; i++ ) {
+            shapes.push(shape);
         }
-        return shape;
+        return shapes;
     }
 
     populateShapesToPickFrom() {
@@ -170,9 +169,13 @@ export class GameService {
 
     updateGame() {
         if (this.isEndOfLevel()) {
+            this.timerService.startTimer(5);
+            console.log('end of level');
             this.levelService.increaseLevel();
             this.populateShapesToPickFrom();
             this.populateShapesToMemorize();
+            this.shapesVisibilityService.showShapesToMemorize();
+            this.shapesVisibilityService.hideShapesToPickFrom();
         } else {
             this.loadNextWinningShapeId();
         }
@@ -188,14 +191,6 @@ export class GameService {
             return true;
         }
         return false;
-    }
-
-    showShapesToMemorize() {
-        this.isShapesToMemorizeHiddenSubject.next(false);
-    }
-
-    hideShapesToMemorize() {
-        this.isShapesToMemorizeHiddenSubject.next(true);
     }
 
     getCurrentWinningShapeId(): number {
