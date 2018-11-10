@@ -1,0 +1,6 @@
+#level {
+	margin: 1% auto 0 auto;
+	width: var(--game-width);
+	text-align: center;
+	font-size: 2rem;
+}
