@@ -6,7 +6,7 @@ import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.servic
 @Component({
     selector: 'app-shapes-to-pick-from',
     templateUrl: './shapes-to-pick-from.component.html',
-    styleUrls: ['./shapes-to-pick-from.component.css']
+    styleUrls: ['./shapes-to-pick-from.component.scss']
   })
 export class ShapesToPickFromComponent implements OnDestroy {
   shapesToPickFrom = this.gameService.getShapesToPickFrom();

@@ -7,7 +7,7 @@ import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.servic
 @Component({
   selector: 'app-shapes-to-memorize',
   templateUrl: './shapes-to-memorize.component.html',
-  styleUrls: ['./shapes-to-memorize.component.css']
+  styleUrls: ['./shapes-to-memorize.component.scss']
 })
 export class ShapesToMemorizeComponent implements OnDestroy {
   shapesToMemorize = this.gameService.getShapesToMemorize();

@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-lives',
     templateUrl: './lives.component.html',
-    styleUrls: ['./lives.component.css']
+    styleUrls: ['./lives.component.scss']
 })
 export class LivesComponent implements OnDestroy {
     lives = 5;
