@@ -26,4 +26,8 @@ export class LivesService implements OnInit {
     ngOnInit(): void {
         this.lives$.next(this.lives);
     }
+
+    getRemainingLives() {
+        return this.lives;
+    }
 }

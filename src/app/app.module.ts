@@ -9,6 +9,9 @@ import { TimerComponent } from './info-bar/timer/timer.component';
 import { InfoBarComponent } from './info-bar/info-bar.component';
 import { LevelComponent } from './level/level.component';
 import { LevelService } from './common/level.service';
+import { MatDialogModule, MatButtonModule } from '@angular/material';
+import { GameOverComponent } from './game-over/game-over.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,12 +22,17 @@ import { LevelService } from './common/level.service';
     InfoBarComponent,
     LivesComponent,
     TimerComponent,
-    LevelComponent
+    LevelComponent,
+    GameOverComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    MatDialogModule,
+    MatButtonModule,
+    BrowserAnimationsModule
   ],
   providers: [LevelService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [GameOverComponent]
 })
 export class AppModule { }

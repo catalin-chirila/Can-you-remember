@@ -3,6 +3,9 @@ import { Subject } from 'rxjs';
 import { LevelService } from './level.service';
 import { TimerService } from './timer.service';
 import { ShapesVisibilityService } from './shapes-visibility.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { GameOverComponent } from '../game-over/game-over.component';
+import { LivesService } from './lives.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,14 +21,18 @@ export class GameService {
     winningShapesIds = [];
     currentWinningShapeId = -1;
     currentWinningShapeIndex = 0;
+    modalDialogRef: MatDialogRef<GameOverComponent>;
 
     shapesToPickFrom$ = new Subject<any[]>();
     shapesToMemorize$ = new Subject<any[]>();
     currentWinningShapeId$ = new Subject<number>();
     questionMarksNumber$ = new Subject<number[]>();
 
-    constructor(private levelService: LevelService, private timerService: TimerService,
-                private shapesVisibilityService: ShapesVisibilityService) {
+    constructor(private levelService: LevelService,
+                private timerService: TimerService,
+                private livesService: LivesService,
+                private shapesVisibilityService: ShapesVisibilityService,
+                private dialog: MatDialog) {
         this.populateShapesToPickFrom();
         this.populateShapesToMemorize();
         this.timerService.startTimer(5);
@@ -164,6 +171,9 @@ export class GameService {
     }
 
     updateGame() {
+        // if (this.livesService.getRemainingLives() === 0) {
+        //     this.openGameOverDialog();
+        // }
         if (this.isEndOfLevel()) {
             this.timerService.startTimer(5);
             this.levelService.increaseLevel();
@@ -207,5 +217,14 @@ export class GameService {
 
     getShapesToMemorize() {
         return this.shapesToMemorize;
+    }
+
+    openGameOverDialog() {
+        this.modalDialogRef = this.dialog.open(GameOverComponent, {
+            disableClose: true,
+            data: {
+                levelReached: this.levelService.getLevel()
+            }
+        });
     }
 }
