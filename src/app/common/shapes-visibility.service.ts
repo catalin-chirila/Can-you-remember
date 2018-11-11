@@ -5,22 +5,22 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ShapesVisibilityService {
-    showShapesToPickFromSubject = new Subject<boolean>();
-    showShapesToMemorizeSubject = new Subject<boolean>();
+    showShapesToPickFrom$ = new Subject<boolean>();
+    showShapesToMemorize$ = new Subject<boolean>();
 
     showShapesToMemorize() {
-        this.showShapesToMemorizeSubject.next(true);
+        this.showShapesToMemorize$.next(true);
     }
 
     hideShapesToMemorize() {
-        this.showShapesToMemorizeSubject.next(false);
+        this.showShapesToMemorize$.next(false);
     }
 
     showShapesToPickFrom() {
-        this.showShapesToPickFromSubject.next(true);
+        this.showShapesToPickFrom$.next(true);
     }
 
     hideShapesToPickFrom() {
-        this.showShapesToPickFromSubject.next(false);
+        this.showShapesToPickFrom$.next(false);
     }
 }

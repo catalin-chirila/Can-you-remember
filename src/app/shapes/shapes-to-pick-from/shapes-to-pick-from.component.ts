@@ -17,10 +17,10 @@ export class ShapesToPickFromComponent implements OnDestroy {
   hiddenShapes = this.gameService.getHiddenShapesToPickFrom();
 
   constructor(private gameService: GameService, private shapesVisibilityService: ShapesVisibilityService) {
-    this.shapesToPickFromSubscriber = this.gameService.shapesToPickFromSubject.subscribe(
+    this.shapesToPickFromSubscriber = this.gameService.shapesToPickFrom$.subscribe(
       (shapesToPickFrom) => {this.shapesToPickFrom = shapesToPickFrom; });
 
-    this.showShaptesToPickFromSubscriber = this.shapesVisibilityService.showShapesToPickFromSubject.subscribe(
+    this.showShaptesToPickFromSubscriber = this.shapesVisibilityService.showShapesToPickFrom$.subscribe(
       (showShapes) => {this.showShapes = showShapes; });
   }
 

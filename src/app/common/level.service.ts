@@ -6,17 +6,17 @@ import { Subject } from 'rxjs';
 })
 export class LevelService implements OnInit {
     level = 1;
-    levelSubject = new Subject<number>();
+    level$ = new Subject<number>();
 
     constructor() { }
 
     increaseLevel() {
         this.level += 1;
-        this.levelSubject.next(this.level);
+        this.level$.next(this.level);
     }
 
     ngOnInit(): void {
-        this.levelSubject.next(this.level);
+        this.level$.next(this.level);
     }
 
     getLevel() {

@@ -6,24 +6,24 @@ import { Subject } from 'rxjs';
 })
 export class LivesService implements OnInit {
     lives = 5;
-    livesSubject = new Subject<number>();
+    lives$ = new Subject<number>();
 
     constructor() { }
 
     decreaseLives() {
         this.lives -= 1;
-        this.livesSubject.next(this.lives);
+        this.lives$.next(this.lives);
     }
 
     getlivesSubject() {
-        return this.livesSubject;
+        return this.lives$;
     }
 
     resetlivesSubjectTo(numberOfLives) {
-        this.livesSubject = numberOfLives;
+        this.lives$ = numberOfLives;
     }
 
     ngOnInit(): void {
-        this.livesSubject.next(this.lives);
+        this.lives$.next(this.lives);
     }
 }

@@ -11,22 +11,24 @@ import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.servic
 })
 export class ShapesToMemorizeComponent implements OnDestroy {
   shapesToMemorize = this.gameService.getShapesToMemorize();
-  numberOfShapes: number[];
+  questionMarks =  this.generateArray(2);
 
   showShapes = true;
   shapesToMemorizeSubscriber: Subscription;
   showShapesToMemorizeSubscriber: Subscription;
+  numberOfShapesSubscriber: Subscription;
 
   constructor(private gameService: GameService, private levelService: LevelService,
               private shapesVisibilityService: ShapesVisibilityService) {
 
-    this.shapesToMemorizeSubscriber = this.gameService.shapesToMemorizeSubject.subscribe(
+    this.shapesToMemorizeSubscriber = this.gameService.shapesToMemorize$.subscribe(
       (shapesToMemorize) => { this.shapesToMemorize = shapesToMemorize; });
 
-    this.showShapesToMemorizeSubscriber = this.shapesVisibilityService.showShapesToMemorizeSubject.subscribe(
+    this.showShapesToMemorizeSubscriber = this.shapesVisibilityService.showShapesToMemorize$.subscribe(
       (showShapes) => { this.showShapes = showShapes; });
 
-    this.numberOfShapes = this.generateArray(this.levelService.getAmountOfShapes());
+    this.numberOfShapesSubscriber = this.gameService.questionMarksNumber$.subscribe(
+      (numberOfShapes) => { this.questionMarks = numberOfShapes; });
   }
 
   generateArray(amountOfNumbers: number): number[] {

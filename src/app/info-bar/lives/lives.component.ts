@@ -12,7 +12,7 @@ export class LivesComponent implements OnDestroy {
     livesSubscription: Subscription;
 
     constructor(private livesService: LivesService) {
-        this.livesSubscription = this.livesService.livesSubject.subscribe(
+        this.livesSubscription = this.livesService.lives$.subscribe(
             (livesLeft) => {this.lives = livesLeft; });
     }
 

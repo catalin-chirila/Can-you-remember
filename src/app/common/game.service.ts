@@ -19,9 +19,10 @@ export class GameService {
     currentWinningShapeId = -1;
     currentWinningShapeIndex = 0;
 
-    currentWinningShapeIdSubject = new Subject<number>();
-    shapesToPickFromSubject = new Subject<any[]>();
-    shapesToMemorizeSubject = new Subject<any[]>();
+    shapesToPickFrom$ = new Subject<any[]>();
+    shapesToMemorize$ = new Subject<any[]>();
+    currentWinningShapeId$ = new Subject<number>();
+    questionMarksNumber$ = new Subject<number[]>();
 
     constructor(private levelService: LevelService, private timerService: TimerService,
                 private shapesVisibilityService: ShapesVisibilityService) {
@@ -65,28 +66,22 @@ export class GameService {
             }
         }
         this.insertStyleForShapesToPickFrom();
-        this.shapesToPickFromSubject.next(this.shapesToPickFrom);
+        this.shapesToPickFrom$.next(this.shapesToPickFrom);
     }
 
-    /**
-     * @returns CSS style for the shapes used in the shapes-to-pick-from component.
-     */
     insertStyleForShapesToPickFrom() {
         for (let i = 0; i < this.shapesToPickFrom.length; i++) {
-            if (this.shapesToPickFrom[i].type === 'triangle-up') {
-                const borderStyle = this.shapesToPickFrom[i].color;
-                this.shapesToPickFrom[i]['style'] = {'border-bottom-color': borderStyle};
-            } else if (this.shapesToPickFrom[i].type === 'triangle-left') {
-                const borderStyle = this.shapesToPickFrom[i].color;
-                this.shapesToPickFrom[i]['style'] = {'border-right-color': borderStyle};
+            const shape = this.shapesToPickFrom[i];
+            if (shape.type === 'triangle-up') {
+                shape['style'] = {'border-bottom-color': shape.color};
+            } else if (shape.type === 'triangle-left') {
+                shape['style'] = {'border-right-color': shape.color};
             } else if (this.shapesToPickFrom[i].type === 'triangle-right') {
-                const borderStyle = this.shapesToPickFrom[i].color;
-                this.shapesToPickFrom[i]['style'] = {'border-left-color': borderStyle};
+                shape['style'] = {'border-left-color': shape.color};
             } else if (this.shapesToPickFrom[i].type === 'triangle-down') {
-                const borderStyle = this.shapesToPickFrom[i].color;
-                this.shapesToPickFrom[i]['style'] = {'border-top-color': borderStyle};
+                shape['style'] = {'border-top-color': shape.color};
             } else {
-                this.shapesToPickFrom[i]['style'] = {'background-color': this.shapesToPickFrom[i].color};
+                shape['style'] = {'background-color': shape.color};
             }
         }
     }
@@ -111,37 +106,38 @@ export class GameService {
 
         this.currentWinningShapeId = this.winningShapesIds[0];
         this.currentWinningShapeIndex = 0;
-        this.shapesToMemorizeSubject.next(this.shapesToMemorize);
+        this.shapesToMemorize$.next(this.shapesToMemorize);
     }
 
     insertStyleForShapesToMemorize() {
         for (let i = 0; i < this.shapesToMemorize.length; i++) {
-            if (this.shapesToMemorize[i].type === 'triangle-up') {
-                this.shapesToMemorize[i]['style'] = {
+            const shape = this.shapesToMemorize[i];
+            if (shape.type === 'triangle-up') {
+                shape['style'] = {
                     'border-left': '40px solid transparent',
                     'border-right': '40px solid transparent',
                     'border-bottom': '80px solid ' + this.shapesToMemorize[i].color
                 };
-            } else if (this.shapesToMemorize[i].type === 'triangle-left') {
-                this.shapesToMemorize[i]['style'] = {
+            } else if (shape.type === 'triangle-left') {
+                shape['style'] = {
                     'border-top': '40px solid transparent',
                     'border-bottom': '40px solid transparent',
                     'border-right': '80px solid ' + this.shapesToMemorize[i].color
                 };
-            } else if (this.shapesToMemorize[i].type === 'triangle-right') {
-                this.shapesToMemorize[i]['style'] = {
+            } else if (shape.type === 'triangle-right') {
+                shape['style'] = {
                     'border-top': '40px solid transparent',
                     'border-bottom': '40px solid transparent',
                     'border-left': '80px solid ' + this.shapesToMemorize[i].color
                 };
-            } else if (this.shapesToMemorize[i].type === 'triangle-down') {
-                this.shapesToMemorize[i]['style'] = {
+            } else if (shape.type === 'triangle-down') {
+                shape['style'] = {
                     'border-left': '40px solid transparent',
                     'border-right': '40px solid transparent',
                     'border-top': '80px solid ' + this.shapesToMemorize[i].color
                 };
             } else {
-                this.shapesToMemorize[i]['style'] = { 'background-color': this.shapesToMemorize[i].color };
+                shape['style'] = { 'background-color': this.shapesToMemorize[i].color };
             }
         }
         for (let i = 0; i < this.shapesToMemorize.length; i++) {
@@ -175,6 +171,7 @@ export class GameService {
             this.populateShapesToMemorize();
             this.shapesVisibilityService.showShapesToMemorize();
             this.shapesVisibilityService.hideShapesToPickFrom();
+            this.updateQuestionMarksNumber();
         } else {
             this.loadNextWinningShapeId();
         }
@@ -190,6 +187,14 @@ export class GameService {
             return true;
         }
         return false;
+    }
+
+    updateQuestionMarksNumber(): void {
+        const questionMarks = [];
+        for (let i = 0; i < this.levelService.getAmountOfShapes(); i++) {
+            questionMarks.push(0);
+        }
+        this.questionMarksNumber$.next(questionMarks);
     }
 
     getCurrentWinningShapeId(): number {

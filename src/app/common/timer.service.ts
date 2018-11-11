@@ -7,21 +7,21 @@ import { ShapesVisibilityService } from './shapes-visibility.service';
 })
 export class TimerService {
     timeLeft = 5;
-    timeSubject = new Subject<number>();
+    time$ = new Subject<number>();
     interval;
 
     constructor(private shapesVisibilityService: ShapesVisibilityService) { }
 
     startTimer(timerStartingValue: number) {
         if (this.timeLeft === 0) {
-            this.timeSubject.next(timerStartingValue);
+            this.time$.next(timerStartingValue);
         }
 
         this.timeLeft = timerStartingValue;
         this.interval = setInterval(() => {
             if (this.timeLeft > 1) {
                 this.timeLeft--;
-                this.timeSubject.next(this.timeLeft);
+                this.time$.next(this.timeLeft);
             } else {
                 this.stopTimer();
             }
@@ -31,7 +31,7 @@ export class TimerService {
     stopTimer() {
         clearInterval(this.interval);
         this.timeLeft = 0;
-        this.timeSubject.next(this.timeLeft);
+        this.time$.next(this.timeLeft);
         this.shapesVisibilityService.hideShapesToMemorize();
         this.shapesVisibilityService.showShapesToPickFrom();
     }

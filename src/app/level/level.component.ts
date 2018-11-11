@@ -13,7 +13,7 @@ export class LevelComponent implements OnDestroy {
     levelSubscription: Subscription;
 
     constructor(private levelService: LevelService) {
-        this.levelSubscription = this.levelService.levelSubject.subscribe(
+        this.levelSubscription = this.levelService.level$.subscribe(
             (level) => {this.level = level; });
     }
 

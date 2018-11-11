@@ -12,7 +12,7 @@ export class TimerComponent {
   timeSubscriber: Subscription;
 
   constructor(private timerService: TimerService) {
-    this.timeSubscriber = this.timerService.timeSubject.subscribe(
+    this.timeSubscriber = this.timerService.time$.subscribe(
       (timeLeft) => {this.timeLeft = timeLeft; });
   }
 }
