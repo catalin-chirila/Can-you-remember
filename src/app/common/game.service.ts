@@ -74,17 +74,17 @@ export class GameService {
     insertStyleForShapesToPickFrom() {
         for (let i = 0; i < this.shapesToPickFrom.length; i++) {
             if (this.shapesToPickFrom[i].type === 'triangle-up') {
-                const borderStyle = 'var(--triangle-biggest-border) solid ' + this.shapesToPickFrom[i].color;
-                this.shapesToPickFrom[i]['style'] = {'border-bottom': borderStyle};
+                const borderStyle = this.shapesToPickFrom[i].color;
+                this.shapesToPickFrom[i]['style'] = {'border-bottom-color': borderStyle};
             } else if (this.shapesToPickFrom[i].type === 'triangle-left') {
-                const borderStyle = 'var(--triangle-biggest-border) solid ' + this.shapesToPickFrom[i].color;
-                this.shapesToPickFrom[i]['style'] = {'border-right': borderStyle};
+                const borderStyle = this.shapesToPickFrom[i].color;
+                this.shapesToPickFrom[i]['style'] = {'border-right-color': borderStyle};
             } else if (this.shapesToPickFrom[i].type === 'triangle-right') {
-                const borderStyle = 'var(--triangle-biggest-border) solid ' + this.shapesToPickFrom[i].color;
-                this.shapesToPickFrom[i]['style'] = {'border-left': borderStyle};
+                const borderStyle = this.shapesToPickFrom[i].color;
+                this.shapesToPickFrom[i]['style'] = {'border-left-color': borderStyle};
             } else if (this.shapesToPickFrom[i].type === 'triangle-down') {
-                const borderStyle = 'var(--triangle-biggest-border) solid ' + this.shapesToPickFrom[i].color;
-                this.shapesToPickFrom[i]['style'] = {'border-top': borderStyle};
+                const borderStyle = this.shapesToPickFrom[i].color;
+                this.shapesToPickFrom[i]['style'] = {'border-top-color': borderStyle};
             } else {
                 this.shapesToPickFrom[i]['style'] = {'background-color': this.shapesToPickFrom[i].color};
             }
@@ -170,7 +170,6 @@ export class GameService {
     updateGame() {
         if (this.isEndOfLevel()) {
             this.timerService.startTimer(5);
-            console.log('end of level');
             this.levelService.increaseLevel();
             this.populateShapesToPickFrom();
             this.populateShapesToMemorize();

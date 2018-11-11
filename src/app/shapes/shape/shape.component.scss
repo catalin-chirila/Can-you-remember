@@ -1,11 +1,13 @@
-::ng-deep :root {
-	--triangle-biggest-border: 160px;
-	--triangle-smallest-border: 85px;
+$triangle-biggest-border: 160px;
+$triangle-smallest-border: 85px;
+
+@mixin size($height, $width) {
+	height: $height;
+	width: $width;
 }
 
 .shape-to-pick-from {	
-	height: 200px;
-	width: 200px;
+	@include size(200px, 200px);
 	margin: 5px;
 	display: flex;
 	justify-content: center;
@@ -13,8 +15,7 @@
 }
 
 .shape-to-memorize {	
-	height: 100px;
-	width: 100px;
+	@include size(100px, 100px);
 	margin: 5px;
 	display: flex;
 	justify-content: center;
@@ -22,45 +23,47 @@
 }
 
 .square {
-	height: 80%;
-	width: 80%;
+	@include size(80%, 80%);
 }
 
 .rectangle {
-	height: 80%;
-	width: 50%;
+	@include size(80%, 50%);
 }
 
 .circle {
-	height: 80%;
-	width: 80%;
+	@include size(80%, 80%);
  	border-radius: 50%;
 }
 
+@mixin border($direction, $width, $style, $color) {
+	border-#{$direction}: $width solid transparent;
+}
+
 .triangle-up {
-	border-left: var(--triangle-smallest-border) solid transparent;
-	border-right: var(--triangle-smallest-border) solid transparent;
-}
-
-.triangle-left {
-	width: 0;
-	height: 0;
-	border-top: var(--triangle-smallest-border) solid transparent;
-	border-bottom: var(--triangle-smallest-border) solid transparent;
-}
-
-.triangle-right {
-	width: 0;
-	height: 0;
-	border-top: var(--triangle-smallest-border) solid transparent;
-	border-bottom: var(--triangle-smallest-border) solid transparent;
+	border-left: $triangle-smallest-border solid transparent;
+	border-right: $triangle-smallest-border solid transparent;
+	border-bottom: $triangle-biggest-border solid;
 }
 
 .triangle-down {
-	width: 0;
-	height: 0;
-	border-left: var(--triangle-smallest-border) solid transparent;
-	border-right: var(--triangle-smallest-border) solid transparent;
+	@include size(0px, 0px);
+	border-left: $triangle-smallest-border solid transparent;
+	border-right: $triangle-smallest-border solid transparent;
+	border-top: $triangle-biggest-border solid;
+}
+
+.triangle-left {
+	@include size(0px, 0px);
+	border-top: $triangle-smallest-border solid transparent;
+	border-bottom: $triangle-smallest-border solid transparent;
+	border-right: $triangle-biggest-border solid;
+}
+
+.triangle-right {
+	@include size(0px, 0px);
+	border-top: $triangle-smallest-border solid transparent;
+	border-bottom: $triangle-smallest-border solid transparent;
+	border-left: $triangle-biggest-border solid;
 }
 
 .hidden {
@@ -68,10 +71,8 @@
 }
 
 @media (max-width: 1800px) {
-	::ng-deep :root {
-		--triangle-biggest-border: 120px;
-		--triangle-smallest-border: 60px;
-	}
+	$triangle-biggest-border: 120px;
+	$triangle-smallest-border: 60px;
 
 	.shape {
 		height: 150px;
@@ -80,10 +81,8 @@
 }
 
 @media (max-width: 1100px) {
-	::ng-deep :root {
-		--triangle-biggest-border: 80px;
-		--triangle-smallest-border: 40px;
-	}
+	$triangle-biggest-border: 80px;
+	$triangle-smallest-border: 40px;
 
 	.shape {
 		height: 100px;
@@ -92,11 +91,9 @@
 }
 
 @media (max-width: 600px) {
-	::ng-deep :root {
-		--triangle-biggest-border: 40px;
-		--triangle-smallest-border: 20px;
-	}
-
+	$triangle-biggest-border: 40px;
+	$triangle-smallest-border: 20px;
+	
 	.shape {
 		height: 80px;
 		width: 80px;
@@ -104,11 +101,9 @@
 }
 
 @media (max-width: 500px) {
-	::ng-deep :root {
-		--triangle-biggest-border: 40px;
-		--triangle-smallest-border: 20px;
-	}
-
+	$triangle-biggest-border: 40px;
+	$triangle-smallest-border: 20px;
+	
 	.shape {
 		height: 45px;
 		width: 45px;
