@@ -38,4 +38,9 @@ export class LevelService implements OnInit {
             default: return 7;
         }
     }
+
+    resetLevel() {
+        this.level = 1;
+        this.level$.next(this.level);
+    }
 }

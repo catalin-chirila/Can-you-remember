@@ -11,7 +11,7 @@ import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.servic
 export class ShapesToPickFromComponent implements OnDestroy {
   shapesToPickFrom = this.gameService.getShapesToPickFrom();
   shapesToPickFromSubscriber: Subscription;
-  showShaptesToPickFromSubscriber: Subscription;
+  showShapesToPickFromSubscriber: Subscription;
   showShapes = false;
 
   hiddenShapes = this.gameService.getHiddenShapesToPickFrom();
@@ -20,7 +20,7 @@ export class ShapesToPickFromComponent implements OnDestroy {
     this.shapesToPickFromSubscriber = this.gameService.shapesToPickFrom$.subscribe(
       (shapesToPickFrom) => {this.shapesToPickFrom = shapesToPickFrom; });
 
-    this.showShaptesToPickFromSubscriber = this.shapesVisibilityService.showShapesToPickFrom$.subscribe(
+    this.showShapesToPickFromSubscriber = this.shapesVisibilityService.showShapesToPickFrom$.subscribe(
       (showShapes) => {this.showShapes = showShapes; });
   }
 
@@ -38,7 +38,7 @@ export class ShapesToPickFromComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.shapesToPickFromSubscriber.unsubscribe();
-    this.showShaptesToPickFromSubscriber.unsubscribe();
+    this.showShapesToPickFromSubscriber.unsubscribe();
   }
 }
 

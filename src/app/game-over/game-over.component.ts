@@ -10,6 +10,6 @@ export class GameOverComponent {
     levelReached: number;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-            this.levelReached = data.levelReached;
+        this.levelReached = data.levelReached;
     }
 }

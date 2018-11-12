@@ -171,9 +171,6 @@ export class GameService {
     }
 
     updateGame() {
-        // if (this.livesService.getRemainingLives() === 0) {
-        //     this.openGameOverDialog();
-        // }
         if (this.isEndOfLevel()) {
             this.timerService.startTimer(5);
             this.levelService.increaseLevel();
@@ -219,12 +216,26 @@ export class GameService {
         return this.shapesToMemorize;
     }
 
+    resetGame(): void {
+        this.populateShapesToPickFrom();
+        this.populateShapesToMemorize();
+        this.livesService.resetLives();
+        this.levelService.resetLevel();
+        this.shapesVisibilityService.showShapesToMemorize();
+        this.shapesVisibilityService.hideShapesToPickFrom();
+        this.updateQuestionMarksNumber();
+        this.timerService.startTimer(5);
+    }
+
     openGameOverDialog() {
         this.modalDialogRef = this.dialog.open(GameOverComponent, {
             disableClose: true,
             data: {
                 levelReached: this.levelService.getLevel()
             }
+        });
+        this.modalDialogRef.afterClosed().subscribe(() => {
+            this.resetGame();
         });
     }
 }

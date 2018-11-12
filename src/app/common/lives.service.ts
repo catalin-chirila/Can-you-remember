@@ -30,4 +30,9 @@ export class LivesService implements OnInit {
     getRemainingLives() {
         return this.lives;
     }
+
+    resetLives() {
+        this.lives = 5;
+        this.lives$.next(this.lives);
+    }
 }
