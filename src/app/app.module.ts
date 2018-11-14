@@ -12,6 +12,7 @@ import { LevelService } from './common/level.service';
 import { MatDialogModule, MatButtonModule } from '@angular/material';
 import { GameOverComponent } from './game-over/game-over.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShapesVisibilityService } from './common/shapes-visibility.service';
 
 @NgModule({
   declarations: [

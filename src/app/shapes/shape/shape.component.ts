@@ -21,12 +21,10 @@ export class ShapeComponent {
     constructor(private gameService: GameService,
         private livesService: LivesService,
         private shapesVisibilityService: ShapesVisibilityService) {
-        this.showShapesToPickFromSubscriber = this.shapesVisibilityService.showShapesToPickFrom$.subscribe(
-            (showShapes) => { this.showShapesToPickFrom = showShapes; });
     }
 
     updateGame() {
-        if (this.parentClass === 'shape-to-pick-from') {
+        if (this.isDisplayedShapeToPickFrom()) {
             if (this.id === this.gameService.getCurrentWinningShapeId()) {
                 this.isHidden = true;
                 this.gameService.updateGame();
@@ -37,5 +35,12 @@ export class ShapeComponent {
                 }
             }
         }
+    }
+
+    isDisplayedShapeToPickFrom(): boolean {
+        if (this.parentClass === 'shape-to-pick-from' && this.shapesVisibilityService.isShapesToPickFromDisplayed) {
+            return true;
+        }
+        return false;
     }
 }
