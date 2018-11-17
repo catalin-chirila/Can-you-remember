@@ -1,7 +1,10 @@
+@import "~src/styles/variables";
+@import "~src/styles/mixins";
+
 #info-bar {
-	width: var(--game-width);
 	margin: 5% auto 0 auto;
 	font-size: 1.5rem;
 	display: flex;
 	justify-content: space-between;
+	@include responsive-width();
 }

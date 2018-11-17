@@ -1,0 +1,9 @@
+@import "~src/styles/variables";
+@import "~src/styles/mixins";
+
+#level {
+	margin: 1% auto 0 auto;
+	@include responsive-width();
+	text-align: center;
+	font-size: 2rem;
+}

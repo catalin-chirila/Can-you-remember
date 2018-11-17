@@ -1,0 +1,72 @@
+@mixin size($height, $width) {
+	height: $height;
+	width: $width;
+}
+
+@mixin responsive-size($size) {
+	height: nth($size, 1);
+	width: nth($size, 2);
+}
+
+@mixin for-phone-only {
+	@media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+	@media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+	@media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+	@media (min-width: 1200px) { @content; }
+}
+@mixin for-big-desktop-up {
+	@media (min-width: 1800px) { @content; }
+}
+
+@mixin triangle-left-right($orientation, $border) {
+	@include size(0px, 0px);
+	border-top: nth($border, 2) solid transparent;
+	border-bottom: nth($border, 2) solid transparent;
+	border-#{$orientation}: nth($border, 1) solid;
+}
+
+@mixin triangle-up-down($orientation, $border) {
+	@include size(0px, 0px);
+	border-left: nth($border, 2) solid transparent;
+	border-right: nth($border, 2) solid transparent;
+	border-#{$orientation}: nth($border, 1) solid;
+}
+
+@mixin responsive-width {
+	@include for-phone-only() {width: $game-width-phone-only;}
+	@include for-tablet-portrait-up() {width: $game-width-tablet-portrait-up;}
+	@include for-tablet-landscape-up() {width: $game-width-tablet-landscape-up;}
+	@include for-desktop-up() {width: $game-width-desktop-up;}
+	@include for-big-desktop-up() {width: $game-witdh-big-desktop-up;}
+}
+
+@mixin responsive-triangle($direction) {
+	@if $direction == 'top' or $direction == 'bottom' {
+		@include for-phone-only() {@include triangle-up-down($direction, $triangle-phone-only);}
+		@include for-tablet-portrait-up() {@include triangle-up-down($direction, $triangle-tablet-portrait-up);}
+		@include for-tablet-landscape-up() {@include triangle-up-down($direction, $triangle-tablet-landscape-up);}
+		@include for-desktop-up() {@include triangle-up-down($direction, $triangle-desktop-up);}
+		@include for-big-desktop-up() {@include triangle-up-down($direction, $triangle-big-desktop-up);}
+	} @else {
+		@include for-phone-only() {@include triangle-left-right($direction, $triangle-phone-only);}
+		@include for-tablet-portrait-up() {@include triangle-left-right($direction, $triangle-tablet-portrait-up);}
+		@include for-tablet-landscape-up() {@include triangle-left-right($direction, $triangle-tablet-landscape-up);}
+		@include for-desktop-up() {@include triangle-left-right($direction, $triangle-desktop-up);}
+		@include for-big-desktop-up() {@include triangle-left-right($direction, $triangle-big-desktop-up);}
+	}
+}
+
+@mixin responsive-shape-size() {
+	@include for-phone-only() {@include responsive-size($shape-phone-only);}
+	@include for-tablet-portrait-up() {@include responsive-size($shape-tablet-portrait-up);}
+	@include for-tablet-landscape-up() {@include responsive-size($shape-tablet-landscape-up);}
+	@include for-desktop-up() {@include responsive-size($shape-desktop-up);}
+	@include for-big-desktop-up() {@include responsive-size($shape-big-desktop-up);}
+}
+

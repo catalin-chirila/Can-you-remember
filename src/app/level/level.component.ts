@@ -6,7 +6,7 @@ import { LevelService } from '../common/level.service';
 @Component({
     selector: 'app-level',
     templateUrl: './level.component.html',
-    styleUrls: ['./level.component.css']
+    styleUrls: ['./level.component.scss']
 })
 export class LevelComponent implements OnDestroy {
     level = 1;

@@ -1,12 +1,11 @@
-::ng-deep :root {
-	--game-width: 50%;
-}
+@import "~src/styles/variables";
+@import "~src/styles/mixins";
 
 #shape-list {
 	border: 2px solid rgba(0, 0, 0, 0.7);
 	border-radius: 15px;
-	width: var(--game-width);
 	margin: 1% auto 0 auto;
+	@include responsive-width();
 }
 
 .shapes-row {
@@ -15,28 +14,4 @@
  	align-items: center;
  	padding-left: 7px;
  	flex-wrap: wrap;
-}
-
-@media (max-width: 1800px) {
-	::ng-deep :root {
-		--game-width: 70%;
-	}
-}
-
-@media (max-width: 1100px) {
-	::ng-deep :root {
-		--game-width: 80%;
-	}
-}
-
-@media (max-width: 600px) {
-	::ng-deep :root {
-		--game-width: 80%;
-	}
-}
-
-@media (max-width: 500px) {
-	::ng-deep :root {
-		--game-width: 95%;
-	}
 }

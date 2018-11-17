@@ -14,7 +14,7 @@ export class ShapeComponent {
     @Input() style: string;
     @Input() type: string;
     @Input() parentClass: string;
-    showShapesToPickFromSubscriber: Subscription;
+    showShapesToPickFromSub: Subscription;
     showShapesToPickFrom = false;
     isHidden = false;
 

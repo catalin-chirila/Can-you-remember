@@ -1,25 +1,29 @@
-$triangle-biggest-border: 160px;
-$triangle-smallest-border: 85px;
-
-@mixin size($height, $width) {
-	height: $height;
-	width: $width;
-}
+@import "~src/styles/variables";
+@import "~src/styles/mixins";
 
 .shape-to-pick-from {	
-	@include size(200px, 200px);
 	margin: 5px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	@include responsive-shape-size();
 }
 
 .shape-to-memorize {	
-	@include size(100px, 100px);
 	margin: 5px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	@include for-phone-only() {@include size(90px, 90px);}
+	@include for-tablet-portrait-up() {@include size(90px, 90px);}
+	@include for-tablet-landscape-up() {@include size(100px, 100px);}
+	@include for-desktop-up() {@include size(100px, 100px);}
+	@include for-big-desktop-up() {@include size(100px, 100px);}
+}
+
+.shape {
+	@include responsive-shape-size();
 }
 
 .square {
@@ -35,77 +39,22 @@ $triangle-smallest-border: 85px;
  	border-radius: 50%;
 }
 
-@mixin border($direction, $width, $style, $color) {
-	border-#{$direction}: $width solid transparent;
-}
-
 .triangle-up {
-	border-left: $triangle-smallest-border solid transparent;
-	border-right: $triangle-smallest-border solid transparent;
-	border-bottom: $triangle-biggest-border solid;
+	@include responsive-triangle(bottom);
 }
 
 .triangle-down {
-	@include size(0px, 0px);
-	border-left: $triangle-smallest-border solid transparent;
-	border-right: $triangle-smallest-border solid transparent;
-	border-top: $triangle-biggest-border solid;
+	@include responsive-triangle(top);
 }
 
 .triangle-left {
-	@include size(0px, 0px);
-	border-top: $triangle-smallest-border solid transparent;
-	border-bottom: $triangle-smallest-border solid transparent;
-	border-right: $triangle-biggest-border solid;
+	@include responsive-triangle(right);
 }
 
 .triangle-right {
-	@include size(0px, 0px);
-	border-top: $triangle-smallest-border solid transparent;
-	border-bottom: $triangle-smallest-border solid transparent;
-	border-left: $triangle-biggest-border solid;
+	@include responsive-triangle(left);
 }
 
 .hidden {
 	display: none;
-}
-
-@media (max-width: 1800px) {
-	$triangle-biggest-border: 120px;
-	$triangle-smallest-border: 60px;
-
-	.shape {
-		height: 150px;
-		width: 150px;
-	}
-}
-
-@media (max-width: 1100px) {
-	$triangle-biggest-border: 80px;
-	$triangle-smallest-border: 40px;
-
-	.shape {
-		height: 100px;
-		width: 100px;
-	}
-}
-
-@media (max-width: 600px) {
-	$triangle-biggest-border: 40px;
-	$triangle-smallest-border: 20px;
-	
-	.shape {
-		height: 80px;
-		width: 80px;
-	}
-}
-
-@media (max-width: 500px) {
-	$triangle-biggest-border: 40px;
-	$triangle-smallest-border: 20px;
-	
-	.shape {
-		height: 45px;
-		width: 45px;
-	}
 }
