@@ -83,9 +83,9 @@ export class GameService {
                 shape['style'] = {'border-bottom-color': shape.color};
             } else if (shape.type === 'triangle-left') {
                 shape['style'] = {'border-right-color': shape.color};
-            } else if (this.shapesToPickFrom[i].type === 'triangle-right') {
+            } else if (shape.type === 'triangle-right') {
                 shape['style'] = {'border-left-color': shape.color};
-            } else if (this.shapesToPickFrom[i].type === 'triangle-down') {
+            } else if (shape.type === 'triangle-down') {
                 shape['style'] = {'border-top-color': shape.color};
             } else {
                 shape['style'] = {'background-color': shape.color};
@@ -120,31 +120,15 @@ export class GameService {
         for (let i = 0; i < this.shapesToMemorize.length; i++) {
             const shape = this.shapesToMemorize[i];
             if (shape.type === 'triangle-up') {
-                shape['style'] = {
-                    'border-left': '40px solid transparent',
-                    'border-right': '40px solid transparent',
-                    'border-bottom': '80px solid ' + this.shapesToMemorize[i].color
-                };
+                shape['style'] = {'border-bottom-color': shape.color};
             } else if (shape.type === 'triangle-left') {
-                shape['style'] = {
-                    'border-top': '40px solid transparent',
-                    'border-bottom': '40px solid transparent',
-                    'border-right': '80px solid ' + this.shapesToMemorize[i].color
-                };
-            } else if (shape.type === 'triangle-right') {
-                shape['style'] = {
-                    'border-top': '40px solid transparent',
-                    'border-bottom': '40px solid transparent',
-                    'border-left': '80px solid ' + this.shapesToMemorize[i].color
-                };
+                shape['style'] = {'border-right-color': shape.color};
+            }  else if (shape.type === 'triangle-right') {
+                shape['style'] = {'border-left-color': shape.color};
             } else if (shape.type === 'triangle-down') {
-                shape['style'] = {
-                    'border-left': '40px solid transparent',
-                    'border-right': '40px solid transparent',
-                    'border-top': '80px solid ' + this.shapesToMemorize[i].color
-                };
+                shape['style'] = {'border-top-color': shape.color};
             } else {
-                shape['style'] = { 'background-color': this.shapesToMemorize[i].color };
+                shape['style'] = {'background-color': shape.color};
             }
         }
         for (let i = 0; i < this.shapesToMemorize.length; i++) {
@@ -217,10 +201,10 @@ export class GameService {
     }
 
     resetGame(): void {
+        this.levelService.resetLevel();
+        this.livesService.resetLives();
         this.populateShapesToPickFrom();
         this.populateShapesToMemorize();
-        this.livesService.resetLives();
-        this.levelService.resetLevel();
         this.shapesVisibilityService.showShapesToMemorize();
         this.shapesVisibilityService.hideShapesToPickFrom();
         this.updateQuestionMarksNumber();

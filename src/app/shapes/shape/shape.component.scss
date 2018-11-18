@@ -14,12 +14,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-	@include for-phone-only() {@include size(90px, 90px);}
-	@include for-tablet-portrait-up() {@include size(90px, 90px);}
-	@include for-tablet-landscape-up() {@include size(100px, 100px);}
-	@include for-desktop-up() {@include size(100px, 100px);}
-	@include for-big-desktop-up() {@include size(100px, 100px);}
+	@include responsive-shape-size();
 }
 
 .shape {

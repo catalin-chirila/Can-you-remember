@@ -11,7 +11,7 @@ import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.servic
 })
 export class ShapesToMemorizeComponent implements OnDestroy {
   shapesToMemorize = this.gameService.getShapesToMemorize();
-  questionMarks =  this.generateArray(2);
+  questionMarks = this.generateArray(2);
 
   showShapes = true;
   shapesToMemorizeSubscriber: Subscription;

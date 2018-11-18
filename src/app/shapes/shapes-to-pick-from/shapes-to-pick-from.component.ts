@@ -41,5 +41,3 @@ export class ShapesToPickFromComponent implements OnDestroy {
     this.showShapesToPickFromSubscriber.unsubscribe();
   }
 }
-
-
