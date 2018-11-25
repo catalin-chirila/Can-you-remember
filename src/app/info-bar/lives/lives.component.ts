@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { LivesService } from '../../common/lives.service';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class LivesComponent implements OnDestroy {
 
     constructor(private livesService: LivesService) {
         this.livesSubscription = this.livesService.lives$.subscribe(
-            (livesLeft) => {this.lives = livesLeft; });
+            (livesLeft) => { this.lives = livesLeft; });
     }
 
     ngOnDestroy(): void {

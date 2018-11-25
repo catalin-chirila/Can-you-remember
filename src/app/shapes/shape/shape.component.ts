@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { GameService } from '../../common/game.service';
 import { LivesService } from '../../common/lives.service';
 import { Subscription } from 'rxjs';

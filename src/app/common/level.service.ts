@@ -5,26 +5,22 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class LevelService implements OnInit {
-    level = 1;
-    level$ = new Subject<number>();
+    private _level = 1;
+    private _level$ = new Subject<number>();
 
     constructor() { }
 
-    increaseLevel() {
-        this.level += 1;
-        this.level$.next(this.level);
-    }
-
     ngOnInit(): void {
-        this.level$.next(this.level);
+        this._level$.next(this._level);
     }
 
-    getLevel() {
-        return this.level;
+    increaseLevel() {
+        this._level += 1;
+        this._level$.next(this._level);
     }
 
     getAmountOfShapes(): number {
-        switch (this.level) {
+        switch (this._level) {
             case 1: return 2;
             case 2: return 2;
             case 3: return 3;
@@ -40,7 +36,15 @@ export class LevelService implements OnInit {
     }
 
     resetLevel() {
-        this.level = 1;
-        this.level$.next(this.level);
+        this._level = 1;
+        this._level$.next(this._level);
+    }
+
+    public get level() {
+        return this._level;
+    }
+
+    public get level$() {
+        return this._level$;
     }
 }

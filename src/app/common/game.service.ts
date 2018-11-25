@@ -215,7 +215,7 @@ export class GameService {
         this.modalDialogRef = this.dialog.open(GameOverComponent, {
             disableClose: true,
             data: {
-                levelReached: this.levelService.getLevel()
+                levelReached: this.levelService.level
             }
         });
         this.modalDialogRef.afterClosed().subscribe(() => {
