@@ -6,5 +6,5 @@
 	font-size: 1.5rem;
 	display: flex;
 	justify-content: space-between;
-	@include responsive-width();
+	@include responsive-list-width();
 }

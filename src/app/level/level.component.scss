@@ -3,7 +3,7 @@
 
 #level {
 	margin: 1% auto 0 auto;
-	@include responsive-width();
+	@include responsive-list-width();
 	text-align: center;
 	font-size: 2rem;
 }

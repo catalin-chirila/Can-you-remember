@@ -10,11 +10,13 @@
  	align-items: center;
  	padding-left: 7px;
 	flex-wrap: wrap;
-	@include responsive-width();
+	@include responsive-list-width();
 }
 
 .question-mark {
-	@include size(100px, 100px);
+	@include responsive-shape-size-memorize();
+
+	
 	margin: 5px;
 	display: flex;
 	justify-content: center;
@@ -24,6 +26,10 @@
 	font-size: 3.2rem;
 	align-self: center;
 	color: #555;
+
+	@include small-device() {
+		font-size: 25px;
+	}
 }
 
 .hidden {

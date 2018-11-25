@@ -1,21 +1,38 @@
-/* Game width variables */
-$game-width-phone-only: 80%;
+// Game width variables
+$game-width-phone: 80%;
 $game-width-tablet-portrait-up: 65%;
 $game-width-tablet-landscape-up: 80%;
 $game-width-desktop-up: 70%;
 $game-witdh-big-desktop-up: 50%;
 
-/* Shape size variables */
-$shape-phone-only: 55px, 55px;
-$shape-tablet-portrait-up: 80px, 80px;
-$shape-tablet-landscape-up: 100px, 100px;
-$shape-desktop-up: 150px, 150px;
-$shape-big-desktop-up: 180px, 180px;
+// ~Variables to pick from~
+// Triangle border variables
+$triangle-small-device-pick: 30px, 15px;
+$triangle-phone-pick: 40px, 20px;
+$triangle-tablet-portrait-up-pick: 60px, 35px;
+$triangle-tablet-landscape-up-pick: 80px, 40px;
+$triangle-desktop-up-pick: 120px, 65px;
+$triangle-big-desktop-up-pick: 140px, 75px;
 
-/* Triangle border variables */
-$triangle-phone-only: 40px, 20px;
-$triangle-tablet-portrait-up: 60px, 35px;
-$triangle-tablet-landscape-up: 80px, 40px;
-$triangle-desktop-up: 120px, 65px;
-$triangle-big-desktop-up: 140px, 75px;
+// Shape size variables
+$shape-small-device-pick: 35px, 35px;
+$shape-phone-pick: 55px, 55px;
+$shape-tablet-portrait-up-pick: 80px, 80px;
+$shape-tablet-landscape-up-pick: 100px, 100px;
+$shape-desktop-up-pick: 150px, 150px;
+$shape-big-desktop-up-pick: 180px, 180px;
 
+// ~Variables to memorize~
+// Triangle
+$triangle-small-device-memorize: 30px, 15px;
+$triangle-phone-memorize: 40px, 20px;
+$triangle-tablet-portrait-up-memorize: 55px, 30px;
+$triangle-tablet-landscape-up-memorize: 55px, 30px;
+$triangle-desktop-up-memorize: 80px, 40px;
+
+// Shape
+$shape-small-device-memorize: 35px, 35px;
+$shape-phone-memorize: 55px, 55px;
+$shape-tablet-portrait-up-memorize: 70px, 70px;
+$shape-tablet-landscape-up-memorize: 70px, 70px;
+$shape-desktop-up-memorize: 100px, 100px;

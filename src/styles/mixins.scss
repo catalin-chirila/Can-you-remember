@@ -7,20 +7,22 @@
 	height: nth($size, 1);
 	width: nth($size, 2);
 }
-
-@mixin for-phone-only {
-	@media (max-width: 599px) { @content; }
+@mixin small-device {
+	@media (max-width: 349px) { @content; }
 }
-@mixin for-tablet-portrait-up {
+@mixin phone {
+	@media (min-width: 350px) { @content; }
+}
+@mixin tablet-portrait-up {
 	@media (min-width: 600px) { @content; }
 }
-@mixin for-tablet-landscape-up {
+@mixin tablet-landscape-up {
 	@media (min-width: 900px) { @content; }
 }
-@mixin for-desktop-up {
+@mixin desktop-up {
 	@media (min-width: 1200px) { @content; }
 }
-@mixin for-big-desktop-up {
+@mixin big-desktop-up {
 	@media (min-width: 1800px) { @content; }
 }
 
@@ -38,35 +40,65 @@
 	border-#{$orientation}: nth($border, 1) solid;
 }
 
-@mixin responsive-width {
-	@include for-phone-only() {width: $game-width-phone-only;}
-	@include for-tablet-portrait-up() {width: $game-width-tablet-portrait-up;}
-	@include for-tablet-landscape-up() {width: $game-width-tablet-landscape-up;}
-	@include for-desktop-up() {width: $game-width-desktop-up;}
-	@include for-big-desktop-up() {width: $game-witdh-big-desktop-up;}
+@mixin responsive-list-width {
+	@include phone() {width: $game-width-phone;}
+	@include tablet-portrait-up() {width: $game-width-tablet-portrait-up;}
+	@include tablet-landscape-up() {width: $game-width-tablet-landscape-up;}
+	@include desktop-up() {width: $game-width-desktop-up;}
+	@include big-desktop-up() {width: $game-witdh-big-desktop-up;}
 }
 
-@mixin responsive-triangle($direction) {
+// Responsive triangles to pick from
+@mixin responsive-triangle-pick($direction) {
 	@if $direction == 'top' or $direction == 'bottom' {
-		@include for-phone-only() {@include triangle-up-down($direction, $triangle-phone-only);}
-		@include for-tablet-portrait-up() {@include triangle-up-down($direction, $triangle-tablet-portrait-up);}
-		@include for-tablet-landscape-up() {@include triangle-up-down($direction, $triangle-tablet-landscape-up);}
-		@include for-desktop-up() {@include triangle-up-down($direction, $triangle-desktop-up);}
-		@include for-big-desktop-up() {@include triangle-up-down($direction, $triangle-big-desktop-up);}
+		@include small-device() {@include triangle-up-down($direction, $triangle-small-device-pick);}
+		@include phone() {@include triangle-up-down($direction, $triangle-phone-pick);}
+		@include tablet-portrait-up() {@include triangle-up-down($direction, $triangle-tablet-portrait-up-pick);}
+		@include tablet-landscape-up() {@include triangle-up-down($direction, $triangle-tablet-landscape-up-pick);}
+		@include desktop-up() {@include triangle-up-down($direction, $triangle-desktop-up-pick);}
+		@include big-desktop-up() {@include triangle-up-down($direction, $triangle-big-desktop-up-pick);}
 	} @else {
-		@include for-phone-only() {@include triangle-left-right($direction, $triangle-phone-only);}
-		@include for-tablet-portrait-up() {@include triangle-left-right($direction, $triangle-tablet-portrait-up);}
-		@include for-tablet-landscape-up() {@include triangle-left-right($direction, $triangle-tablet-landscape-up);}
-		@include for-desktop-up() {@include triangle-left-right($direction, $triangle-desktop-up);}
-		@include for-big-desktop-up() {@include triangle-left-right($direction, $triangle-big-desktop-up);}
+		@include small-device() {@include triangle-left-right($direction, $triangle-small-device-pick);}
+		@include phone() {@include triangle-left-right($direction, $triangle-phone-pick);}
+		@include tablet-portrait-up() {@include triangle-left-right($direction, $triangle-tablet-portrait-up-pick);}
+		@include tablet-landscape-up() {@include triangle-left-right($direction, $triangle-tablet-landscape-up-pick);}
+		@include desktop-up() {@include triangle-left-right($direction, $triangle-desktop-up-pick);}
+		@include big-desktop-up() {@include triangle-left-right($direction, $triangle-big-desktop-up-pick);}
 	}
 }
 
-@mixin responsive-shape-size() {
-	@include for-phone-only() {@include responsive-size($shape-phone-only);}
-	@include for-tablet-portrait-up() {@include responsive-size($shape-tablet-portrait-up);}
-	@include for-tablet-landscape-up() {@include responsive-size($shape-tablet-landscape-up);}
-	@include for-desktop-up() {@include responsive-size($shape-desktop-up);}
-	@include for-big-desktop-up() {@include responsive-size($shape-big-desktop-up);}
+// Responsive triangle to memorize
+@mixin responsive-triangle-memorize($direction) {
+	@if $direction == 'top' or $direction == 'bottom' {
+		@include small-device() {@include triangle-up-down($direction, $triangle-small-device-memorize);}
+		@include phone() {@include triangle-up-down($direction, $triangle-phone-memorize);}
+		@include tablet-portrait-up() {@include triangle-up-down($direction, $triangle-tablet-portrait-up-memorize);}
+		@include tablet-landscape-up() {@include triangle-up-down($direction, $triangle-tablet-landscape-up-memorize);}
+		@include desktop-up() {@include triangle-up-down($direction, $triangle-desktop-up-memorize);}
+	} @else {
+		@include small-device() {@include triangle-left-right($direction, $triangle-small-device-memorize);}
+		@include phone() {@include triangle-left-right($direction, $triangle-phone-memorize);}
+		@include tablet-portrait-up() {@include triangle-left-right($direction, $triangle-tablet-portrait-up-memorize);}
+		@include tablet-landscape-up() {@include triangle-left-right($direction, $triangle-tablet-landscape-up-memorize);}
+		@include desktop-up() {@include triangle-left-right($direction, $triangle-desktop-up-memorize);}
+	}
 }
 
+// Responsive shapes to pick
+@mixin responsive-shape-size-pick() {
+	@include small-device() {@include responsive-size($shape-small-device-pick);}
+	@include phone() {@include responsive-size($shape-phone-pick);}
+	@include tablet-portrait-up() {@include responsive-size($shape-tablet-portrait-up-pick);}
+	@include tablet-landscape-up() {@include responsive-size($shape-tablet-landscape-up-pick);}
+	@include desktop-up() {@include responsive-size($shape-desktop-up-pick);}
+	@include big-desktop-up() {@include responsive-size($shape-big-desktop-up-pick);}
+}
+
+// Responsive shapes to memorize
+@mixin responsive-shape-size-memorize() {
+	@include small-device() {@include responsive-size($shape-small-device-memorize);}
+	@include phone() {@include responsive-size($shape-phone-memorize);}
+	@include tablet-portrait-up() {@include responsive-size($shape-tablet-portrait-up-memorize);}
+	@include tablet-landscape-up() {@include responsive-size($shape-tablet-landscape-up-memorize);}
+	@include desktop-up() {@include responsive-size($shape-desktop-up-memorize);}
+}

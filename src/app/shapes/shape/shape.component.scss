@@ -1,53 +1,86 @@
 @import "~src/styles/variables";
 @import "~src/styles/mixins";
 
-.shape-to-pick-from {	
-	margin: 5px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	@include responsive-shape-size();
-}
-
 .shape-to-memorize {	
 	margin: 5px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	@include responsive-shape-size();
+	@include responsive-shape-size-memorize();
+
+	.shape {
+		@include responsive-shape-size-memorize();
+	}
+
+	.square {
+		@include size(80%, 80%);
+	}
+	
+	.rectangle {
+		@include size(80%, 50%);
+	}
+	
+	.circle {
+		@include size(80%, 80%);
+		border-radius: 50%;
+	}
+	
+	.triangle-up {
+		@include  responsive-triangle-memorize(bottom);
+	}
+	
+	.triangle-down {
+		@include  responsive-triangle-memorize(top);
+	}
+	
+	.triangle-left {
+		@include  responsive-triangle-memorize(right);
+	}
+	
+	.triangle-right {
+		@include  responsive-triangle-memorize(left);
+	}
 }
 
-.shape {
-	@include responsive-shape-size();
-}
+.shape-to-pick-from {	
+	margin: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	@include responsive-shape-size-pick();
 
-.square {
-	@include size(80%, 80%);
-}
+	.shape {
+		@include responsive-shape-size-pick();
+	}	
 
-.rectangle {
-	@include size(80%, 50%);
-}
-
-.circle {
-	@include size(80%, 80%);
- 	border-radius: 50%;
-}
-
-.triangle-up {
-	@include responsive-triangle(bottom);
-}
-
-.triangle-down {
-	@include responsive-triangle(top);
-}
-
-.triangle-left {
-	@include responsive-triangle(right);
-}
-
-.triangle-right {
-	@include responsive-triangle(left);
+	.square {
+		@include size(80%, 80%);
+	}
+	
+	.rectangle {
+		@include size(80%, 50%);
+	}
+	
+	.circle {
+		@include size(80%, 80%);
+		border-radius: 50%;
+	}
+	
+	.triangle-up {
+		@include responsive-triangle-pick(bottom);
+	}
+	
+	.triangle-down {
+		@include responsive-triangle-pick(top);
+	}
+	
+	.triangle-left {
+		@include responsive-triangle-pick(right);
+	}
+	
+	.triangle-right {
+		@include responsive-triangle-pick(left);
+	}
 }
 
 .hidden {
