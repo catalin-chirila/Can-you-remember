@@ -5,8 +5,22 @@
     font-family: 'Raleway';
 }
 
+#title {
+    margin-top: 10vh;
+    font-size: calc(2.8vw + 2.8vh + .5vmin);
+    text-align: center;
+    font-weight: 200;
+    @media (max-height: 599px) {
+        font-size: 3em;
+    }
+}
+
 #menu {
-    margin-top: 35vh;
+    @media (max-height: 500px) {
+        margin-top: 10vh;
+    }
+
+    margin-top: 15vh;
 }
 
 button {
@@ -25,7 +39,7 @@ button {
     }
     @include tablet-landscape-up() {
         font-size: calc(1vw + 1vh + .5vmin);
-        font-weight: 200;
+        font-weight: 300;
     }
 
     min-height: 40px;
