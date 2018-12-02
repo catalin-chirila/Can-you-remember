@@ -1,0 +1,30 @@
+@import "~src/styles/variables";
+@import "~src/styles/mixins";
+
+* {
+    font-family: 'Raleway';
+}
+
+#menu {
+    margin-top: 35vh;
+}
+
+button {
+    display: block;
+    margin: 30px auto;
+    font-size: calc(1vw + 1vh + .5vmin);
+    @include size(5.8vh, 26vw);
+    
+    @include phone() {
+        font-weight: 400;
+    }
+    @include tablet-landscape-up() {
+        font-weight: 200;
+    }
+    min-height: 40px;
+    min-width: 100px;
+}
+
+button:hover {
+    background-color: #ededed;
+}
