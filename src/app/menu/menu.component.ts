@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { GameService } from '../common/game.service';
 
 @Component({
   templateUrl: './menu.component.html',
@@ -6,6 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent {
 
-  constructor() { }
+  constructor(private gameService: GameService) {}
 
 }
