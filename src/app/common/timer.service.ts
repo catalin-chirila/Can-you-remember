@@ -35,4 +35,8 @@ export class TimerService {
         this.shapesVisibilityService.hideShapesToMemorize();
         this.shapesVisibilityService.showShapesToPickFrom();
     }
+
+    clearOutTimeInterval() {
+        clearInterval(this.interval);
+    }
 }

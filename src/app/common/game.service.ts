@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { LevelService } from './level.service';
 import { TimerService } from './timer.service';
@@ -33,9 +33,8 @@ export class GameService {
                 private livesService: LivesService,
                 private shapesVisibilityService: ShapesVisibilityService,
                 private dialog: MatDialog) {
-        this.populateShapesToPickFrom();
-        this.populateShapesToMemorize();
-        this.timerService.startTimer(5);
+
+        this.resetGame();
     }
 
     getHiddenShapesToPickFrom() {
@@ -219,7 +218,9 @@ export class GameService {
             }
         });
         this.modalDialogRef.afterClosed().subscribe(() => {
-            this.resetGame();
+            if (this.modalDialogRef.id === 'mat-dialog-0') {
+                this.resetGame();
+            }
         });
     }
 }
