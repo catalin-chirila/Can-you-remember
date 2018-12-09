@@ -12,9 +12,48 @@ import { LevelService } from './common/level.service';
 import { MatDialogModule, MatButtonModule } from '@angular/material';
 import { GameOverComponent } from './game-over/game-over.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { GameComponent } from './game/game.component';
 import { MenuComponent } from './menu/menu.component';
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { SignupComponent } from './signup/signup.component';
+import { BookComponent } from './book/book.component';
+import { PlayComponent } from './play/play.component';
+
+
+const appRoutes: Routes = [
+  {
+    path: 'books',
+    component: BookComponent,
+    data: { title: 'Book List' }
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title: 'Login' }
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    data: { title: 'Sign Up' }
+  },
+  { path: '',
+    redirectTo: '/menu',
+    pathMatch: 'full'
+  },
+  {
+    path: 'menu',
+    component:  MenuComponent,
+    data: { title: 'Menu' }
+  },
+  {
+    path: 'game',
+    component:  GameComponent,
+    data: { title: 'Game' }
+  }
+];
 
 @NgModule({
   declarations: [
@@ -28,22 +67,32 @@ import { MenuComponent } from './menu/menu.component';
     LevelComponent,
     GameOverComponent,
     GameComponent,
-    MenuComponent
+    MenuComponent,
+    LoginComponent,
+    SignupComponent,
+    BookComponent,
+    PlayComponent
   ],
   imports: [
     BrowserModule,
     MatDialogModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([
-      { path: 'menu', component: MenuComponent},
-      { path: 'game', component: GameComponent},
-      { path: '', redirectTo: 'menu', pathMatch: 'full'},
-      { path: '**', redirectTo: 'menu', pathMatch: 'full'}
-    ])
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
+    // RouterModule.forRoot([
+    //   { path: 'menu', component: MenuComponent},
+    //   { path: 'game', component: GameComponent},
+    //   { path: '', redirectTo: 'menu', pathMatch: 'full'},
+    //   { path: '**', redirectTo: 'menu', pathMatch: 'full'}
+    // ])
   ],
   providers: [LevelService],
   bootstrap: [AppComponent],
-  entryComponents: [GameOverComponent]
+  entryComponents: [GameOverComponent, PlayComponent]
 })
 export class AppModule { }

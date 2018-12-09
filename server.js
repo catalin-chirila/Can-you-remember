@@ -8,8 +8,7 @@ const app = express();
 app.use(express.static('./dist/can-you-remember'));
 
 app.get('/*', function(req,res) {
-    
-res.sendFile(path.join(__dirname,'/dist/can-you-remember/index.html'));
+    res.sendFile(path.join(__dirname,'/dist/can-you-remember/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
