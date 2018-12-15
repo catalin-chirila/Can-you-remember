@@ -45,8 +45,15 @@ app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname,'/dist/can-you-remember/index.html'));
 });
 
+var uristring =
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/HelloMongoose';
+
+//config.database
+
 mongoose.Promise = require('bluebird');
-mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
+mongoose.connect(uristring, { promiseLibrary: require('bluebird') })
   .then(() => console.log('connection succesful'))
   .catch((err) => console.error(err));
 
