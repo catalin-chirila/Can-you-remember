@@ -6,7 +6,7 @@ import { ShapesVisibilityService } from './shapes-visibility.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { GameOverComponent } from '../game-over/game-over.component';
 import { LivesService } from './lives.service';
-import { PlayComponent } from '../play/play.component';
+import { LoginComponent } from '../login/login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class GameService {
     currentWinningShapeId = -1;
     currentWinningShapeIndex = 0;
     gameOverDialogRef: MatDialogRef<GameOverComponent>;
-    playDialogRef: MatDialogRef<PlayComponent>;
+    loginDialogRef: MatDialogRef<LoginComponent>;
 
     shapesToPickFrom$ = new Subject<any[]>();
     shapesToMemorize$ = new Subject<any[]>();
@@ -226,11 +226,12 @@ export class GameService {
         });
     }
 
-    openPlayDialog() {
-        this.playDialogRef = this.dialog.open(PlayComponent, {
-            disableClose: true
+    openLoginDialog() {
+        this.loginDialogRef = this.dialog.open(LoginComponent, {
+            disableClose: false
         });
-        this.playDialogRef.afterClosed().subscribe(() => {
+        this.loginDialogRef.afterClosed().subscribe(() => {
+            this.timerService.startTimer(5);
         });
     }
 }

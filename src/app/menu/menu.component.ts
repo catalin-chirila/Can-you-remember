@@ -18,7 +18,7 @@ export class MenuComponent implements AfterViewInit {
   }
 
   play() {
-    this.gameService.openPlayDialog();
+    this.gameService.openLoginDialog();
     // this.gameService.resetGame();
   }
 

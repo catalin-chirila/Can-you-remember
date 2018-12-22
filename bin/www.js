@@ -25,7 +25,7 @@ var server = http.createServer(app);
 
 const port2 = process.env.PORT || 8000;
 // server.listen(port);
-server.listen(port2);
+server.listen(3000);
 server.on('error', onError);
 server.on('listening', onListening);
 

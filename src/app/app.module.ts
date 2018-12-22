@@ -20,40 +20,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
 import { BookComponent } from './book/book.component';
-import { PlayComponent } from './play/play.component';
-
-
-const appRoutes: Routes = [
-  {
-    path: 'books',
-    component: BookComponent,
-    data: { title: 'Book List' }
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    data: { title: 'Login' }
-  },
-  {
-    path: 'signup',
-    component: SignupComponent,
-    data: { title: 'Sign Up' }
-  },
-  { path: '',
-    redirectTo: '/menu',
-    pathMatch: 'full'
-  },
-  {
-    path: 'menu',
-    component:  MenuComponent,
-    data: { title: 'Menu' }
-  },
-  {
-    path: 'game',
-    component:  GameComponent,
-    data: { title: 'Game' }
-  }
-];
 
 @NgModule({
   declarations: [
@@ -70,8 +36,7 @@ const appRoutes: Routes = [
     MenuComponent,
     LoginComponent,
     SignupComponent,
-    BookComponent,
-    PlayComponent
+    BookComponent
   ],
   imports: [
     BrowserModule,
@@ -80,19 +45,18 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    )
-    // RouterModule.forRoot([
-    //   { path: 'menu', component: MenuComponent},
-    //   { path: 'game', component: GameComponent},
-    //   { path: '', redirectTo: 'menu', pathMatch: 'full'},
-    //   { path: '**', redirectTo: 'menu', pathMatch: 'full'}
-    // ])
+    RouterModule.forRoot([
+      {path: 'books', component: BookComponent, data: { title: 'Book List' }},
+      {path: 'login', component: LoginComponent, data: { title: 'Login' }},
+      {path: 'signup', component: SignupComponent, data: { title: 'Sign Up' }},
+      {path: '', redirectTo: '/menu', pathMatch: 'full'},
+      {path: 'menu', component:  MenuComponent, data: { title: 'Menu' }},
+      {path: 'game', component:  GameComponent, data: { title: 'Game' }}
+    ],
+    {enableTracing: false })
   ],
-  providers: [LevelService],
+  providers: [LevelService, LoginComponent],
   bootstrap: [AppComponent],
-  entryComponents: [GameOverComponent, PlayComponent]
+  entryComponents: [GameOverComponent]
 })
 export class AppModule { }

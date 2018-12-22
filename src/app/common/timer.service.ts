@@ -10,7 +10,7 @@ export class TimerService {
     time$ = new Subject<number>();
     interval;
 
-    constructor(private shapesVisibilityService: ShapesVisibilityService) { }
+    constructor(private shapesVisibilityService: ShapesVisibilityService) {}
 
     startTimer(timerStartingValue: number) {
         if (this.timeLeft === 0) {
