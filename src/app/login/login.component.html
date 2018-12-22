@@ -16,7 +16,7 @@
       <button mat-raised-button mat-dialog-close [routerLink]="['/signup']">Sign up</button>
     </div>
 
-    <button id="play-no-login" mat-raised-button>Play Now</button>
+    <button id="play-no-login" (click)="playWithoutLogin()" mat-raised-button>Play Now</button>
 
     <div id="alert" role="alert" *ngIf="message !== ''">
       {{message}}

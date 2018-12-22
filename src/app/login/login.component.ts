@@ -29,4 +29,10 @@ export class LoginComponent implements OnInit {
       this.message = err.error.msg;
     });
   }
+
+  playWithoutLogin() {
+    this.dialogRef.close();
+    this.router.navigate(['game']);
+  }
+
 }

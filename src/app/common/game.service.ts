@@ -220,7 +220,7 @@ export class GameService {
             }
         });
         this.gameOverDialogRef.afterClosed().subscribe(() => {
-            if (this.gameOverDialogRef.id === 'mat-dialog-0') {
+            if (this.gameOverDialogRef.id === 'mat-dialog-1') {
                 this.resetGame();
             }
         });
