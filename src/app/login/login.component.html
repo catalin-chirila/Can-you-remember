@@ -1,6 +1,6 @@
 <div class="container">
   <form (ngSubmit)="login()" #loginForm="ngForm">
-    <h2>Please sign in</h2>
+    <h2>Sign In</h2>
     <div class="item">
       <label for="inputUsername">Username</label>
       <input type="text" placeholder="Username" [(ngModel)]="loginData.username" name="username" required />
@@ -13,10 +13,10 @@
 
     <div id="buttons-container">
       <button mat-raised-button type="submit">Sign in</button>
-      <button mat-raised-button mat-dialog-close [routerLink]="['/signup']">Sign up</button>
+      <button mat-raised-button mat-dialog-close (click)="openSignupDialog()">Sign up</button>
     </div>
 
-    <button id="play-no-login" (click)="playWithoutLogin()" mat-raised-button>Play Now</button>
+    <button id="play-no-login" (click)="playWithoutLogin()" mat-raised-button>Play Offline</button>
 
     <div id="alert" role="alert" *ngIf="message !== ''">
       {{message}}

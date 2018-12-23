@@ -57,16 +57,16 @@ button:nth-child(2) {
   width: 100%;
 }
 
+#play-no-login:hover {
+  background-color: #ededed;
+}
+
 button:nth-child(1):hover {
   background-color: #3468bb;
 }
 
 button:nth-child(2):hover {
   background-color: #1f961fef;
-}
-
-#play-no-login:hover {
-  background-color: #ededed;
 }
 
 #alert {

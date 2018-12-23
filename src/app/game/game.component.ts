@@ -5,7 +5,10 @@ import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent {
+  loggedUser: String;
 
-  constructor() {}
+  constructor() {
+    this.loggedUser = localStorage.getItem('loggedUser').toUpperCase();
+  }
 
 }

@@ -1,42 +1,60 @@
-body {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #eee;
+* {
+  font-family: 'Raleway';
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  min-width: 10vw;
+  min-height: 24vh;
+  font-family: 'Raleway';
+}
+
+h2 {
+  text-align: center;
+  font-weight: 300;
+  font-size: 2em;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+label {
+  display: none;
+}
+
+input {
+  min-width: 250px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#play-no-login {
+  margin-top: 20px;
+  width: 100%;
+
+  &:hover {
+    background-color: #ededed;
   }
-  
-  .form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
+}
+
+#sign-up {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #25b125ef;;
+  color: white;
+
+  &:hover {
+    background-color: #1f961fef;
   }
-  .form-signin .form-signin-heading,
-  .form-signin .checkbox {
-    margin-bottom: 10px;
-  }
-  .form-signin .checkbox {
-    font-weight: normal;
-  }
-  .form-signin .form-control {
-    position: relative;
-    height: auto;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    padding: 10px;
-    font-size: 16px;
-  }
-  .form-signin .form-control:focus {
-    z-index: 2;
-  }
-  .form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  .form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  .form-signin p {
-    margin-top: 10px;
-  }
+}
+
+#alert {
+  margin-top: 10px;
+  color: rgb(230, 120, 120);
+  text-align: center;
+}

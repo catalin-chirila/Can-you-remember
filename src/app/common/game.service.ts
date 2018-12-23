@@ -7,6 +7,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { GameOverComponent } from '../game-over/game-over.component';
 import { LivesService } from './lives.service';
 import { LoginComponent } from '../login/login.component';
+import { SignupComponent } from '../signup/signup.component';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +36,8 @@ export class GameService {
                 private timerService: TimerService,
                 private livesService: LivesService,
                 private shapesVisibilityService: ShapesVisibilityService,
-                private dialog: MatDialog) {
+                private dialog: MatDialog,
+                private router: Router) {
 
         this.resetGame();
     }
@@ -227,11 +230,16 @@ export class GameService {
     }
 
     openLoginDialog() {
-        this.loginDialogRef = this.dialog.open(LoginComponent, {
-            disableClose: false
-        });
-        this.loginDialogRef.afterClosed().subscribe(() => {
+        if (localStorage.getItem('loggedUser')) {
+            this.router.navigate(['game']);
             this.timerService.startTimer(5);
-        });
+        } else {
+            this.loginDialogRef = this.dialog.open(LoginComponent, {
+                disableClose: false
+            });
+            this.loginDialogRef.afterClosed().subscribe(() => {
+                this.timerService.startTimer(5);
+            });
+        }
     }
 }
