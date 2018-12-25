@@ -3,6 +3,7 @@ import { GameService } from '../../common/game.service';
 import { LivesService } from '../../common/lives.service';
 import { Subscription } from 'rxjs';
 import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.service';
+import { DialogService } from 'src/app/common/dialog.service';
 
 @Component({
     selector: 'app-shape',
@@ -19,6 +20,7 @@ export class ShapeComponent {
     isHidden = false;
 
     constructor(private gameService: GameService,
+        private dialogService: DialogService,
         private livesService: LivesService,
         private shapesVisibilityService: ShapesVisibilityService) {
     }
@@ -31,7 +33,7 @@ export class ShapeComponent {
             } else {
                 this.livesService.decreaseLives();
                 if (this.livesService.getRemainingLives() <= 0) {
-                    this.gameService.openGameOverDialog();
+                    this.dialogService.openGameOverDialog();
                 }
             }
         }

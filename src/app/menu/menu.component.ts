@@ -2,6 +2,7 @@ import { Component, HostListener, AfterViewInit, ViewChild, ElementRef } from '@
 import { GameService } from '../common/game.service';
 import { TimerService } from '../common/timer.service';
 import * as anime from 'animejs';
+import { DialogService } from '../common/dialog.service';
 
 @Component({
   templateUrl: './menu.component.html',
@@ -13,12 +14,12 @@ export class MenuComponent implements AfterViewInit {
 
   colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
 
-  constructor(private gameService: GameService, private timerService: TimerService) {
+  constructor(private gameService: GameService, private timerService: TimerService, private dialogService: DialogService) {
     this.timerService.clearOutTimeInterval();
   }
 
   play() {
-    this.gameService.openLoginDialog();
+    this.dialogService.openLoginDialog();
   }
 
   ngAfterViewInit(): void {

@@ -24,8 +24,6 @@ export class GameService {
     winningShapesIds = [];
     currentWinningShapeId = -1;
     currentWinningShapeIndex = 0;
-    gameOverDialogRef: MatDialogRef<GameOverComponent>;
-    loginDialogRef: MatDialogRef<LoginComponent>;
 
     shapesToPickFrom$ = new Subject<any[]>();
     shapesToMemorize$ = new Subject<any[]>();
@@ -35,9 +33,7 @@ export class GameService {
     constructor(private levelService: LevelService,
                 private timerService: TimerService,
                 private livesService: LivesService,
-                private shapesVisibilityService: ShapesVisibilityService,
-                private dialog: MatDialog,
-                private router: Router) {
+                private shapesVisibilityService: ShapesVisibilityService) {
 
         this.resetGame();
     }
@@ -215,31 +211,4 @@ export class GameService {
         this.timerService.startTimer(5);
     }
 
-    openGameOverDialog() {
-        this.gameOverDialogRef = this.dialog.open(GameOverComponent, {
-            disableClose: true,
-            data: {
-                levelReached: this.levelService.level
-            }
-        });
-        this.gameOverDialogRef.afterClosed().subscribe(() => {
-            if (this.gameOverDialogRef.id === 'mat-dialog-1') {
-                this.resetGame();
-            }
-        });
-    }
-
-    openLoginDialog() {
-        if (localStorage.getItem('loggedUser')) {
-            this.router.navigate(['game']);
-            this.timerService.startTimer(5);
-        } else {
-            this.loginDialogRef = this.dialog.open(LoginComponent, {
-                disableClose: false
-            });
-            this.loginDialogRef.afterClosed().subscribe(() => {
-                this.timerService.startTimer(5);
-            });
-        }
-    }
 }

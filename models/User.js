@@ -11,7 +11,16 @@ var UserSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    score: [
+        {
+            score: Number,
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ]
 });
 
 UserSchema.pre('save', function (next) {

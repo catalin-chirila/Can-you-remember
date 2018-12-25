@@ -4,7 +4,7 @@
         You've reached level {{levelReached}}. Good luck next time!
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-button type="button" mat-dialog-close>Play Again</button>
-        <button mat-button type="button" [routerLink]="['/menu']" mat-dialog-close>Go to Menu</button>
+        <button mat-button type="button" (click)="closeByPlayAgainOption()">Play Again</button>
+        <button mat-button type="button" [routerLink]="['/menu']" (click)="closeByGoToMenuOption()">Go to Menu</button>
     </mat-dialog-actions>
 </div>
