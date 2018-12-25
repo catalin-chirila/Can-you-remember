@@ -83,7 +83,40 @@ router.get('/book', passport.authenticate('jwt', { session: false }), function (
     }
 });
 
+router.post('/score', passport.authenticate('jwt', { session: false }), function (req, res) {
+    var token = getToken(req.headers);
+    alert(token);
+    if (token) {
+
+        User.findOne(
+            // query
+            {username: req.body.username},
+        
+            // Only return an object with the "name" and "owner" fields. "_id" 
+            // is included by default, so you'll need to remove it if you don't want it.
+            {username: true},
+        
+            // callback function
+            (err, user) => {
+                if (err) return res.status(200).send(err)
+                alert('INSIDE REQUEST');
+                user.score.push({score: req.level, date: req.date});
+                user.save(function (err) {
+                    if (err) {
+                        return res.json({ success: false, msg: 'Save score failed.' });
+                    }
+                    res.json({ success: true, msg: 'Save score succeeded.' });
+                });
+            }
+        );
+    } else {
+        alert(token);
+        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    }
+});
+
 getToken = function (headers) {
+    alert('inside getToken');
     if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');
         if (parted.length === 2) {

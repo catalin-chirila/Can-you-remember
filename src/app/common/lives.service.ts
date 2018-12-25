@@ -35,4 +35,5 @@ export class LivesService implements OnInit {
         this.lives = 5;
         this.lives$.next(this.lives);
     }
+
 }

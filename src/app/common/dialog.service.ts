@@ -9,7 +9,7 @@ import { LoginComponent } from '../login/login.component';
 import { TimerService } from './timer.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class DialogService {
 
@@ -20,7 +20,21 @@ export class DialogService {
                 private gameService: GameService,
                 private levelService: LevelService,
                 private timerService: TimerService,
-                private router: Router) {}
+                private router: Router) { }
+
+    openLoginDialog() {
+        if (localStorage.getItem('loggedUser')) {
+            this.router.navigate(['game']);
+            this.timerService.startTimer(5);
+        } else {
+            this.loginDialogRef = this.dialogWindow.open(LoginComponent, {
+                disableClose: false
+            });
+            this.loginDialogRef.afterClosed().subscribe(() => {
+                this.timerService.startTimer(5);
+            });
+        }
+    }
 
     openGameOverDialog() {
         this.gameOverDialogRef = this.dialogWindow.open(GameOverComponent, {
@@ -36,17 +50,5 @@ export class DialogService {
         });
     }
 
-    openLoginDialog() {
-        if (localStorage.getItem('loggedUser')) {
-            this.router.navigate(['game']);
-            this.timerService.startTimer(5);
-        } else {
-            this.loginDialogRef = this.dialogWindow.open(LoginComponent, {
-                disableClose: false
-            });
-            this.loginDialogRef.afterClosed().subscribe(() => {
-                this.timerService.startTimer(5);
-            });
-        }
-    }
+
 }

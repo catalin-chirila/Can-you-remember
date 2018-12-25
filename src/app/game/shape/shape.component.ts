@@ -4,6 +4,8 @@ import { LivesService } from '../../common/lives.service';
 import { Subscription } from 'rxjs';
 import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.service';
 import { DialogService } from 'src/app/common/dialog.service';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { LevelService } from 'src/app/common/level.service';
 
 @Component({
     selector: 'app-shape',
@@ -22,6 +24,7 @@ export class ShapeComponent {
     constructor(private gameService: GameService,
         private dialogService: DialogService,
         private livesService: LivesService,
+        private levelService: LevelService,
         private shapesVisibilityService: ShapesVisibilityService) {
     }
 
@@ -33,6 +36,7 @@ export class ShapeComponent {
             } else {
                 this.livesService.decreaseLives();
                 if (this.livesService.getRemainingLives() <= 0) {
+                    this.levelService.saveScore();
                     this.dialogService.openGameOverDialog();
                 }
             }

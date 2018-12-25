@@ -1,5 +1,6 @@
 import { Injectable, Output, EventEmitter, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class LevelService implements OnInit {
     private _level = 1;
     private _level$ = new Subject<number>();
 
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
     ngOnInit(): void {
         this._level$.next(this._level);
@@ -46,5 +47,24 @@ export class LevelService implements OnInit {
 
     public get level$() {
         return this._level$;
+    }
+
+    saveScore() {
+        const score = {
+            headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') }),
+            username: localStorage.getItem('loggedUser'),
+            level: this._level,
+            date: Date.now()
+        };
+        console.log(score);
+
+        this.http.post('/api/score', score).subscribe(data => {
+            // Show a notification -> Score Saved
+
+        }, err => {
+            if (err.status === 401) {
+                // Show a notification -> Score couldn't be Saved
+            }
+        });
     }
 }
