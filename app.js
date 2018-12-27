@@ -13,11 +13,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 'extended': 'false' }));
 
 // Old
-// app.use(express.static('./dist/can-you-remember'));
+app.use(express.static('./dist/can-you-remember'));
 
 // New
-app.use(express.static(path.join(__dirname, 'dist')));
-app.use('/', express.static(path.join(__dirname, 'dist')));
+// app.use(express.static(path.join(__dirname, 'dist')));
+// app.use('/', express.static(path.join(__dirname, 'dist')));
 
 
 app.use('/books', express.static(path.join(__dirname, 'dist')));
