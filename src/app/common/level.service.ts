@@ -51,19 +51,22 @@ export class LevelService implements OnInit {
 
     saveScore() {
         const score = {
-            headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') }),
             username: localStorage.getItem('loggedUser'),
             level: this._level,
             date: Date.now()
         };
-        console.log(score);
 
-        this.http.post('/api/score', score).subscribe(data => {
+        this.http.post('/api/score', score, {
+            headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set( 'Authorization', localStorage.getItem('jwtToken'))
+          }).subscribe(data => {
             // Show a notification -> Score Saved
 
         }, err => {
             if (err.status === 401) {
                 // Show a notification -> Score couldn't be Saved
+                console.log(err);
             }
         });
     }

@@ -10,7 +10,19 @@ import { Router } from '@angular/router';
 export class BookComponent implements OnInit {
   books: any;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') })
+    };
+    this.http.get('/api/book', httpOptions).subscribe(data => {
+      this.books = data;
+      console.log(this.books);
+    }, err => {
+      if (err.status === 401) {
+        this.router.navigate(['login']);
+      }
+    });
+  }
 
   ngOnInit() {
     const httpOptions = {

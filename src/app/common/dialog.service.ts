@@ -1,5 +1,5 @@
 import { Injectable, Output, EventEmitter, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { GameOverComponent } from '../game-over/game-over.component';
 import { LevelService } from './level.service';
@@ -23,17 +23,17 @@ export class DialogService {
                 private router: Router) { }
 
     openLoginDialog() {
-        if (localStorage.getItem('loggedUser')) {
-            this.router.navigate(['game']);
-            this.timerService.startTimer(5);
-        } else {
+        // if (localStorage.getItem('loggedUser')) {
+        //     this.router.navigate(['game']);
+        //     this.timerService.startTimer(5);
+        // } else {
             this.loginDialogRef = this.dialogWindow.open(LoginComponent, {
                 disableClose: false
             });
             this.loginDialogRef.afterClosed().subscribe(() => {
                 this.timerService.startTimer(5);
             });
-        }
+        // }
     }
 
     openGameOverDialog() {

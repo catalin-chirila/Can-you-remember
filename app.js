@@ -1,13 +1,9 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-
-var morgan = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var config = require('./config/database');
 
 var api = require('./routes/api');
 var app = express();
@@ -16,8 +12,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 'extended': 'false' }));
 
-//app.use(express.static(path.join(__dirname, 'dist')));
-app.use(express.static('./dist/can-you-remember'));
+// Old
+// app.use(express.static('./dist/can-you-remember'));
+
+// New
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/', express.static(path.join(__dirname, 'dist')));
+
 
 app.use('/books', express.static(path.join(__dirname, 'dist')));
 app.use('/api', api);
@@ -48,9 +49,7 @@ app.get('/*', function(req,res) {
 var uristring =
     process.env.MONGOLAB_URI ||
     process.env.MONGOHQ_URL ||
-    'mongodb://localhost/HelloMongoose';
-
-//config.database
+    'mongodb://localhost/CanYouRememberDB';
 
 mongoose.Promise = require('bluebird');
 mongoose.connect(uristring, { promiseLibrary: require('bluebird') })

@@ -14,11 +14,8 @@ var UserSchema = new Schema({
     },
     score: [
         {
-            score: Number,
-            date: {
-                type: Date,
-                default: Date.now
-            }
+            level: Number,
+            date: Date
         }
     ]
 });
