@@ -23,7 +23,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-const port2 = process.env.PORT || 3000;
+const port2 = process.env.PORT || 8080;
 // server.listen(port);
 server.listen(port2);
 server.on('error', onError);
