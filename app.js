@@ -46,8 +46,9 @@ app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname,'/dist/can-you-remember/index.html'));
 });
 
-var uristring =
-    process.env.MONGOLAB_URI;
+// var uristring =
+//     process.env.MONGOLAB_URI;
+var uristring = 'mongodb://heroku_x4rfzb3m:e37b2748kkgt14uspbpitub8qt@ds117136.mlab.com:17136/heroku_x4rfzb3m';
 
 mongoose.connect(uristring, function (err, res) {
   if (err) {
