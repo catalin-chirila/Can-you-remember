@@ -86,7 +86,7 @@ router.get('/book', passport.authenticate('jwt', { session: false }), function (
 router.post('/score', function (req, res) {
     var token = getToken(req.headers);
     if (token) {
-
+        console.log('/score DEBUG');
         User.findOneAndUpdate(
             { username: req.body.username },
             {
