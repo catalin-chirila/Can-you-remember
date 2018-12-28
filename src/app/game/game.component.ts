@@ -8,7 +8,7 @@ export class GameComponent {
   loggedUser: String;
 
   constructor() {
-    this.loggedUser = localStorage.getItem('loggedUser').toUpperCase();
+    // this.loggedUser = localStorage.getItem('loggedUser').toUpperCase();
   }
 
 }

@@ -47,7 +47,7 @@ app.get('/*', function(req,res) {
 });
 
 // var uristring =
-//     process.env.MONGOLAB_URI;
+//     process.env.MONGOLAB_URI || 'mongodb://localhost/CanYouRememberDB';
 var uristring = 'mongodb://heroku_x4rfzb3m:e37b2748kkgt14uspbpitub8qt@ds117136.mlab.com:17136/heroku_x4rfzb3m';
 
 mongoose.connect(uristring, function (err, res) {
