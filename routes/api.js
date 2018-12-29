@@ -86,7 +86,6 @@ router.get('/book', passport.authenticate('jwt', { session: false }), function (
 router.post('/score', function (req, res) {
     var token = getToken(req.headers);
     if (token) {
-        console.log('/score DEBUG');
         User.findOneAndUpdate(
             { username: req.body.username },
             {
@@ -109,9 +108,30 @@ router.post('/score', function (req, res) {
     }
 });
 
-router.post('/score22', function (req, res) {
+router.get('/score', function (req, res) {
     var token = getToken(req.headers);
-    res.json({ success: true });
+    if (token) {
+        User.find(function (err, users) {
+            if (err) return next(err);
+
+            const scores = [];
+
+            users.forEach(u => u.score.forEach(s => scores.push({
+                username: u.username,
+                level: s.level,
+                date: s.date
+            })));
+
+            // users.forEach(u => scores.push({
+            //     username: u.username,
+            //     score: u.score
+            // }));
+
+            res.json(scores);
+        });
+    } else {
+        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    }
 });
 
 getToken = function (headers) {

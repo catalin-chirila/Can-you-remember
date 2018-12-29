@@ -22,6 +22,10 @@ export class MenuComponent implements AfterViewInit {
     this.dialogService.openLoginDialog();
   }
 
+  openHighScore() {
+    this.dialogService.openHighScoreDialog();
+  }
+
   ngAfterViewInit(): void {
     anime({
       targets: '#test',

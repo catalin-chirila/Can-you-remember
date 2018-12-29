@@ -31,6 +31,7 @@ export class SignupComponent implements OnInit {
         this.http.post('/api/signin', this.signupData).subscribe(res => {
           this.data = res;
           localStorage.setItem('jwtToken', this.data.token);
+          localStorage.setItem('loggedUser', this.signupData.username);
           this.dialogRef.close();
           this.router.navigate(['game']);
         }, err => {

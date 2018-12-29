@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
 import { BookComponent } from './book/book.component';
+import { HighscoreComponent } from './highscore/highscore.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { BookComponent } from './book/book.component';
     MenuComponent,
     LoginComponent,
     SignupComponent,
-    BookComponent
+    BookComponent,
+    HighscoreComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,6 @@ import { BookComponent } from './book/book.component';
   ],
   providers: [LevelService, LoginComponent],
   bootstrap: [AppComponent],
-  entryComponents: [GameOverComponent]
+  entryComponents: [GameOverComponent, HighscoreComponent]
 })
 export class AppModule { }

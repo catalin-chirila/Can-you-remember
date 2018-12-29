@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
   signupDialogRef: MatDialogRef<SignupComponent>;
 
   constructor(private http: HttpClient, private router: Router, private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any,  private dialogRef: MatDialogRef<LoginComponent>) {}
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,  private dialogRef: MatDialogRef<LoginComponent>,
+    private gameService: GameService) {}
 
   ngOnInit() {}
 
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
         disableClose: false
     });
     this.signupDialogRef.afterClosed().subscribe(() => {
-
+      this.gameService.resetGame();
     });
-}
+  }
 }

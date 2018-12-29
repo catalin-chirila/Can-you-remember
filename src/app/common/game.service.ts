@@ -208,6 +208,7 @@ export class GameService {
         this.shapesVisibilityService.showShapesToMemorize();
         this.shapesVisibilityService.hideShapesToPickFrom();
         this.updateQuestionMarksNumber();
+        this.timerService.clearOutTimeInterval();
         this.timerService.startTimer(5);
     }
 

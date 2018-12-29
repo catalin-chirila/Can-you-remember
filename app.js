@@ -12,13 +12,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 'extended': 'false' }));
 
-// Old
 app.use(express.static('./dist/can-you-remember'));
-
-// New
-// app.use(express.static(path.join(__dirname, 'dist')));
-// app.use('/', express.static(path.join(__dirname, 'dist')));
-
 
 app.use('/books', express.static(path.join(__dirname, 'dist')));
 app.use('/api', api);
@@ -46,9 +40,7 @@ app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname,'/dist/can-you-remember/index.html'));
 });
 
-// var uristring =
-//     process.env.MONGOLAB_URI || 'mongodb://localhost/CanYouRememberDB';
-var uristring = 'mongodb://heroku_x4rfzb3m:e37b2748kkgt14uspbpitub8qt@ds117136.mlab.com:17136/heroku_x4rfzb3m';
+var uristring = 'mongodb://localhost/CanYouRememberDB' || 'mongodb://heroku_x4rfzb3m:e37b2748kkgt14uspbpitub8qt@ds117136.mlab.com:17136/heroku_x4rfzb3m';
 
 mongoose.connect(uristring, function (err, res) {
   if (err) {
@@ -57,7 +49,6 @@ mongoose.connect(uristring, function (err, res) {
   console.log ('Succeeded connected to: ' + uristring);
   }
 });
-
 
 var api = require('./routes/api');
 app.use(passport.initialize());

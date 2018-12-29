@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>HighScore</h1>
+
+<mat-dialog-content>
+  <div class="highscore-container">
+    <p class="item">Place</p>
+    <p class="item">Player name</p>
+    <p class="item">Level Reached</p>
+    <p class="item">Date</p>
+  </div>
+
+  <div *ngIf="!error; else errorMessage">
+    <div *ngFor="let score of scores; let i = index">
+      <div class="highscore-container">
+        <p class="item">{{i + 1}}</p>
+        <p class="item">{{score.username}}</p>
+        <p class="item">{{score.level}}</p>
+        <p class="item">{{score.date | date}}</p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #errorMessage>
+    The highscore couldn't be loaded. Please try again later!
+  </ng-template>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

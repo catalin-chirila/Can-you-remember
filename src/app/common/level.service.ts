@@ -50,24 +50,27 @@ export class LevelService implements OnInit {
     }
 
     saveScore() {
-        const score = {
-            username: localStorage.getItem('loggedUser'),
-            level: this._level,
-            date: Date.now()
-        };
+        if (localStorage.getItem('loggedUser')) {
+            const score = {
+                username: localStorage.getItem('loggedUser'),
+                level: this._level,
+                date: Date.now()
+            };
 
-        this.http.post('/api/score', score, {
-            headers: new HttpHeaders()
-              .set('Content-Type', 'application/json')
-              .set( 'Authorization', localStorage.getItem('jwtToken'))
-          }).subscribe(data => {
-            // Show a notification -> Score Saved
+            this.http.post('/api/score', score, {
+                headers: new HttpHeaders()
+                  .set('Content-Type', 'application/json')
+                  .set( 'Authorization', localStorage.getItem('jwtToken'))
+              }).subscribe(data => {
+                // Show a notification -> Score Saved
 
-        }, err => {
-            if (err.status === 401) {
-                // Show a notification -> Score couldn't be Saved
-                console.log(err);
-            }
-        });
+            }, err => {
+                if (err.status === 401) {
+                    // Show a notification -> Score couldn't be Saved
+                    console.log(err);
+                }
+            });
+        }
+
     }
 }

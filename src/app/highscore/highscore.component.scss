@@ -1,0 +1,26 @@
+* {
+    font-family: 'Raleway';
+}
+
+h1 {
+    text-align: center;
+    padding-bottom: 2%;
+    font-weight: 400;
+    font-size: calc(1.3vw + 1.3vh + .5vmin);
+}
+
+.highscore-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item {
+    width: 200px;
+    text-align: center;
+}
+
+button {
+    margin: 0 auto;
+    min-width: 15vw;
+}
+
