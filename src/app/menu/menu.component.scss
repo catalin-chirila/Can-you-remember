@@ -49,3 +49,11 @@ button {
 button:hover {
     background-color: #ededed;
 }
+
+canvas {
+    background-color: rgb(223, 223, 223);
+    position:fixed; 
+    top:0;
+    left:0;
+    z-index:-1;
+}
