@@ -1,5 +1,4 @@
-import { Component, HostListener, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { GameService } from '../common/game.service';
+import { Component, HostListener, AfterViewInit } from '@angular/core';
 import { TimerService } from '../common/timer.service';
 import * as anime from 'animejs';
 import { DialogService } from '../common/dialog.service';
@@ -9,13 +8,19 @@ import { DialogService } from '../common/dialog.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements AfterViewInit {
-  colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
+  readonly colors: string[] = ['#C8707E', '#EFB4C1', '#E48E58', '#EDAA7D', '#5AA08D', '#4C92B1', '#AC99C1',
+    '#A8C879', '#C8C2BD', '#ADA759'];
+
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
-  x = 225;
-  y = 225;
+  leftShapes = [];
+  rightShapes = [];
+  currentShapeIndex = 0;
+  interval;
+  leftAnimationFrame;
+  rightAnimationFrame;
 
-  constructor(private gameService: GameService, private timerService: TimerService, private dialogService: DialogService) {
+  constructor(private timerService: TimerService, private dialogService: DialogService) {
     this.timerService.clearOutTimeInterval();
   }
 
@@ -33,61 +38,144 @@ export class MenuComponent implements AfterViewInit {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
 
-    // this.drawCircle();
-    // this.drawRectangle();
-    // this.drawTriangle();
+    this.generateLeftShapes(3);
+    this.generateRightShapes(3);
+    this.startAnimation();
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.canvas.width = event.target.innerWidth;
     this.canvas.height = event.target.innerHeight;
-
-    this.drawCircle();
+    this.clearAnimationFrame();
+    clearInterval(this.interval);
+    this.leftShapes = [];
+    this.rightShapes = [];
+    this.generateLeftShapes(3);
+    this.generateRightShapes(3);
+    this.startAnimation();
   }
 
-  drawCircle() {
-    this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-    // draw the circle
+  animateLeftCircles(index) {
     this.ctx.beginPath();
+    const radius = 65;
 
-    const radius = 75;
-
-    this.ctx.arc(this.x, this.y, radius, 0, Math.PI * 2, false);
+    this.ctx.arc(this.leftShapes[index].x, this.leftShapes[index].y, radius, 0, Math.PI * 2, false);
     this.ctx.closePath();
 
-    // color in the circle
-    this.ctx.fillStyle = '#006699';
+    this.ctx.fillStyle = this.leftShapes[index].color;
     this.ctx.fill();
 
-    this.x += 2;
-    this.y += 2;
+    this.leftShapes[index].x += 3;
+    this.leftShapes[index].y += 3;
 
-    window.requestAnimationFrame(this.drawCircle.bind(this));
+    this.leftAnimationFrame = window.requestAnimationFrame(this.animateLeftCircles.bind(this, index));
   }
 
-  drawRectangle() {
-    this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    this.ctx.fillRect(this.x - 65, this.y - 65, 100, 100);
-
-    this.ctx.fillStyle = '#006699';
-    this.ctx.fill();
-
-    window.requestAnimationFrame(this.drawRectangle.bind(this));
-  }
-
-  drawTriangle() {
+  animateRightCircles(index) {
     this.ctx.beginPath();
-    this.ctx.moveTo(600, 0);
-    this.ctx.lineTo(500, 200);
-    this.ctx.lineTo(700, 200);
+    const radius = 65;
+
+    this.ctx.arc(this.rightShapes[index].x, this.rightShapes[index].y, radius, 0, Math.PI * 2, false);
     this.ctx.closePath();
 
-    // the fill color
-    this.ctx.fillStyle = '#FFCC00';
+    this.ctx.fillStyle = this.rightShapes[index].color;
     this.ctx.fill();
 
-    window.requestAnimationFrame(this.drawTriangle.bind(this));
+    this.rightShapes[index].x -= 3;
+    this.rightShapes[index].y -= 3;
+
+    this.rightAnimationFrame = window.requestAnimationFrame(this.animateRightCircles.bind(this, index));
   }
+
+  generateLeftShapes(numberOfShapes: Number): void {
+    let y = window.innerHeight - (window.innerHeight / 10);
+
+    for (let i = 0; i < numberOfShapes; i++) {
+      const shape = {
+        id: i,
+        type: 'circle',
+        color: this.getUnusedRandomColor(),
+        x: -100,
+        y: y
+      };
+
+      this.leftShapes.push(shape);
+      y -= 190;
+    }
+  }
+
+  generateRightShapes(numberOfShapes: Number): void {
+    let y = (window.innerHeight / 10);
+
+    for (let i = 0; i < numberOfShapes; i++) {
+      const shape = {
+        id: i,
+        type: 'circle',
+        color: this.getUnusedRandomColor(),
+        x: window.innerWidth + 100,
+        y: y
+      };
+
+      this.rightShapes.push(shape);
+      y += 190;
+    }
+  }
+
+  getUnusedRandomColor(): String {
+    let color = this.colors[Math.floor(Math.random() * (this.colors.length))];
+
+    const shapes = this.leftShapes.concat(this.rightShapes);
+    const takenColors = [];
+
+    shapes.forEach(e => {
+      if (e.color !== undefined) {
+        takenColors.push(e.color);
+      }
+    });
+
+    while (true) {
+      if (!takenColors.includes(color)) {
+        return color;
+      } else {
+        color = this.colors[Math.floor(Math.random() * (this.colors.length))];
+      }
+    }
+  }
+
+  startAnimation() {
+    this.currentShapeIndex = 0;
+    this.animateLeftCircles(this.currentShapeIndex);
+    this.animateRightCircles(this.currentShapeIndex);
+
+    this.interval = setInterval(() => {
+      if (this.isEndOfAnimation()) {
+        this.clearAnimationFrame();
+        clearInterval(this.interval);
+
+        return;
+      }
+
+      this.clearAnimationFrame();
+      this.currentShapeIndex += 1;
+
+      this.animateLeftCircles(this.currentShapeIndex);
+      this.animateRightCircles(this.currentShapeIndex);
+    }, 3000);
+
+  }
+
+  isEndOfAnimation() {
+    if (this.currentShapeIndex === this.leftShapes.length - 1) {
+      return true;
+    }
+
+    return false;
+  }
+
+  clearAnimationFrame() {
+    window.cancelAnimationFrame(this.leftAnimationFrame);
+    window.cancelAnimationFrame(this.rightAnimationFrame);
+  }
+
 }
