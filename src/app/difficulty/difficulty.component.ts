@@ -9,34 +9,32 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./difficulty.component.scss']
 })
 export class DifficultyComponent implements OnInit {
-  simple: boolean;
+  difficulty: string;
   difficultySubscriber: Subscription;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private difficultyService: DifficultyService) {
     this.difficultySubscriber = this.difficultyService.difficulty$.subscribe(
-      (difficulty) => {
-        this.simple = difficulty === 'Simple' ? true : false;
-      });
+      (difficulty) => {this.difficulty = difficulty; });
   }
 
   ngOnInit() {
     if (!localStorage.getItem('difficulty')) {
-      this.simple = true;
+      this.difficulty = 'Simple';
     } else if (localStorage.getItem('difficulty') === 'Simple') {
-      this.simple = true;
+      this.difficulty = 'Simple';
     } else {
-      this.simple = false;
+      this.difficulty = 'Regular';
     }
   }
 
   selectSimpleDifficulty() {
     this.difficultyService.changeDifficulty('Simple');
-    this.simple = true;
+    this.difficulty = 'Simple';
   }
 
   selectRegularDifficulty() {
     this.difficultyService.changeDifficulty('Regular');
-    this.simple = false;
+    this.difficulty = 'Regular';
   }
 
 }
