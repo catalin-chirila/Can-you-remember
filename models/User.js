@@ -15,6 +15,7 @@ var UserSchema = new Schema({
     score: [
         {
             level: Number,
+            difficulty: String,
             date: Date
         }
     ]

@@ -43,14 +43,30 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.dialogService.openDifficultyDialog();
   }
 
+  logOut(): void {
+    if (localStorage.getItem('jwtToken')) {
+      localStorage.removeItem('jwtToken');
+    }
+
+    if (localStorage.getItem('loggedUser')) {
+      localStorage.removeItem('loggedUser');
+    }
+
+    window.location.reload();
+  }
+
+  showLogOutButton(): boolean {
+    return localStorage.getItem('loggedUser') ? true : false;
+  }
+
   ngOnInit(): void {
     const localDifficulty = localStorage.getItem('difficulty');
 
-    if (!localDifficulty) {
+    if (localDifficulty) {
+      this.difficulty = localDifficulty;
+    } else {
       localStorage.setItem('difficulty', 'Simple');
       this.difficulty = 'Simple';
-    } else {
-      this.difficulty = localDifficulty;
     }
 
     this.timerService.clearOutTimeInterval();

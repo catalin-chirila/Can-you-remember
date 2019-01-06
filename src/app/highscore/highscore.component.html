@@ -9,7 +9,22 @@
   </div>
 
   <div *ngIf="!error; else errorMessage">
-    <div *ngFor="let score of scores; let i = index">
+
+    <div *ngIf="difficulty === 'Simple'; else regularDifficultyScores">
+      <div *ngFor="let score of simpleDifficultyScores; let i = index">
+        <div class="highscore-container">
+          <p class="item">{{i + 1}}</p>
+          <p class="item">{{score.username}}</p>
+          <p class="item">{{score.level}}</p>
+          <p class="item">{{score.date | date}}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template #regularDifficultyScores>
+    <div *ngFor="let score of regularDifficultyScores; let i = index">
       <div class="highscore-container">
         <p class="item">{{i + 1}}</p>
         <p class="item">{{score.username}}</p>
@@ -17,7 +32,7 @@
         <p class="item">{{score.date | date}}</p>
       </div>
     </div>
-  </div>
+  </ng-template>
 
   <ng-template #errorMessage>
     <p id="errorMessage">The highscore couldn't be loaded. Please try again later!</p>
@@ -26,5 +41,9 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-raised-button mat-dialog-close>Close</button>
+  <button mat-raised-button [class.selected]="difficulty === 'Simple'" (click)="switchToSimpleDifficultyScores()">Simple
+    Difficulty</button>
+  <button mat-raised-button [class.selected]="difficulty === 'Regular'" (click)="switchToRegularDifficultyScores()">Regular
+    Difficulty</button>
+  <!-- <button mat-raised-button mat-dialog-close>Close</button> -->
 </mat-dialog-actions>

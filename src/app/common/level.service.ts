@@ -1,6 +1,7 @@
 import { Injectable, Output, EventEmitter, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DifficultyService } from './difficulty.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class LevelService implements OnInit {
     private _level = 1;
     private _level$ = new Subject<number>();
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private difficultyService: DifficultyService) { }
 
     ngOnInit(): void {
         this._level$.next(this._level);
@@ -54,6 +55,7 @@ export class LevelService implements OnInit {
             const score = {
                 username: localStorage.getItem('loggedUser'),
                 level: this._level,
+                difficulty: this.difficultyService.getDifficulty(),
                 date: Date.now()
             };
 

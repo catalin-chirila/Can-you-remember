@@ -18,23 +18,15 @@ export class DifficultyComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!localStorage.getItem('difficulty')) {
-      this.difficulty = 'Simple';
-    } else if (localStorage.getItem('difficulty') === 'Simple') {
-      this.difficulty = 'Simple';
-    } else {
-      this.difficulty = 'Regular';
-    }
+    this.difficulty = this.difficultyService.getDifficulty();
   }
 
   selectSimpleDifficulty() {
     this.difficultyService.changeDifficulty('Simple');
-    this.difficulty = 'Simple';
   }
 
   selectRegularDifficulty() {
     this.difficultyService.changeDifficulty('Regular');
-    this.difficulty = 'Regular';
   }
 
 }

@@ -91,7 +91,9 @@ router.post('/score', function (req, res) {
             {
                 $push: {
                     score: {
-                        level: req.body.level, date: req.body.date
+                        level: req.body.level,
+                        difficulty: req.body.difficulty,
+                        date: req.body.date
                     }
                 }
             },
@@ -119,13 +121,9 @@ router.get('/score', function (req, res) {
             users.forEach(u => u.score.forEach(s => scores.push({
                 username: u.username,
                 level: s.level,
+                difficulty: s.difficulty,
                 date: s.date
             })));
-
-            // users.forEach(u => scores.push({
-            //     username: u.username,
-            //     score: u.score
-            // }));
 
             res.json(scores);
         });

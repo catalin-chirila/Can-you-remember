@@ -1,4 +1,4 @@
-import { Injectable, Output, EventEmitter, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { GameOverComponent } from '../game-over/game-over.component';

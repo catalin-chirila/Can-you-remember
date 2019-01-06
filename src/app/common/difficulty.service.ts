@@ -21,4 +21,14 @@ export class DifficultyService implements OnInit {
     public get difficulty$() {
         return this._difficulty$;
     }
+
+    public getDifficulty() {
+        if (localStorage.getItem('difficulty') === 'Simple') {
+            return 'Simple';
+        } else if (localStorage.getItem('difficulty') === 'Regular') {
+            return 'Regular';
+        }
+
+        return 'Simple';
+    }
 }
