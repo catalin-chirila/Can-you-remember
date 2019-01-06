@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('jwtToken', this.data.token);
       localStorage.setItem('loggedUser', this.loginData.username);
       this.dialogRef.close();
+      this.gameService.resetGame();
       this.router.navigate(['game']);
     }, err => {
       this.message = err.error.msg;

@@ -1,14 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { LevelService } from './level.service';
 import { TimerService } from './timer.service';
 import { ShapesVisibilityService } from './shapes-visibility.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { GameOverComponent } from '../game-over/game-over.component';
 import { LivesService } from './lives.service';
-import { LoginComponent } from '../login/login.component';
-import { SignupComponent } from '../signup/signup.component';
-import { Router } from '@angular/router';
+import { DifficultyService } from './difficulty.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +14,7 @@ export class GameService {
         '#A8C879', '#C8C2BD', '#ADA759'];
     readonly shapes: string[] = ['square', 'rectangle', 'circle', 'triangle-up', 'triangle-left', 'triangle-down', 'triangle-right'];
 
-    totalNumberOfShapes = 12;
+    totalNumberOfShapes;
     shapesToPickFrom = [];
     shapesToMemorize = [];
     winningShapesIds = [];
@@ -30,11 +26,19 @@ export class GameService {
     currentWinningShapeId$ = new Subject<number>();
     questionMarksNumber$ = new Subject<number[]>();
 
+    difficultySubscriber: Subscription;
+
     constructor(private levelService: LevelService,
                 private timerService: TimerService,
                 private livesService: LivesService,
+                private difficultyService: DifficultyService,
                 private shapesVisibilityService: ShapesVisibilityService) {
 
+        this.difficultySubscriber = this.difficultyService.difficulty$.subscribe(
+            (difficulty) => {
+                this.totalNumberOfShapes = difficulty === 'Simple' ? 8 : 12;
+            });
+        this.resetTotalNumberOfShapes();
         this.resetGame();
     }
 
@@ -200,7 +204,16 @@ export class GameService {
         return this.shapesToMemorize;
     }
 
+    resetTotalNumberOfShapes() {
+        if (localStorage.getItem('difficulty')) {
+            this.totalNumberOfShapes = localStorage.getItem('difficulty') === 'Simple' ? 8 : 12;
+        } else {
+            this.totalNumberOfShapes = 8;
+        }
+    }
+
     resetGame(): void {
+        this.resetTotalNumberOfShapes();
         this.levelService.resetLevel();
         this.livesService.resetLives();
         this.populateShapesToPickFrom();

@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
 import { BookComponent } from './book/book.component';
 import { HighscoreComponent } from './highscore/highscore.component';
+import { DifficultyComponent } from './difficulty/difficulty.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HighscoreComponent } from './highscore/highscore.component';
     LoginComponent,
     SignupComponent,
     BookComponent,
-    HighscoreComponent
+    HighscoreComponent,
+    DifficultyComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,6 @@ import { HighscoreComponent } from './highscore/highscore.component';
   ],
   providers: [LevelService, LoginComponent],
   bootstrap: [AppComponent],
-  entryComponents: [GameOverComponent, HighscoreComponent]
+  entryComponents: [GameOverComponent, HighscoreComponent, DifficultyComponent]
 })
 export class AppModule { }

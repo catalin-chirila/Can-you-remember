@@ -1,0 +1,21 @@
+* {
+    font-family: 'Raleway';
+}
+
+h1 {
+    text-align: center;
+    padding-bottom: 2%;
+    font-weight: 200;
+    font-size: calc(1.3vw + 1.3vh + .5vmin);
+}
+
+button {
+    margin: 0 auto;
+    min-width: 15vw;
+    min-height: 3vw;
+    font-size: 1.2em;
+}
+
+.selected {
+    background-color: #ededed;
+}

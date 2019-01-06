@@ -1,14 +1,16 @@
-import { Component, HostListener, AfterViewInit } from '@angular/core';
+import { Component, HostListener, AfterViewInit, OnInit } from '@angular/core';
 import { TimerService } from '../common/timer.service';
 import * as anime from 'animejs';
 import { DialogService } from '../common/dialog.service';
+import { Subscriber, Subscription } from 'rxjs';
+import { DifficultyService } from '../common/difficulty.service';
 
 @Component({
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements AfterViewInit {
-  readonly colors: string[] = ['#C8707E', '#EFB4C1', '#E48E58', '#EDAA7D', '#5AA08D', '#4C92B1', '#AC99C1',
+export class MenuComponent implements OnInit, AfterViewInit {
+  private readonly colors: string[] = ['#C8707E', '#EFB4C1', '#E48E58', '#EDAA7D', '#5AA08D', '#4C92B1', '#AC99C1',
     '#A8C879', '#C8C2BD', '#ADA759'];
 
   canvas: HTMLCanvasElement;
@@ -19,9 +21,14 @@ export class MenuComponent implements AfterViewInit {
   interval;
   leftAnimationFrame;
   rightAnimationFrame;
+  difficulty: string;
+  difficultySubscriber: Subscription;
 
-  constructor(private timerService: TimerService, private dialogService: DialogService) {
-    this.timerService.clearOutTimeInterval();
+  constructor(private timerService: TimerService, private dialogService: DialogService,
+    private difficultyService: DifficultyService) {
+    this.difficultySubscriber = this.difficultyService.difficulty$.subscribe(
+      (difficulty) => { this.difficulty = difficulty; });
+
   }
 
   play() {
@@ -30,6 +37,23 @@ export class MenuComponent implements AfterViewInit {
 
   openHighScore() {
     this.dialogService.openHighScoreDialog();
+  }
+
+  openDifficulty() {
+    this.dialogService.openDifficultyDialog();
+  }
+
+  ngOnInit(): void {
+    const localDifficulty = localStorage.getItem('difficulty');
+
+    if (!localDifficulty) {
+      localStorage.setItem('difficulty', 'Simple');
+      this.difficulty = 'Simple';
+    } else {
+      this.difficulty = localDifficulty;
+    }
+
+    this.timerService.clearOutTimeInterval();
   }
 
   ngAfterViewInit(): void {
@@ -161,7 +185,7 @@ export class MenuComponent implements AfterViewInit {
 
       this.animateLeftCircles(this.currentShapeIndex);
       this.animateRightCircles(this.currentShapeIndex);
-    }, 3000);
+    }, 3100);
 
   }
 

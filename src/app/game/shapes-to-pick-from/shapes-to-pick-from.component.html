@@ -10,7 +10,7 @@
                         <app-shape *ngFor="let shape of getShapesRow(2)" [id]='shape.id' [type]='shape.type' [style]='shape.style'
                                 [parentClass]='shape.parentClass'></app-shape>
                 </div>
-                <div class="shapes-row">
+                <div class="shapes-row" *ngIf="difficulty === 'Regular'">
                         <app-shape *ngFor="let shape of getShapesRow(3)" [id]='shape.id' [type]='shape.type' [style]='shape.style'
                                 [parentClass]='shape.parentClass'></app-shape>
                 </div>
@@ -27,7 +27,7 @@
                         <app-shape *ngFor="let shape of hiddenShapes" [id]='shape.id' [type]='shape.type' [style]='shape.style'
                                 [parentClass]='shape.parentClass'></app-shape>
                 </div>
-                <div class="shapes-row">
+                <div class="shapes-row" *ngIf="difficulty === 'Regular'">
                         <app-shape *ngFor="let shape of hiddenShapes" [id]='shape.id' [type]='shape.type' [style]='shape.style'
                                 [parentClass]='shape.parentClass'></app-shape>
                 </div>

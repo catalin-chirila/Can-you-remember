@@ -10,6 +10,7 @@ import { TimerService } from './timer.service';
 import { SignupComponent } from '../signup/signup.component';
 import { HighscoreComponent } from '../highscore/highscore.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DifficultyComponent } from '../difficulty/difficulty.component';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +21,7 @@ export class DialogService {
     loginDialogRef: MatDialogRef<LoginComponent>;
     signupDialogRef: MatDialogRef<SignupComponent>;
     highscoreDialogRef: MatDialogRef<HighscoreComponent>;
+    difficultyDialogRef: MatDialogRef<DifficultyComponent>;
 
     constructor(private dialogWindow: MatDialog,
                 private gameService: GameService,
@@ -29,17 +31,14 @@ export class DialogService {
                 private router: Router) { }
 
     openLoginDialog() {
-        // if (localStorage.getItem('loggedUser')) {
-        //     this.router.navigate(['game']);
-        //     this.timerService.startTimer(5);
-        // } else {
+        if (localStorage.getItem('loggedUser')) {
+            this.router.navigate(['game']);
+            this.timerService.startTimer(5);
+        } else {
             this.loginDialogRef = this.dialogWindow.open(LoginComponent, {
                 autoFocus: false
             });
-            this.loginDialogRef.afterClosed().subscribe(() => {
-                this.gameService.resetGame();
-            });
-        // }
+        }
     }
 
     openGameOverDialog() {
@@ -81,4 +80,9 @@ export class DialogService {
         });
     }
 
+    openDifficultyDialog() {
+        this.difficultyDialogRef = this.dialogWindow.open(DifficultyComponent, {
+            autoFocus: false
+        });
+    }
 }
