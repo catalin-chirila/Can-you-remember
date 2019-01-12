@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   playWithoutLogin() {
+    this.gameService.resetGame();
     this.dialogRef.close();
     this.router.navigate(['game']);
   }

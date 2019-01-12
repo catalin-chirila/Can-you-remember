@@ -19,7 +19,6 @@ export class HighscoreComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private difficultyService: DifficultyService) {
     this.scores = data.highscores;
-    this.simpleDifficultyScores = data.highscores;
     this.error = data.error;
 
     this.difficultySubscriber = this.difficultyService.difficulty$.subscribe(

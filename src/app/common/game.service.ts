@@ -38,7 +38,6 @@ export class GameService {
             (difficulty) => {
                 this.totalNumberOfShapes = difficulty === 'Simple' ? 8 : 12;
             });
-        this.resetTotalNumberOfShapes();
         this.resetGame();
     }
 

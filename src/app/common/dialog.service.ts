@@ -32,8 +32,8 @@ export class DialogService {
 
     openLoginDialog() {
         if (localStorage.getItem('loggedUser')) {
+            this.gameService.resetGame();
             this.router.navigate(['game']);
-            this.timerService.startTimer(5);
         } else {
             this.loginDialogRef = this.dialogWindow.open(LoginComponent, {
                 autoFocus: false
