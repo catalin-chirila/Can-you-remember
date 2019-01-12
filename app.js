@@ -36,8 +36,8 @@ app.use(function (err, req, res, next) {
   res.send();
 });
 
-// var uristring = 'mongodb://localhost/CanYouRememberDB';
-var uristring = 'mongodb://heroku_x4rfzb3m:e37b2748kkgt14uspbpitub8qt@ds117136.mlab.com:17136/heroku_x4rfzb3m';
+var uristring = 'mongodb://localhost/CanYouRememberDB';
+// var uristring = 'mongodb://heroku_x4rfzb3m:e37b2748kkgt14uspbpitub8qt@ds117136.mlab.com:17136/heroku_x4rfzb3m';
 
 mongoose.connect(uristring, function (err, res) {
   if (err) {
@@ -52,7 +52,7 @@ app.use(passport.initialize());
 app.use('/api', api);
 
 app.get('/*', function(req,res) {
-  res.sendFile(path.join(__dirname,'/dist/can-you-remember/index.html'));
+  res.sendFile(path.join(__dirname,'dist/can-you-remember/index.html'));
 });
 
 module.exports = app;
