@@ -1,8 +1,7 @@
 import { Component, HostListener, AfterViewInit, OnInit } from '@angular/core';
 import { TimerService } from '../common/timer.service';
-import * as anime from 'animejs';
 import { DialogService } from '../common/dialog.service';
-import { Subscriber, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DifficultyService } from '../common/difficulty.service';
 
 @Component({

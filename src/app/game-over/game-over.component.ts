@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, AfterViewInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
     styleUrls: ['./game-over.component.scss']
   })
 export class GameOverComponent {
+
     levelReached: number;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<GameOverComponent>) {

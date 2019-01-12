@@ -159,16 +159,20 @@ export class GameService {
 
     updateGame() {
         if (this.isEndOfLevel()) {
-            this.timerService.startTimer(5);
-            this.levelService.increaseLevel();
-            this.populateShapesToPickFrom();
-            this.populateShapesToMemorize();
-            this.shapesVisibilityService.showShapesToMemorize();
-            this.shapesVisibilityService.hideShapesToPickFrom();
-            this.updateQuestionMarksNumber();
+            setTimeout(() => this.switchToNextLevel(), 2000);
         } else {
             this.loadNextWinningShapeId();
         }
+    }
+
+    switchToNextLevel() {
+        this.timerService.startTimer(5);
+        this.levelService.increaseLevel();
+        this.populateShapesToPickFrom();
+        this.populateShapesToMemorize();
+        this.shapesVisibilityService.showShapesToMemorize();
+        this.shapesVisibilityService.hideShapesToPickFrom();
+        this.updateQuestionMarksNumber();
     }
 
     loadNextWinningShapeId(): void {
