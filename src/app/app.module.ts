@@ -22,6 +22,7 @@ import { SignupComponent } from './signup/signup.component';
 import { BookComponent } from './book/book.component';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { DifficultyComponent } from './difficulty/difficulty.component';
+import { InstructionsComponent } from './instructions/instructions.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { DifficultyComponent } from './difficulty/difficulty.component';
     SignupComponent,
     BookComponent,
     HighscoreComponent,
-    DifficultyComponent
+    DifficultyComponent,
+    InstructionsComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,6 @@ import { DifficultyComponent } from './difficulty/difficulty.component';
   ],
   providers: [LevelService, LoginComponent],
   bootstrap: [AppComponent],
-  entryComponents: [GameOverComponent, HighscoreComponent, DifficultyComponent]
+  entryComponents: [GameOverComponent, HighscoreComponent, DifficultyComponent, InstructionsComponent]
 })
 export class AppModule { }

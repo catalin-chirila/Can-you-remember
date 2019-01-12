@@ -43,6 +43,10 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.dialogService.openDifficultyDialog();
   }
 
+  openInstructions() {
+    this.dialogService.openInstructionsDialog();
+  }
+
   logOut(): void {
     if (localStorage.getItem('jwtToken')) {
       localStorage.removeItem('jwtToken');

@@ -11,6 +11,7 @@ import { SignupComponent } from '../signup/signup.component';
 import { HighscoreComponent } from '../highscore/highscore.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DifficultyComponent } from '../difficulty/difficulty.component';
+import { InstructionsComponent } from '../instructions/instructions.component';
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,7 @@ export class DialogService {
     signupDialogRef: MatDialogRef<SignupComponent>;
     highscoreDialogRef: MatDialogRef<HighscoreComponent>;
     difficultyDialogRef: MatDialogRef<DifficultyComponent>;
+    instructionsDialogRef: MatDialogRef<InstructionsComponent>;
 
     constructor(private dialogWindow: MatDialog,
                 private gameService: GameService,
@@ -82,6 +84,12 @@ export class DialogService {
 
     openDifficultyDialog() {
         this.difficultyDialogRef = this.dialogWindow.open(DifficultyComponent, {
+            autoFocus: false
+        });
+    }
+
+    openInstructionsDialog() {
+        this.instructionsDialogRef = this.dialogWindow.open(InstructionsComponent, {
             autoFocus: false
         });
     }

@@ -3,7 +3,7 @@
   <button mat-raised-button (click)="play()">Play</button>
   <button mat-raised-button (click)="openHighScore()">High Score</button>
   <button mat-raised-button (click)="openDifficulty()">Difficulty ({{difficulty}})</button>
-  <button mat-raised-button>Instructions</button>
+  <button mat-raised-button (click)="openInstructions()">Instructions</button>
   <button *ngIf="showLogOutButton()" mat-raised-button (click)="logOut()">Log Out</button>
 </div>
 
