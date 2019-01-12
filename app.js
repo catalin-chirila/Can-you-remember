@@ -51,7 +51,7 @@ var api = require('./routes/api');
 app.use(passport.initialize());
 app.use('/api', api);
 
-app.get('*', function(req,res) {
+app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname,'/dist/can-you-remember/index.html'));
 });
 
