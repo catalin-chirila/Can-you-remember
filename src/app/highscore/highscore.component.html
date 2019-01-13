@@ -51,8 +51,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-raised-button [class.selected]="difficulty === 'Simple'" (click)="switchToSimpleDifficultyScores()">Simple
-    Difficulty</button>
-  <button mat-raised-button [class.selected]="difficulty === 'Regular'" (click)="switchToRegularDifficultyScores()">Regular
-    Difficulty</button>
+  <div id="button-container">
+      <button mat-raised-button [class.selected]="difficulty === 'Simple'" (click)="switchToSimpleDifficultyScores()">Simple Difficulty</button>
+      <button id="regular-button" mat-raised-button [class.selected]="difficulty === 'Regular'" (click)="switchToRegularDifficultyScores()">Regular Difficulty</button>
+  </div>
 </mat-dialog-actions>

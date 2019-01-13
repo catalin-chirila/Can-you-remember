@@ -20,8 +20,14 @@ h1 {
 }
 
 button {
-    margin: 0 auto;
     min-width: 15vw;
+}
+
+#button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 #errorMessage {
@@ -31,4 +37,23 @@ button {
 
 .selected {
     background-color: #ededed;
+}
+
+@media (max-width: 420px) {
+    #button-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    #regular-button {
+        padding:0;
+        margin: 0;
+    }
+
+    button {
+        margin-bottom: 15px;
+        min-width: 50vw;
+    }
 }

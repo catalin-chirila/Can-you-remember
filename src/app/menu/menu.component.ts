@@ -99,7 +99,11 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   animateLeftCircles(index) {
     this.ctx.beginPath();
-    const radius = 65;
+    let radius = 65;
+
+    if (window.innerWidth < 500) {
+      radius = 15;
+    }
 
     this.ctx.arc(this.leftShapes[index].x, this.leftShapes[index].y, radius, 0, Math.PI * 2, false);
     this.ctx.closePath();
@@ -115,7 +119,11 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   animateRightCircles(index) {
     this.ctx.beginPath();
-    const radius = 65;
+    let radius = 65;
+
+    if (window.innerWidth < 500) {
+      radius = 15;
+    }
 
     this.ctx.arc(this.rightShapes[index].x, this.rightShapes[index].y, radius, 0, Math.PI * 2, false);
     this.ctx.closePath();
@@ -142,7 +150,12 @@ export class MenuComponent implements OnInit, AfterViewInit {
       };
 
       this.leftShapes.push(shape);
-      y -= 190;
+
+      if (window.innerWidth < 500) {
+        y -= 50;
+      } else {
+        y -= 190;
+      }
     }
   }
 
@@ -159,7 +172,13 @@ export class MenuComponent implements OnInit, AfterViewInit {
       };
 
       this.rightShapes.push(shape);
-      y += 190;
+
+      if (window.innerWidth < 500) {
+        y += 50;
+      } else {
+        y += 190;
+      }
+
     }
   }
 
