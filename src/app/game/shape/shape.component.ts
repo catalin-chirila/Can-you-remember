@@ -20,6 +20,7 @@ export class ShapeComponent {
     showShapesToPickFromSub: Subscription;
     showShapesToPickFrom = false;
     isHidden = false;
+    clickable = true;
 
     constructor(private gameService: GameService,
         private dialogService: DialogService,
@@ -31,6 +32,7 @@ export class ShapeComponent {
     updateGame() {
         if (this.isDisplayedShapeToPickFrom()) {
             if (this.id === this.gameService.getCurrentWinningShapeId()) {
+                this.clickable = false;
                 this.gameService.updateGame();
                 this.animateWinningShape(this.id);
             } else {
