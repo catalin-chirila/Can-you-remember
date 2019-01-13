@@ -5,14 +5,37 @@
     font-family: 'Raleway';
 }
 
-#title {
+.title-margin {
     margin-top: 10vh;
+}
+
+.title-no-margin {
+    margin-top: 0;
+}
+
+#title {
     font-size: calc(2.8vw + 2.8vh + .5vmin);
     text-align: center;
     font-weight: 200;
     @media (max-height: 599px) {
         font-size: 3em;
     }
+}
+
+#welcome-message {
+    margin-top: 8vh;
+    margin-bottom: 0;
+    font-size: calc(1vw + 1vh + .2vmin);
+    text-align: center;
+    font-weight: 200;
+    @media (max-height: 599px) {
+        font-size: 3em;
+    }
+}
+
+#username {
+    border-bottom: 1px solid rgb(70, 68, 68);
+    padding-top: 25px;
 }
 
 #menu {
@@ -51,7 +74,6 @@ button:hover {
 }
 
 canvas {
-    // background-color: rgb(223, 223, 223);
     background-color: rgba(223, 223, 223, 0.274);
     position:fixed; 
     top:0;

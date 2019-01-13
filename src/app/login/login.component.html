@@ -13,10 +13,10 @@
 
     <div id="buttons-container">
       <button mat-raised-button type="submit">Sign in</button>
-      <button mat-raised-button mat-dialog-close (click)="openSignupDialog()">Sign up</button>
+      <button type="button" mat-raised-button mat-dialog-close (click)="openSignupDialog()">Sign up</button>
     </div>
 
-    <button id="play-no-login" (click)="playWithoutLogin()" mat-raised-button>Play Offline</button>
+    <button type="button" id="play-no-login" (click)="playWithoutLogin()" mat-raised-button>Play Offline</button>
 
     <div id="alert" role="alert" *ngIf="message !== ''">
       {{message}}

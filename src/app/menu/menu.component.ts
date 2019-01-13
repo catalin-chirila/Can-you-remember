@@ -22,12 +22,14 @@ export class MenuComponent implements OnInit, AfterViewInit {
   rightAnimationFrame;
   difficulty: string;
   difficultySubscriber: Subscription;
+  loggedUser: String;
 
   constructor(private timerService: TimerService, private dialogService: DialogService,
     private difficultyService: DifficultyService) {
     this.difficultySubscriber = this.difficultyService.difficulty$.subscribe(
       (difficulty) => { this.difficulty = difficulty; });
 
+    this.loggedUser = localStorage.getItem('loggedUser') ? localStorage.getItem('loggedUser') : null;
   }
 
   play() {
@@ -56,10 +58,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
     }
 
     window.location.reload();
-  }
-
-  showLogOutButton(): boolean {
-    return localStorage.getItem('loggedUser') ? true : false;
   }
 
   ngOnInit(): void {
