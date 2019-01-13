@@ -19,7 +19,6 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
-import { BookComponent } from './book/book.component';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { DifficultyComponent } from './difficulty/difficulty.component';
 import { InstructionsComponent } from './instructions/instructions.component';
@@ -39,7 +38,6 @@ import { InstructionsComponent } from './instructions/instructions.component';
     MenuComponent,
     LoginComponent,
     SignupComponent,
-    BookComponent,
     HighscoreComponent,
     DifficultyComponent,
     InstructionsComponent
@@ -52,7 +50,6 @@ import { InstructionsComponent } from './instructions/instructions.component';
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: 'books', component: BookComponent, data: { title: 'Book List' }},
       {path: 'login', component: LoginComponent, data: { title: 'Login' }},
       {path: 'signup', component: SignupComponent, data: { title: 'Sign Up' }},
       {path: '', redirectTo: '/menu', pathMatch: 'full'},
