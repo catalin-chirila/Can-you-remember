@@ -45,6 +45,14 @@ export class HighscoreComponent implements OnInit {
         return b.level - a.level;
       });
 
+      if (this.simpleDifficultyScores.length > 10) {
+        this.simpleDifficultyScores = this.simpleDifficultyScores.slice(0, 10);
+      }
+
+      if (this.regularDifficultyScores.length > 10) {
+        this.regularDifficultyScores = this.regularDifficultyScores.slice(0, 10);
+      }
+
     }
   }
 
