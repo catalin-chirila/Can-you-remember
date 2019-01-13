@@ -101,8 +101,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.ctx.beginPath();
     let radius = 65;
 
-    if (window.innerWidth < 500) {
-      radius = 15;
+    if (window.innerWidth < 880) {
+      radius = 25;
     }
 
     this.ctx.arc(this.leftShapes[index].x, this.leftShapes[index].y, radius, 0, Math.PI * 2, false);
@@ -121,8 +121,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.ctx.beginPath();
     let radius = 65;
 
-    if (window.innerWidth < 500) {
-      radius = 15;
+    if (window.innerWidth < 880) {
+      radius = 25;
     }
 
     this.ctx.arc(this.rightShapes[index].x, this.rightShapes[index].y, radius, 0, Math.PI * 2, false);
@@ -151,8 +151,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
       this.leftShapes.push(shape);
 
-      if (window.innerWidth < 500) {
-        y -= 50;
+      if (window.innerWidth < 880) {
+        y -= 80;
       } else {
         y -= 190;
       }
@@ -173,8 +173,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
       this.rightShapes.push(shape);
 
-      if (window.innerWidth < 500) {
-        y += 50;
+      if (window.innerWidth < 880) {
+        y += 80;
       } else {
         y += 190;
       }
@@ -205,6 +205,11 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   startAnimation() {
     this.currentShapeIndex = 0;
+
+    if (window.innerWidth < 880) {
+      this.currentShapeIndex = 1;
+    }
+
     this.animateLeftCircles(this.currentShapeIndex);
     this.animateRightCircles(this.currentShapeIndex);
 

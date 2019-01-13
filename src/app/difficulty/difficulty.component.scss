@@ -25,3 +25,24 @@ button {
 .selected {
     background-color: #ededed;
 }
+
+@media (max-width: 320px) {
+    #buttons-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #regular-button {
+        margin: 0;
+    }
+
+    button {
+        margin-bottom: 15px;
+        min-width: 50vw;
+        padding: 0;
+        font-size: 0.8em;
+    }
+}
+

@@ -18,18 +18,19 @@
     text-align: center;
     font-weight: 200;
     @media (max-height: 599px) {
-        font-size: 3em;
+        font-size: 2em;
     }
 }
 
 #welcome-message {
-    margin-top: 8vh;
+    margin-top: 7vh;
     margin-bottom: 0;
-    font-size: calc(1vw + 1vh + .2vmin);
+    font-size: calc((2.8vw + 2.8vh + .5vmin) / 2);
     text-align: center;
     font-weight: 200;
     @media (max-height: 599px) {
-        font-size: 3em;
+        font-size: 1.1em;
+        margin-top: 1vh;
     }
 }
 

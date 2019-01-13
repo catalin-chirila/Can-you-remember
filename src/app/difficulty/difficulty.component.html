@@ -1,6 +1,9 @@
 <h1 mat-dialog-title>Difficulty</h1>
 
 <mat-dialog-actions>
-  <button mat-raised-button mat-dialog-close [class.selected]="difficulty === 'Simple'" (click)="selectSimpleDifficulty()">Simple</button>
-  <button mat-raised-button mat-dialog-close [class.selected]="difficulty === 'Regular'" (click)="selectRegularDifficulty()">Regular</button>
+  <div id="buttons-container">
+    <button mat-raised-button mat-dialog-close [class.selected]="difficulty === 'Simple'" (click)="selectSimpleDifficulty()">Simple</button>
+    <button id="regular-button" mat-raised-button mat-dialog-close [class.selected]="difficulty === 'Regular'" (click)="selectRegularDifficulty()">Regular</button>
+  </div>
+  
 </mat-dialog-actions>
