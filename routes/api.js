@@ -76,25 +76,20 @@ router.post('/score', function (req, res) {
 });
 
 router.get('/score', function (req, res) {
-    var token = getToken(req.headers);
-    if (token) {
-        User.find(function (err, users) {
-            if (err) return next(err);
+    User.find(function (err, users) {
+        if (err) return next(err);
 
-            const scores = [];
+        const scores = [];
 
-            users.forEach(u => u.score.forEach(s => scores.push({
-                username: u.username,
-                level: s.level,
-                difficulty: s.difficulty,
-                date: s.date
-            })));
+        users.forEach(u => u.score.forEach(s => scores.push({
+            username: u.username,
+            level: s.level,
+            difficulty: s.difficulty,
+            date: s.date
+        })));
 
-            res.json(scores);
-        });
-    } else {
-        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-    }
+        res.json(scores);
+    });
 });
 
 getToken = function (headers) {

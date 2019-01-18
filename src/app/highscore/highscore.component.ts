@@ -53,6 +53,8 @@ export class HighscoreComponent implements OnInit {
         this.regularDifficultyScores = this.regularDifficultyScores.slice(0, 10);
       }
 
+    } else {
+      console.log(this.error);
     }
   }
 

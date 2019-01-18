@@ -62,7 +62,6 @@ export class DialogService {
         this.http.get('/api/score', {
             headers: new HttpHeaders()
               .set('Content-Type', 'application/json')
-              .set( 'Authorization', localStorage.getItem('jwtToken'))
         }).subscribe(scores => {
             this.highscoreDialogRef = this.dialogWindow.open(HighscoreComponent, {
                 data: {
