@@ -25,6 +25,7 @@ export class GameService {
     shapesToMemorize$ = new Subject<any[]>();
     currentWinningShapeId$ = new Subject<number>();
     questionMarksNumber$ = new Subject<number[]>();
+    levelComplete$ = new Subject<boolean>();
 
     difficultySubscriber: Subscription;
 
@@ -159,7 +160,12 @@ export class GameService {
 
     updateGame() {
         if (this.isEndOfLevel()) {
-            setTimeout(() => this.switchToNextLevel(), 2000);
+            this.levelComplete$.next(true);
+            setTimeout(() => {
+                this.switchToNextLevel();
+                this.levelComplete$.next(false);
+            }
+            , 3000);
         } else {
             this.loadNextWinningShapeId();
         }

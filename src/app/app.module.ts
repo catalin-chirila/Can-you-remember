@@ -22,6 +22,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { DifficultyComponent } from './difficulty/difficulty.component';
 import { InstructionsComponent } from './instructions/instructions.component';
+import { LevelCompletedComponent } from './info-bar/level-completed/level-completed.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { InstructionsComponent } from './instructions/instructions.component';
     SignupComponent,
     HighscoreComponent,
     DifficultyComponent,
-    InstructionsComponent
+    InstructionsComponent,
+    LevelCompletedComponent
   ],
   imports: [
     BrowserModule,
