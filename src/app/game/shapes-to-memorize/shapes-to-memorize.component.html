@@ -9,6 +9,9 @@
 
 <ng-template #hide_shapes>
     <div id="shapes-to-memorize">
+        <app-shape *ngFor="let shape of shapesToDisplay" [id]='shape.id' [type]='shape.type' [style]='shape.style'
+            [parentClass]='shape.parentClass'>
+        </app-shape>
         <div *ngFor="let number of questionMarks" class="question-mark"><i class="fas fa-question"></i></div>
     </div>
 </ng-template>

@@ -12,6 +12,8 @@ import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.servic
 export class ShapesToMemorizeComponent implements OnDestroy {
   shapesToMemorize = this.gameService.getShapesToMemorize();
   questionMarks = this.generateArray(2);
+  currentShapeToDisplayIndex = 0;
+  shapesToDisplay = [];
 
   showShapes = true;
   shapesToMemorizeSubscriber: Subscription;
@@ -22,16 +24,29 @@ export class ShapesToMemorizeComponent implements OnDestroy {
               private shapesVisibilityService: ShapesVisibilityService) {
 
     this.shapesToMemorizeSubscriber = this.gameService.shapesToMemorize$.subscribe(
-      (shapesToMemorize) => { this.shapesToMemorize = shapesToMemorize; });
+      (shapesToMemorize) => {
+        this.shapesToMemorize = shapesToMemorize;
+        this.currentShapeToDisplayIndex = 0;
+        this.shapesToDisplay = [];
+      });
 
     this.showShapesToMemorizeSubscriber = this.shapesVisibilityService.showShapesToMemorize$.subscribe(
       (showShapes) => { this.showShapes = showShapes; });
 
     this.numberOfShapesSubscriber = this.gameService.questionMarksNumber$.subscribe(
-      (numberOfShapes) => { this.questionMarks = numberOfShapes; });
+      (numberOfShapes) => {
+
+        this.questionMarks = numberOfShapes;
+
+        if (numberOfShapes.length !== this.levelService.getAmountOfShapes()) {
+          this.shapesToDisplay.push(this.shapesToMemorize[this.currentShapeToDisplayIndex]);
+          this.currentShapeToDisplayIndex++;
+        }
+
+      });
   }
 
-  generateArray(amountOfNumbers: number): number[] {
+  private generateArray(amountOfNumbers: number): number[] {
     const numberArray = [];
     for (let i = 0; i < amountOfNumbers; i++) {
       numberArray.push(0);

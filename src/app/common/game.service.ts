@@ -161,12 +161,14 @@ export class GameService {
     updateGame() {
         if (this.isEndOfLevel()) {
             this.levelComplete$.next(true);
+            this.updateQuestionMarksNumber(false);
             setTimeout(() => {
                 this.switchToNextLevel();
                 this.levelComplete$.next(false);
             }
             , 3000);
         } else {
+            this.updateQuestionMarksNumber(false);
             this.loadNextWinningShapeId();
         }
     }
@@ -178,7 +180,7 @@ export class GameService {
         this.populateShapesToMemorize();
         this.shapesVisibilityService.showShapesToMemorize();
         this.shapesVisibilityService.hideShapesToPickFrom();
-        this.updateQuestionMarksNumber();
+        this.updateQuestionMarksNumber(true);
     }
 
     loadNextWinningShapeId(): void {
@@ -193,9 +195,18 @@ export class GameService {
         return false;
     }
 
-    updateQuestionMarksNumber(): void {
+    updateQuestionMarksNumber(isLevelAtBeggining: boolean): void {
         const questionMarks = [];
-        for (let i = 0; i < this.levelService.getAmountOfShapes(); i++) {
+        let numberOfQuestionMarks;
+
+        if (isLevelAtBeggining) {
+            numberOfQuestionMarks = this.levelService.getAmountOfShapes();
+        } else {
+            numberOfQuestionMarks = this.levelService.getAmountOfShapes() - this.winningShapesIds.indexOf(this.currentWinningShapeId) - 1;
+        }
+
+        console.log('Number of Question marks: ' + numberOfQuestionMarks);
+        for (let i = 0; i < numberOfQuestionMarks; i++) {
             questionMarks.push(0);
         }
         this.questionMarksNumber$.next(questionMarks);
@@ -229,7 +240,7 @@ export class GameService {
         this.populateShapesToMemorize();
         this.shapesVisibilityService.showShapesToMemorize();
         this.shapesVisibilityService.hideShapesToPickFrom();
-        this.updateQuestionMarksNumber();
+        this.updateQuestionMarksNumber(true);
         this.timerService.clearOutTimeInterval();
         this.timerService.startTimer(5);
     }
