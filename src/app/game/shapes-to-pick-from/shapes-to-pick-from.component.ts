@@ -29,7 +29,7 @@ export class ShapesToPickFromComponent implements OnInit, OnDestroy {
     this.shapesToPickFromSubscriber = this.gameService.shapesToPickFrom$.subscribe(
       (shapesToPickFrom) => { this.shapesToPickFrom = shapesToPickFrom; });
 
-    this.showShapesToPickFromSubscriber = this.shapesVisibilityService.showShapesToPickFrom$.subscribe(
+    this.showShapesToPickFromSubscriber = this.shapesVisibilityService.showShapesToPickSection$.subscribe(
       (showShapes) => { this.showShapes = showShapes; });
 
     this.difficultySubscriber = this.difficultyService.difficulty$.subscribe(

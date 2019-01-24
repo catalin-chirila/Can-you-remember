@@ -30,7 +30,7 @@ export class ShapesToMemorizeComponent implements OnDestroy {
         this.shapesToDisplay = [];
       });
 
-    this.showShapesToMemorizeSubscriber = this.shapesVisibilityService.showShapesToMemorize$.subscribe(
+    this.showShapesToMemorizeSubscriber = this.shapesVisibilityService.showShapesToMemorizeSection$.subscribe(
       (showShapes) => { this.showShapes = showShapes; });
 
     this.numberOfShapesSubscriber = this.gameService.questionMarksNumber$.subscribe(

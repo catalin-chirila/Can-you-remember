@@ -5,43 +5,36 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ShapesVisibilityService {
-    private _isShapesToPickFromDisplayed = false;
-    private _isShapesToMemorizeDisplayed = false;
+    private isShapesToPickSectionDisplayed = false;
+    private isShapesToMemorizeSectionDisplayed = false;
+    showShapesToPickSection$ = new Subject<boolean>();
+    showShapesToMemorizeSection$ = new Subject<boolean>();
 
-    showShapesToPickFrom$ = new Subject<boolean>();
-    showShapesToMemorize$ = new Subject<boolean>();
-
-    showShapesToMemorize() {
-        this._isShapesToMemorizeDisplayed = true;
-        this.showShapesToMemorize$.next(true);
+    showShapesToMemorize(): void {
+        this.isShapesToMemorizeSectionDisplayed = true;
+        this.showShapesToMemorizeSection$.next(true);
     }
 
-    hideShapesToMemorize() {
-        this._isShapesToMemorizeDisplayed = false;
-        this.showShapesToMemorize$.next(false);
+    hideShapesToMemorize(): void {
+        this.isShapesToMemorizeSectionDisplayed = false;
+        this.showShapesToMemorizeSection$.next(false);
     }
 
-    showShapesToPickFrom() {
-        this._isShapesToPickFromDisplayed = true;
-        this.showShapesToPickFrom$.next(true);
+    showShapesToPickFrom(): void {
+        this.isShapesToPickSectionDisplayed = true;
+        this.showShapesToPickSection$.next(true);
     }
 
-    hideShapesToPickFrom() {
-        this._isShapesToPickFromDisplayed = false;
-        this.showShapesToPickFrom$.next(false);
+    hideShapesToPickFrom(): void {
+        this.isShapesToPickSectionDisplayed = false;
+        this.showShapesToPickSection$.next(false);
     }
 
     public get isShapesToMemorizeDisplayed(): boolean {
-        return this._isShapesToMemorizeDisplayed;
-    }
-    public set isShapesToMemorizeDisplayed(value: boolean) {
-        this._isShapesToMemorizeDisplayed = value;
+        return this.isShapesToMemorizeSectionDisplayed;
     }
 
     public get isShapesToPickFromDisplayed(): boolean {
-        return this._isShapesToPickFromDisplayed;
-    }
-    public set isShapesToPickFromDisplayed(value: boolean) {
-        this._isShapesToPickFromDisplayed = value;
+        return this.isShapesToPickSectionDisplayed;
     }
 }
