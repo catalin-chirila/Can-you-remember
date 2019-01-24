@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ShapesVisibilityService {
+export class SectionVisibilityService {
     private isShapesToPickSectionDisplayed = false;
     private isShapesToMemorizeSectionDisplayed = false;
     showShapesToPickSection$ = new Subject<boolean>();

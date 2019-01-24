@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { GameService } from '../../common/game.service';
 import { Subscription } from 'rxjs';
 import { LevelService } from 'src/app/common/level.service';
-import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.service';
+import { SectionVisibilityService } from 'src/app/common/section-visibility.service';
 
 @Component({
   selector: 'app-shapes-to-memorize',
@@ -21,7 +21,7 @@ export class ShapesToMemorizeComponent implements OnDestroy {
   numberOfShapesSubscriber: Subscription;
 
   constructor(private gameService: GameService, private levelService: LevelService,
-              private shapesVisibilityService: ShapesVisibilityService) {
+              private shapesVisibilityService: SectionVisibilityService) {
 
     this.shapesToMemorizeSubscriber = this.gameService.shapesToMemorize$.subscribe(
       (shapesToMemorize) => {

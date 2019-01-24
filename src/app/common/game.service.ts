@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { LevelService } from './level.service';
 import { TimerService } from './timer.service';
-import { ShapesVisibilityService } from './shapes-visibility.service';
+import { SectionVisibilityService } from './section-visibility.service';
 import { LivesService } from './lives.service';
 import { DifficultyService } from './difficulty.service';
 
@@ -33,7 +33,7 @@ export class GameService {
                 private timerService: TimerService,
                 private livesService: LivesService,
                 private difficultyService: DifficultyService,
-                private shapesVisibilityService: ShapesVisibilityService) {
+                private shapesVisibilityService: SectionVisibilityService) {
 
         this.difficultySubscriber = this.difficultyService.difficulty$.subscribe(
             (difficulty) => {

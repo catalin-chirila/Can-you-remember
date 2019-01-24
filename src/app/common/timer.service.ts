@@ -1,6 +1,6 @@
 import { Injectable} from '@angular/core';
 import { Subject } from 'rxjs';
-import { ShapesVisibilityService } from './shapes-visibility.service';
+import { SectionVisibilityService } from './section-visibility.service';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +10,7 @@ export class TimerService {
     time$ = new Subject<number>();
     interval;
 
-    constructor(private shapesVisibilityService: ShapesVisibilityService) {}
+    constructor(private shapesVisibilityService: SectionVisibilityService) {}
 
     startTimer(timerStartingValue: number) {
         if (this.timeLeft === 0) {

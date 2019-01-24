@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { GameService } from '../../common/game.service';
 import { LivesService } from '../../common/lives.service';
-import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.service';
+import { SectionVisibilityService } from 'src/app/common/section-visibility.service';
 import { DialogService } from 'src/app/common/dialog.service';
 import { LevelService } from 'src/app/common/level.service';
 import * as anime from 'animejs';
@@ -23,7 +23,7 @@ export class ShapeComponent {
         private dialogService: DialogService,
         private livesService: LivesService,
         private levelService: LevelService,
-        private shapesVisibilityService: ShapesVisibilityService) {
+        private shapesVisibilityService: SectionVisibilityService) {
     }
 
     updateGame(): void {

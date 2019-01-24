@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GameService } from '../../common/game.service';
 import { Subscription } from 'rxjs';
-import { ShapesVisibilityService } from 'src/app/common/shapes-visibility.service';
+import { SectionVisibilityService } from 'src/app/common/section-visibility.service';
 import { DifficultyService } from 'src/app/common/difficulty.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class ShapesToPickFromComponent implements OnInit, OnDestroy {
   hiddenShapes = this.gameService.getHiddenShapesToPickFrom();
 
   constructor(private gameService: GameService,
-              private shapesVisibilityService: ShapesVisibilityService,
+              private shapesVisibilityService: SectionVisibilityService,
               private difficultyService: DifficultyService) {
     if (localStorage.getItem('difficulty')) {
       this.difficulty = localStorage.getItem('difficulty');
