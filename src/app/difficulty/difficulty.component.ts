@@ -10,10 +10,10 @@ import { Subscription } from 'rxjs';
 })
 export class DifficultyComponent implements OnInit {
   difficulty: string;
-  difficultySubscriber: Subscription;
+  difficultySub: Subscription;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private difficultyService: DifficultyService) {
-    this.difficultySubscriber = this.difficultyService.difficulty$.subscribe(
+    this.difficultySub = this.difficultyService.difficulty$.subscribe(
       (difficulty) => {this.difficulty = difficulty; });
   }
 
