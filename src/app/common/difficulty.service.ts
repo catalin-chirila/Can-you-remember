@@ -1,28 +1,18 @@
-import { Injectable, Output, EventEmitter, OnInit } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Subject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DifficultyService implements OnInit {
+export class DifficultyService {
     private _difficulty$ = new Subject<string>();
 
-    constructor() { }
-
-    ngOnInit(): void {
-    }
-
-    changeDifficulty(difficulty: string) {
+    changeDifficulty(difficulty: string): void {
         localStorage.setItem('difficulty', difficulty);
         this._difficulty$.next(difficulty);
     }
 
-    public get difficulty$() {
-        return this._difficulty$;
-    }
-
-    public getDifficulty() {
+    getDifficulty(): string {
         if (localStorage.getItem('difficulty') === 'Simple') {
             return 'Simple';
         } else if (localStorage.getItem('difficulty') === 'Regular') {
@@ -30,5 +20,9 @@ export class DifficultyService implements OnInit {
         }
 
         return 'Simple';
+    }
+
+    get difficulty$() {
+        return this._difficulty$.asObservable();
     }
 }

@@ -43,7 +43,7 @@ export class ShapeComponent {
     }
 
     private isShapesToPickSectionDisplayed(): boolean {
-        if (this.parentClass === 'shape-to-pick-from' && this.shapesVisibilityService.isShapesToPickFromDisplayed) {
+        if (this.parentClass === 'shape-to-pick-from' && this.shapesVisibilityService.isShapesToPickSectionDisplayed) {
             return true;
         }
 
@@ -104,5 +104,4 @@ export class ShapeComponent {
                 duration: 100
             });
     }
-
 }

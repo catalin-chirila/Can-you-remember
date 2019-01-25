@@ -1,40 +1,48 @@
 import { Injectable} from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SectionVisibilityService {
-    private isShapesToPickSectionDisplayed = false;
-    private isShapesToMemorizeSectionDisplayed = false;
-    showShapesToPickSection$ = new Subject<boolean>();
-    showShapesToMemorizeSection$ = new Subject<boolean>();
+    private _isShapesToPickSectionDisplayed = false;
+    private _isShapesToMemorizeSectionDisplayed = false;
+    private _showShapesToPickSection$ = new Subject<boolean>();
+    private _showShapesToMemorizeSection$ = new Subject<boolean>();
 
     showShapesToMemorize(): void {
-        this.isShapesToMemorizeSectionDisplayed = true;
-        this.showShapesToMemorizeSection$.next(true);
+        this._isShapesToMemorizeSectionDisplayed = true;
+        this._showShapesToMemorizeSection$.next(true);
     }
 
     hideShapesToMemorize(): void {
-        this.isShapesToMemorizeSectionDisplayed = false;
-        this.showShapesToMemorizeSection$.next(false);
+        this._isShapesToMemorizeSectionDisplayed = false;
+        this._showShapesToMemorizeSection$.next(false);
     }
 
     showShapesToPickFrom(): void {
-        this.isShapesToPickSectionDisplayed = true;
-        this.showShapesToPickSection$.next(true);
+        this._isShapesToPickSectionDisplayed = true;
+        this._showShapesToPickSection$.next(true);
     }
 
     hideShapesToPickFrom(): void {
-        this.isShapesToPickSectionDisplayed = false;
-        this.showShapesToPickSection$.next(false);
+        this._isShapesToPickSectionDisplayed = false;
+        this._showShapesToPickSection$.next(false);
     }
 
-    public get isShapesToMemorizeDisplayed(): boolean {
-        return this.isShapesToMemorizeSectionDisplayed;
+    get isShapesToPickSectionDisplayed(): boolean {
+        return this._isShapesToPickSectionDisplayed;
     }
 
-    public get isShapesToPickFromDisplayed(): boolean {
-        return this.isShapesToPickSectionDisplayed;
+    get isShapesToMemorizeSectionDisplayed(): boolean {
+        return this._isShapesToMemorizeSectionDisplayed;
+    }
+
+    get showShapesToPickSection$(): Observable<boolean> {
+        return this._showShapesToPickSection$.asObservable();
+    }
+
+    get showShapesToMemorizeSection$(): Observable<boolean> {
+        return this._showShapesToMemorizeSection$.asObservable();
     }
 }

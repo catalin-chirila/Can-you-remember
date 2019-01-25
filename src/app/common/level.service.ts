@@ -1,7 +1,7 @@
-import { Injectable, Output, EventEmitter, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, OnInit } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
 import { DifficultyService } from './difficulty.service';
+import { RequestService } from './request.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +10,9 @@ export class LevelService implements OnInit {
     private _level = 1;
     private _level$ = new Subject<number>();
 
-    constructor(private http: HttpClient, private difficultyService: DifficultyService) { }
+    constructor(private difficultyService: DifficultyService, private requestService: RequestService) {}
 
     ngOnInit(): void {
-        this._level$.next(this._level);
-    }
-
-    increaseLevel() {
-        this._level += 1;
         this._level$.next(this._level);
     }
 
@@ -37,20 +32,17 @@ export class LevelService implements OnInit {
         }
     }
 
-    resetLevel() {
+    increaseLevel(): void {
+        this._level += 1;
+        this._level$.next(this._level);
+    }
+
+    resetLevel(): void {
         this._level = 1;
         this._level$.next(this._level);
     }
 
-    public get level() {
-        return this._level;
-    }
-
-    public get level$() {
-        return this._level$;
-    }
-
-    saveScore() {
+    saveScore(): void {
         if (localStorage.getItem('loggedUser')) {
             const score = {
                 username: localStorage.getItem('loggedUser'),
@@ -59,20 +51,15 @@ export class LevelService implements OnInit {
                 date: Date.now()
             };
 
-            this.http.post('/api/score', score, {
-                headers: new HttpHeaders()
-                  .set('Content-Type', 'application/json')
-                  .set( 'Authorization', localStorage.getItem('jwtToken'))
-              }).subscribe(data => {
-                // Show a notification -> Score Saved
-
-            }, err => {
-                if (err.status === 401) {
-                    // Show a notification -> Score couldn't be Saved
-                    console.log(err);
-                }
-            });
+            this.requestService.saveScore(score);
         }
+    }
 
+    get level(): number {
+        return this._level;
+    }
+
+    get level$(): Observable<number> {
+        return this._level$.asObservable();
     }
 }
