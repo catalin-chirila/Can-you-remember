@@ -1,42 +1,46 @@
 import { Injectable} from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { SectionVisibilityService } from './section-visibility.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TimerService {
-    timeLeft = 5;
-    time$ = new Subject<number>();
-    interval;
+    private timeLeft = 5;
+    private _time$ = new Subject<number>();
+    private interval;
 
     constructor(private shapesVisibilityService: SectionVisibilityService) {}
 
-    startTimer(timerStartingValue: number) {
+    startTimer(timerStartingValue: number): void {
         if (this.timeLeft === 0) {
-            this.time$.next(timerStartingValue);
+            this._time$.next(timerStartingValue);
         }
 
         this.timeLeft = timerStartingValue;
         this.interval = setInterval(() => {
             if (this.timeLeft > 1) {
                 this.timeLeft--;
-                this.time$.next(this.timeLeft);
+                this._time$.next(this.timeLeft);
             } else {
                 this.stopTimer();
             }
         }, 1000);
     }
 
-    stopTimer() {
+    stopTimer(): void {
         clearInterval(this.interval);
         this.timeLeft = 0;
-        this.time$.next(this.timeLeft);
+        this._time$.next(this.timeLeft);
         this.shapesVisibilityService.hideShapesToMemorize();
         this.shapesVisibilityService.showShapesToPickFrom();
     }
 
-    clearOutTimeInterval() {
+    clearOutTimeInterval(): void {
         clearInterval(this.interval);
+    }
+
+    get time$(): Observable<number> {
+        return this._time$.asObservable();
     }
 }

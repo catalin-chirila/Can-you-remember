@@ -1,15 +1,15 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LivesService implements OnInit {
     private lives = 5;
-    lives$ = new Subject<number>();
+    private _lives$ = new Subject<number>();
 
     ngOnInit(): void {
-        this.lives$.next(this.lives);
+        this._lives$.next(this.lives);
     }
 
     getRemainingLives(): number {
@@ -18,11 +18,15 @@ export class LivesService implements OnInit {
 
     decreaseLives(): void {
         this.lives -= 1;
-        this.lives$.next(this.lives);
+        this._lives$.next(this.lives);
     }
 
     resetLives(): void {
         this.lives = 5;
-        this.lives$.next(this.lives);
+        this._lives$.next(this.lives);
+    }
+
+    get lives$(): Observable<number> {
+        return this._lives$.asObservable();
     }
 }

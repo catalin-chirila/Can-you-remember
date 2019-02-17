@@ -6,7 +6,6 @@ import { LevelService } from './level.service';
 import { GameService } from './game.service';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
-import { TimerService } from './timer.service';
 import { SignupComponent } from '../signup/signup.component';
 import { HighscoreComponent } from '../highscore/highscore.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -17,22 +16,20 @@ import { InstructionsComponent } from '../instructions/instructions.component';
     providedIn: 'root'
 })
 export class DialogService {
-
-    gameOverDialogRef: MatDialogRef<GameOverComponent>;
-    loginDialogRef: MatDialogRef<LoginComponent>;
-    signupDialogRef: MatDialogRef<SignupComponent>;
-    highscoreDialogRef: MatDialogRef<HighscoreComponent>;
-    difficultyDialogRef: MatDialogRef<DifficultyComponent>;
-    instructionsDialogRef: MatDialogRef<InstructionsComponent>;
+    private gameOverDialogRef: MatDialogRef<GameOverComponent>;
+    private loginDialogRef: MatDialogRef<LoginComponent>;
+    private signupDialogRef: MatDialogRef<SignupComponent>;
+    private highscoreDialogRef: MatDialogRef<HighscoreComponent>;
+    private difficultyDialogRef: MatDialogRef<DifficultyComponent>;
+    private instructionsDialogRef: MatDialogRef<InstructionsComponent>;
 
     constructor(private dialogWindow: MatDialog,
-                private gameService: GameService,
-                private levelService: LevelService,
-                private timerService: TimerService,
-                private http: HttpClient,
-                private router: Router) { }
+        private gameService: GameService,
+        private levelService: LevelService,
+        private http: HttpClient,
+        private router: Router) { }
 
-    openLoginDialog() {
+    openLoginDialog(): void {
         if (localStorage.getItem('loggedUser')) {
             this.gameService.resetGame();
             this.router.navigate(['game']);
@@ -43,7 +40,7 @@ export class DialogService {
         }
     }
 
-    openGameOverDialog() {
+    openGameOverDialog(): void {
         this.gameOverDialogRef = this.dialogWindow.open(GameOverComponent, {
             data: {
                 levelReached: this.levelService.level
@@ -58,10 +55,10 @@ export class DialogService {
         });
     }
 
-    openHighScoreDialog() {
+    openHighScoreDialog(): void {
         this.http.get('/api/score', {
             headers: new HttpHeaders()
-              .set('Content-Type', 'application/json')
+                .set('Content-Type', 'application/json')
         }).subscribe(scores => {
             this.highscoreDialogRef = this.dialogWindow.open(HighscoreComponent, {
                 data: {
@@ -81,13 +78,13 @@ export class DialogService {
         });
     }
 
-    openDifficultyDialog() {
+    openDifficultyDialog(): void {
         this.difficultyDialogRef = this.dialogWindow.open(DifficultyComponent, {
             autoFocus: false
         });
     }
 
-    openInstructionsDialog() {
+    openInstructionsDialog(): void {
         this.instructionsDialogRef = this.dialogWindow.open(InstructionsComponent, {
             autoFocus: false
         });

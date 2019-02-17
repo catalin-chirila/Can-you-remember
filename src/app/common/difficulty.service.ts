@@ -1,5 +1,5 @@
 import { Injectable} from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class DifficultyService {
         return 'Simple';
     }
 
-    get difficulty$() {
+    get difficulty$(): Observable<string> {
         return this._difficulty$.asObservable();
     }
 }
